@@ -1,0 +1,37 @@
+/* Improved styling on tabbed view to add space between tab bar and content. */
+.block_multiblock .multiblock-tabbed-list .tab-pane {
+	padding-top: 1rem;
+}
+
+/* Reduce excessive spacing on accordion selectors. */
+.block_multiblock .multiblock-accordion .card-header [data-toggle="collapse"] {
+    padding: 0;
+}
+
+/* Make dropdown full width */
+.block_multiblock .multiblock-dropdown .nav-item.dropdown {
+    width: 100%;
+    text-align: center;
+}
+
+/* Make 2-column layout not broken, generically. */
+.multiblock-columns-2 .col-md-6:nth-of-type(odd) section {
+    margin-right: 0.5rem!important;
+}
+.multiblock-columns-2 .col-md-6:nth-of-type(even) section {
+    margin-left: 0.5rem!important;
+}
+
+.multiblock-columns-2-66-33 .col-md-8 section {
+	margin-right: 0.5rem!important;
+}
+.multiblock-columns-2-66-33 .col-md-4 section {
+	margin-left: 0.5rem!important;
+}
+
+.multiblock-columns-2-33-66 .col-md-4 section {
+	margin-right: 0.5rem!important;
+}
+.multiblock-columns-2-33-66 .col-md-8 section {
+	margin-left: 0.5rem!important;
+}

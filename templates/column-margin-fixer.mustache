@@ -1,0 +1,66 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template block_multiblock/column-margin-fixer
+
+    This template provides CSS inlined for the multi-column block layouts to fix their margins,
+    so the multiblocks line up nicely. The JSON context should inherit from the main layout context.
+
+    Example context (json):
+    {
+        "multiblockid": 28,
+        "multiblock": [
+            {
+                "id": 1,
+                "title": "Block 1",
+                "content": "<p>Block 1</p>",
+                "footer": "My footer",
+                "active": true
+            },
+            {
+                "id": 2,
+                "title": "Block 2",
+                "content": "<p>Block 2</p>",
+                "footer: "",
+                "active": false
+            }
+        ]
+    }
+}}
+<style>
+    #inst{{multiblockid}} {
+        background: transparent;
+        border: transparent;
+        overflow: hidden;
+    }
+    #inst{{multiblockid}} .multiblock > .container {
+        padding: 0;
+        max-width: 100%;
+    }
+    #inst{{multiblockid}} .multiblock > .container > .row > [class*="col-md-"] {
+        padding: 0;
+    }
+    #inst{{multiblockid}} > .card-body {
+        padding: 0!important;
+    }
+    #inst{{multiblockid}} > .card-body > .card-text {
+        margin-top: 0!important;
+    }
+    #inst{{multiblockid}} > .card-body > .card-title + .card-text, #inst{{multiblockid}} > .card-body > .block-controls + .card-text {
+        margin-top: 0.75rem!important;
+    }
+</style>
