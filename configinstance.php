@@ -79,7 +79,7 @@ $editform = new \block_multiblock\form\editblock($pageurl, $multiblockblocks[$ac
 
 if ($editform->is_cancelled()) {
     redirect(new moodle_url('/blocks/multiblock/manage.php', ['id' => $blockid, 'sesskey' => sesskey()]));
-} elseif ($data = $editform->get_data()) {
+} else if ($data = $editform->get_data()) {
     $config = new stdClass;
     foreach ($data as $configfield => $value) {
         if (strpos($configfield, 'config_') !== 0) {

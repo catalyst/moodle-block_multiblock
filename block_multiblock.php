@@ -126,7 +126,7 @@ class block_multiblock extends block_base {
                 'is_odd' => $isodd,
                 'title' => $block->blockinstance->get_title(),
                 'content' => !empty($content->text) ? $content->text : '',
-                'footer' => !empty($content->footer) ? $content->footer: '',
+                'footer' => !empty($content->footer) ? $content->footer : '',
             ];
             $isodd = !$isodd;
         }
@@ -162,7 +162,7 @@ class block_multiblock extends block_base {
             if (strpos($control->attributes['class'], 'editing_edit') !== false) {
                 $str = get_string('managemultiblock', 'block_multiblock', $this->title);
                 $newcontrols[] = new action_menu_link_secondary(
-                    new moodle_url('/blocks/multiblock/manage.php', ['id' => $this->instance->id, 'sesskey'=> sesskey()]),
+                    new moodle_url('/blocks/multiblock/manage.php', ['id' => $this->instance->id, 'sesskey' => sesskey()]),
                     new pix_icon('t/preferences', $str, 'moodle', ['class' => 'iconsmall', 'title' => '']),
                     $str,
                     ['class' => 'editing_manage']

@@ -82,14 +82,14 @@ if ($newblockdata = $addblock->get_data()) {
         // Now we need to re-prep the table exist.
         $forcereload = true;
     }
-} elseif ($performaction) {
+} else if ($performaction) {
     switch ($performaction) {
         case 'moveup':
             $positions = array_keys($multiblockblocks);
             if (in_array($actionableinstance, $positions) && $positions[0] != $actionableinstance) {
                 $current = array_search($actionableinstance, $positions);
-                $temp = $positions[$current-1];
-                $positions[$current-1] = $positions[$current];
+                $temp = $positions[$current - 1];
+                $positions[$current - 1] = $positions[$current];
                 $positions[$current] = $temp;
             }
             foreach ($positions as $position => $actionableinstance) {
@@ -103,10 +103,10 @@ if ($newblockdata = $addblock->get_data()) {
             break;
         case 'movedown':
             $positions = array_keys($multiblockblocks);
-            if (in_array($actionableinstance, $positions) && $positions[count($positions)-1] != $actionableinstance) {
+            if (in_array($actionableinstance, $positions) && $positions[count($positions) - 1] != $actionableinstance) {
                 $current = array_search($actionableinstance, $positions);
-                $temp = $positions[$current+1];
-                $positions[$current+1] = $positions[$current];
+                $temp = $positions[$current + 1];
+                $positions[$current + 1] = $positions[$current];
                 $positions[$current] = $temp;
             }
             foreach ($positions as $position => $actionableinstance) {

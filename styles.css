@@ -1,6 +1,6 @@
 /* Improved styling on tabbed view to add space between tab bar and content. */
 .block_multiblock .multiblock-tabbed-list .tab-pane {
-	padding-top: 1rem;
+    padding-top: 1rem;
 }
 
 /* Reduce excessive spacing on accordion selectors. */
@@ -23,15 +23,15 @@
 }
 
 .multiblock-columns-2-66-33 .col-md-8 section {
-	margin-right: 0.5rem!important;
+    margin-right: 0.5rem!important;
 }
 .multiblock-columns-2-66-33 .col-md-4 section {
-	margin-left: 0.5rem!important;
+    margin-left: 0.5rem!important;
 }
 
 .multiblock-columns-2-33-66 .col-md-4 section {
-	margin-right: 0.5rem!important;
+    margin-right: 0.5rem!important;
 }
 .multiblock-columns-2-33-66 .col-md-8 section {
-	margin-left: 0.5rem!important;
+    margin-left: 0.5rem!important;
 }
