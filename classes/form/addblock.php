@@ -67,7 +67,7 @@ class addblock extends moodleform {
                 continue;
             }
 
-            $this->blocklist[$block->name] = $block->title;
+            $this->blocklist[$block->name] = trim($block->title) ? trim($block->title) : '[block_' . $block->name . ']';
         }
     }
 }
