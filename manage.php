@@ -127,6 +127,7 @@ if ($newblockdata = $addblock->get_data()) {
 
 if ($forcereload) {
     $multiblockblocks = $blockinstance->load_multiblocks($PAGE->context->id);
+    unset($_POST['addblock']); // Reset the form element so it doesn't attempt to reuse the value it had before.
     $addblock = new \block_multiblock\form\addblock($pageurl, ['id' => $blockid]);
 }
 

@@ -52,7 +52,7 @@ class addblock extends moodleform {
         $group = [];
         $group[] = &$mform->createElement('select', 'addblock', get_string('addblock'), $this->blocklist);
         $group[] = &$mform->createElement('submit', 'submitbutton', get_string('add'));
-        $mform->addGroup($group, 'addblock', '', [' '], false);
+        $mform->addGroup($group, 'addblockgroup', '', [' '], false);
     }
 
     public function set_block_list($instanceid) {
