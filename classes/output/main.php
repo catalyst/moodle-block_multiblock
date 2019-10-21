@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Class containing data for Multiblock.
+ * Renderable component for multiblocks.
  *
  * @package   block_multiblock
  * @copyright 2019 Peter Spicer <peter.spicer@catalyst-eu.net>
@@ -28,26 +28,42 @@ use renderable;
 use renderer_base;
 use templatable;
 
-
 /**
- * Class containing data for Multiblock.
+ * Renderable component for multiblocks.
  *
  * @package   block_multiblock
  * @copyright 2019 Peter Spicer <peter.spicer@catalyst-eu.net>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class main implements renderable, templatable {
+    /** @var int The id of the multiblock itself. */
     private $multiblockid;
+
+    /** @var array The instances of subblocks within this block to be rendered. */
     private $multiblock;
+
+    /** @var string The template that we're going to pass to Mustache. */
     private $template;
 
-    public function __construct($blockid, $multiblock, $template) {
+    /**
+     * Initialises the multiblock render helper.
+     *
+     * @param int $blockid The id of the multiblock itself.
+     * @param array $multiblock The instances of subblocks within this block to be rendered.
+     * @param string $template The template that we're going to pass to Mustache.
+     */
+    public function __construct(int $blockid, array $multiblock, string $template) {
         $this->multiblockid = $blockid;
         $this->multiblock = $multiblock;
         $this->template = $template;
     }
 
-    public function get_template() {
+    /**
+     * Get the template to be rendered for the given configured presentation of this block.
+     *
+     * @return string The template to be rendered.
+     */
+    public function get_template(): string {
         return 'block_multiblock/' . $this->template;
     }
 

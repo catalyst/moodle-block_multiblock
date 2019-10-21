@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Manage multiblock instances.
+ * Form for adding a block to a multiblock instance.
  *
  * @package   block_multiblock
  * @copyright 2019 Peter Spicer <peter.spicer@catalyst-eu.net>
@@ -30,7 +30,11 @@ defined('MOODLE_INTERNAL') || die();
 require_once($CFG->libdir . '/formslib.php');
 
 /**
- * Form for block filter settings
+ * Form for adding a block to a multiblock instance.
+ *
+ * @package   block_multiblock
+ * @copyright 2019 Peter Spicer <peter.spicer@catalyst-eu.net>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class addblock extends moodleform {
     public $blocklist = [];

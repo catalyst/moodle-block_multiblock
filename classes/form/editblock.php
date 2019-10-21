@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Manage multiblock instances.
+ * Form for editing a multiblock subblock.
  *
  * @package   block_multiblock
  * @copyright 2019 Peter Spicer <peter.spicer@catalyst-eu.net>
@@ -33,14 +33,32 @@ require_once($CFG->libdir . '/formslib.php');
 
 /**
  * Form for editing a multiblock subblock.
+ *
+ * Note that this extends block_multiblock_proxy_edit_form - this does
+ * not actually exist. This is an alias to whichever edit_form that the
+ * subblock would instantiate, so that we can overlay our settings on
+ * top and not deal with the full set of block settings which won't be
+ * relevant.
+ *
+ * @package   block_multiblock
+ * @copyright 2019 Peter Spicer <peter.spicer@catalyst-eu.net>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class editblock extends block_multiblock_proxy_edit_form {
+    /** @var block_base $block The block class instance that belongs to the block type being edited */
     public $block;
-    public $blockparent;
+
+    /** @var object The page object for the page which contains the block being edited */
     public $page;
 
+    /**
+     * Creates the instance-specific editing form.
+     *
+     * @param string|moodle_url $actionurl The form action to submit to
+     * @param block_base $block The block class being edited
+     * @param object $page The contextually appropriate $PAGE type object of the block being edited
+     */
     public function __construct($actionurl, $block, $page) {
-        global $CFG;
         $this->block = $block->blockinstance;
         $this->block->instance->visible = true;
         $this->block->instance->region = $this->block->instance->defaultregion;
@@ -54,9 +72,11 @@ class editblock extends block_multiblock_proxy_edit_form {
         parent::__construct($actionurl, $this->block, $this->page);
     }
 
+    /**
+     * Sets up the form definition - this will intentionally override the normal block
+     * block configuration so we only get the parts specific to the subblock.
+     */
     public function definition() {
-        global $CFG;
-
         $mform =& $this->_form;
 
         $this->specific_definition($mform);

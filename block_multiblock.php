@@ -132,7 +132,7 @@ class block_multiblock extends block_base {
         }
 
         $template = !empty($this->config->presentation) ? $this->config->presentation : 'tabbed-list';
-        $renderable = new \block_multiblock\output\main($this->instance->id, $multiblock, $template);
+        $renderable = new \block_multiblock\output\main((int) $this->instance->id, $multiblock, $template);
         $renderer = $this->page->get_renderer('block_multiblock');
 
         $this->content = (object) [
