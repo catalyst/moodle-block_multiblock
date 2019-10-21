@@ -39,11 +39,21 @@ if (block_load_class($block->blockname)) {
 }
 
 $PAGE->set_context($blockctx);
-if ($block->pagetypepattern == 'my-index') {
-    $PAGE->blocks->add_region('content');
-}
 $PAGE->set_url($blockctx->get_url());
 $PAGE->set_pagelayout('admin');
+
+// The my-dashboard page adds an additional 'phantom' block region to cope with the dashboard content.
+if ($block->pagetypepattern == 'my-index') {
+    $PAGE->blocks->add_region('content');
+} else {
+    // But if we're on anything other than my dashboard, we want to initialise the navbar fully.
+    $PAGE->navigation->initialise();
+}
+
+$PAGE->navbar->add(get_string('managemultiblock', 'block_multiblock', $blockinstance->get_title()),
+    new moodle_url('/blocks/multiblock/manage.php', ['id' => $blockid, 'sesskey' => sesskey()]));
+
+require_login();
 
 $blockmanager = $PAGE->blocks;
 
@@ -61,6 +71,8 @@ $multiblockblocks = $blockinstance->load_multiblocks($PAGE->context->id);
 if (!isset($multiblockblocks[$actionableinstance])) {
     redirect(new moodle_url('/blocks/multiblock/manage.php', ['id' => $blockid, 'sesskey' => sesskey()]));
 }
+
+$PAGE->navbar->add($multiblockblocks[$actionableinstance]->blockinstance->get_title());
 
 $formfile = $CFG->dirroot . '/blocks/' . $multiblockblocks[$actionableinstance]->blockinstance->name() . '/edit_form.php';
 $classname = '';

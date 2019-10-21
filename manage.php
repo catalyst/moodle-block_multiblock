@@ -25,7 +25,6 @@
 require(__DIR__ . '/../../config.php');
 
 require_once($CFG->libdir.'/tablelib.php');
-require_login();
 
 $blockid = required_param('id', PARAM_INT);
 $actionableinstance = optional_param('instance', 0, PARAM_INT);
@@ -40,11 +39,20 @@ if (block_load_class($block->blockname)) {
 }
 
 $PAGE->set_context($blockctx);
-if ($block->pagetypepattern == 'my-index') {
-    $PAGE->blocks->add_region('content');
-}
 $PAGE->set_url($blockctx->get_url());
 $PAGE->set_pagelayout('admin');
+
+// The my-dashboard page adds an additional 'phantom' block region to cope with the dashboard content.
+if ($block->pagetypepattern == 'my-index') {
+    $PAGE->blocks->add_region('content');
+} else {
+    // But if we're on anything other than my dashboard, we want to initialise the navbar fully.
+    $PAGE->navigation->initialise();
+}
+
+$PAGE->navbar->add(get_string('managemultiblock', 'block_multiblock', $blockinstance->get_title()));
+
+require_login();
 
 $blockmanager = $PAGE->blocks;
 
