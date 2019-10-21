@@ -27,6 +27,7 @@ $string['pluginname'] = 'Multiblock';
 $string['blocktitle'] = 'Block title';
 $string['managemultiblock'] = 'Manage {$a} contents';
 $string['multiblockhasnosubblocks'] = 'This multiblock has no blocks inside it.';
+$string['requirestitle'] = 'The {$a} presentation requires a title to work properly.';
 $string['selectblock'] = 'Select block...';
 
 $string['multiblock:addinstance'] = 'Add a Multiblock';

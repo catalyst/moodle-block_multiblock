@@ -181,4 +181,60 @@ class block_multiblock extends block_base {
     public function instance_allow_multiple() {
         return true;
     }
+
+    /**
+     * Lists all the known presentation types that exist in the block.
+     *
+     * @return array An array of presentations for block rendering.
+     */
+    public static function get_valid_presentations(): array {
+        static $presentations = null;
+
+        if ($presentations === null) {
+            $presentations = [
+                'accordion' => [
+                    'name' => get_string('presentation:accordion', 'block_multiblock'),
+                    'template' => 'block_multiblock/accordion',
+                    'requires_title' => true,
+                ],
+                'columns-2-33-66' => [
+                    'name' => get_string('presentation:columns-2-33-66', 'block_multiblock'),
+                    'template' => 'block_multiblock/columns-2-33-66',
+                ],
+                'columns-2equal' => [
+                    'name' => get_string('presentation:columns-2equal', 'block_multiblock'),
+                    'template' => 'block_multiblock/columns-2equal',
+                ],
+                'columns-2-66-33' => [
+                    'name' => get_string('presentation:columns-2-66-33', 'block_multiblock'),
+                    'template' => 'block_multiblock/columns-2-66-33',
+                ],
+                'dropdown' => [
+                    'name' => get_string('presentation:dropdown', 'block_multiblock'),
+                    'template' => 'block_multiblock/dropdown',
+                ],
+                'tabbed-list' => [
+                    'name' => get_string('presentation:tabbed', 'block_multiblock'),
+                    'template' => 'block_multiblock/tabbed-list',
+                ],
+            ];
+        }
+
+        return $presentations;
+    }
+
+    /**
+     * Returns the default presentation for the multiblock.
+     *
+     * @return string The default presentation's identifier.
+     */
+    public static function get_default_presentation(): string {
+        $presentations = static::get_valid_presentations();
+        if (isset($presentations['tabbed-list'])) {
+            return 'tabbed-list';
+        }
+
+        // Our expected default is not present, make sure we fall back to something.
+        return array_keys($presentations)[0];
+    }
 }

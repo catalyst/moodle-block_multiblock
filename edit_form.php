@@ -43,15 +43,26 @@ class block_multiblock_edit_form extends block_edit_form {
         $mform->setType('config_title', PARAM_TEXT);
 
         // Then which presentation format we want to use.
-        $presentations = [
-            'accordion' => get_string('presentation:accordion', 'block_multiblock'),
-            'columns-2-33-66' => get_string('presentation:columns-2-33-66', 'block_multiblock'),
-            'columns-2equal' => get_string('presentation:columns-2equal', 'block_multiblock'),
-            'columns-2-66-33' => get_string('presentation:columns-2-66-33', 'block_multiblock'),
-            'dropdown' => get_string('presentation:dropdown', 'block_multiblock'),
-            'tabbed-list' => get_string('presentation:tabbed', 'block_multiblock'),
-        ];
-        $mform->addElement('select', 'config_presentation', get_string('presentation', 'block_multiblock'), $presentations);
-        $mform->setDefault('config_presentation', 'tabbed-list');
+        $presentations = block_multiblock::get_valid_presentations();
+        $options = [];
+        foreach ($presentations as $presentationid => $presentation) {
+            $options[$presentationid] = $presentation['name'];
+        }
+        $mform->addElement('select', 'config_presentation', get_string('presentation', 'block_multiblock'), $options);
+        $mform->setDefault('config_presentation', block_multiblock::get_default_presentation());
+    }
+
+    public function validation($data, $files) {
+        $errors = parent::validation($data, $files);
+
+        $presentations = block_multiblock::get_valid_presentations();
+        if (isset($presentations[$data['config_presentation']])) {
+            $selectedpresentation = $presentations[$data['config_presentation']];
+            if (!empty($selectedpresentation['requires_title']) && empty($data['config_title'])) {
+                $errors['config_presentation'] = get_string('requirestitle', 'block_multiblock', $selectedpresentation['name']);
+            }
+        }
+
+        return $errors;
     }
 }

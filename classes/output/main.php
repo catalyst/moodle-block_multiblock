@@ -27,6 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 use renderable;
 use renderer_base;
 use templatable;
+use block_multiblock;
 
 /**
  * Renderable component for multiblocks.
@@ -64,7 +65,9 @@ class main implements renderable, templatable {
      * @return string The template to be rendered.
      */
     public function get_template(): string {
-        return 'block_multiblock/' . $this->template;
+        $presentations = block_multiblock::get_valid_presentations();
+        $presentation = isset($presentations[$this->template]) ? $this->template : block_multiblock::get_default_presentation();
+        return $presentations[$presentation]['template'];
     }
 
     /**
