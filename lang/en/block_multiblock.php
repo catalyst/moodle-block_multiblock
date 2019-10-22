@@ -29,6 +29,7 @@ $string['managemultiblock'] = 'Manage {$a} contents';
 $string['multiblockhasnosubblocks'] = 'This multiblock has no blocks inside it.';
 $string['requirestitle'] = 'The {$a} presentation requires a title to work properly.';
 $string['selectblock'] = 'Select block...';
+$string['notitle'] = 'no title';
 
 $string['multiblock:addinstance'] = 'Add a Multiblock';
 $string['multiblock:myaddinstance'] = 'Add a Multiblock to Dashboard';
@@ -41,6 +42,7 @@ $string['presentation:columns-2-66-33'] = 'Columns: 2 (66% / 33%)';
 $string['presentation:dropdown'] = 'Dropdown';
 $string['presentation:tabbed'] = 'Tabs';
 
-$string['table:blockname'] = 'Block name';
+$string['table:actions'] = 'Actions';
+$string['table:blocktitle'] = 'Block title';
 $string['table:blocktype'] = 'Block type';
 $string['table:lastupdated'] = 'Updated';

@@ -51,18 +51,4 @@ class block_multiblock_edit_form extends block_edit_form {
         $mform->addElement('select', 'config_presentation', get_string('presentation', 'block_multiblock'), $options);
         $mform->setDefault('config_presentation', block_multiblock::get_default_presentation());
     }
-
-    public function validation($data, $files) {
-        $errors = parent::validation($data, $files);
-
-        $presentations = block_multiblock::get_valid_presentations();
-        if (isset($presentations[$data['config_presentation']])) {
-            $selectedpresentation = $presentations[$data['config_presentation']];
-            if (!empty($selectedpresentation['requires_title']) && empty($data['config_title'])) {
-                $errors['config_presentation'] = get_string('requirestitle', 'block_multiblock', $selectedpresentation['name']);
-            }
-        }
-
-        return $errors;
-    }
 }

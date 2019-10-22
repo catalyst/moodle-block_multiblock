@@ -212,10 +212,12 @@ class block_multiblock extends block_base {
                 'dropdown' => [
                     'name' => get_string('presentation:dropdown', 'block_multiblock'),
                     'template' => 'block_multiblock/dropdown',
+                    'requires_title' => true,
                 ],
                 'tabbed-list' => [
                     'name' => get_string('presentation:tabbed', 'block_multiblock'),
                     'template' => 'block_multiblock/tabbed-list',
+                    'requires_title' => true,
                 ],
             ];
         }

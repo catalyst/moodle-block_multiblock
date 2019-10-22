@@ -87,7 +87,7 @@ if (!$classname || !class_exists($classname)) {
 }
 
 class_alias($classname, 'block_multiblock_proxy_edit_form');
-$editform = new \block_multiblock\form\editblock($pageurl, $multiblockblocks[$actionableinstance], $PAGE);
+$editform = new \block_multiblock\form\editblock($pageurl, $multiblockblocks[$actionableinstance], $PAGE, $blockinstance);
 
 if ($editform->is_cancelled()) {
     redirect(new moodle_url('/blocks/multiblock/manage.php', ['id' => $blockid, 'sesskey' => sesskey()]));

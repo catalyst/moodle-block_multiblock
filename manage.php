@@ -145,9 +145,9 @@ if (empty($multiblockblocks)) {
     $table = new flexible_table('block_multiblock_admin');
 
     $headers = [
-        'name' => get_string('table:blockname', 'block_multiblock'),
+        'title' => get_string('table:blocktitle', 'block_multiblock'),
         'type' => get_string('table:blocktype', 'block_multiblock'),
-        'actions' => '',
+        'actions' => get_string('table:actions', 'block_multiblock'),
         'updated' => get_string('table:lastupdated', 'block_multiblock'),
     ];
     $table->define_columns(array_keys($headers));
@@ -204,8 +204,10 @@ if (empty($multiblockblocks)) {
         $url->params(['action' => 'delete']);
         $actions .= $OUTPUT->action_icon($url, new pix_icon('i/delete', get_string('delete')));
 
+        $notitle = html_writer::tag('em', get_string('notitle', 'block_multiblock'), ['class' => 'text-muted']);
+
         $row = [
-            $instance->blockinstance->title,
+            !empty($instance->blockinstance->get_title()) ? $instance->blockinstance->get_title() : $notitle,
             get_string('pluginname', 'block_' . $instance->blockinstance->name()),
             $actions,
             userdate($instance->timemodified, get_string('strftimedatetime', 'core_langconfig'))
