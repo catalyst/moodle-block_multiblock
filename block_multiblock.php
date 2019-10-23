@@ -34,6 +34,7 @@ defined('MOODLE_INTERNAL') || die();
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class block_multiblock extends block_base {
+    private $output;
 
     /**
      * Core function used to initialize the block.
@@ -74,6 +75,8 @@ class block_multiblock extends block_base {
                 // Make the proxy class we'll need.
                 $this->blocks[$id]->blockinstance = block_instance($block->blockname, $block);
                 $this->blocks[$id]->blockname = $block->blockname;
+                $this->blocks[$id]->visible = true;
+                $this->blocks[$id]->blockpositionid = 0;
             }
         }
 
@@ -118,14 +121,14 @@ class block_multiblock extends block_base {
             if (empty($block->blockinstance)) {
                 continue;
             }
-            $content = $block->blockinstance->get_content();
+            $content = $block->blockinstance->get_content_for_output($this->output);
             $multiblock[] = [
                 'id' => $id,
                 'class' => 'block_' . $block->blockinstance->name(),
                 'type' => $block->blockinstance->name(),
                 'is_odd' => $isodd,
                 'title' => $block->blockinstance->get_title(),
-                'content' => !empty($content->text) ? $content->text : '',
+                'content' => !empty($content->content) ? $content->content : '',
                 'footer' => !empty($content->footer) ? $content->footer : '',
             ];
             $isodd = !$isodd;
@@ -150,6 +153,7 @@ class block_multiblock extends block_base {
      * @return block_contents a representation of the block, for rendering.
      */
     public function get_content_for_output($output) {
+        $this->output = $output;
         $bc = parent::get_content_for_output($output);
 
         if (empty($bc->controls)) {
