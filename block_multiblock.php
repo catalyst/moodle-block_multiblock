@@ -187,6 +187,38 @@ class block_multiblock extends block_base {
     }
 
     /**
+     * Copy all the children when copying to a new block instance.
+     * @param int $fromid The id number of the block instance to copy from
+     * @return boolean
+     */
+    public function instance_copy($fromid) {
+        global $DB;
+
+        $fromcontext = context_block::instance($fromid);
+
+        $blockinstances = $DB->get_records('block_instances', ['parentcontextid' => $fromcontext->id], 'defaultweight, id');
+
+        // Create all the new block instances.
+        $newblockinstanceids = [];
+        foreach ($blockinstances as $instance) {
+            $originalid = $instance->id;
+            unset($instance->id);
+            $instance->parentcontextid = $this->context->id;
+            $instance->timecreated = time();
+            $instance->timemodified = $instance->timecreated;
+            $instance->id = $DB->insert_record('block_instances', $instance);
+            $newblockinstanceids[$originalid] = $instance->id;
+            $blockcontext = context_block::instance($instance->id);  // Just creates the context record
+            $block = block_instance($instance->blockname, $instance);
+            if (!$block->instance_copy($originalid)) {
+                debugging("Unable to copy block-specific data for original block instance: $originalid
+                    to new block instance: $instance->id", DEBUG_DEVELOPER);
+            }
+        }
+        return true;
+    }
+
+    /**
      * Lists all the known presentation types that exist in the block.
      *
      * @return array An array of presentations for block rendering.

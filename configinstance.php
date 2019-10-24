@@ -25,7 +25,6 @@
 require(__DIR__ . '/../../config.php');
 
 require_once($CFG->libdir.'/tablelib.php');
-require_login();
 
 $blockid = required_param('id', PARAM_INT);
 $actionableinstance = required_param('instance', PARAM_INT);

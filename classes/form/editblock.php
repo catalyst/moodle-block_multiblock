@@ -87,7 +87,8 @@ class editblock extends block_multiblock_proxy_edit_form {
 
         if (!empty($this->multiblock) && $mform->elementExists('config_title')) {
             $presentations = block_multiblock::get_valid_presentations();
-            if (!empty($presentations[$this->multiblock->config->presentation]['requires_title'])) {
+            $config = !empty($this->multiblock->config) ? $this->multiblock->config : (object) ['presentation' => block_multiblock::get_default_presentation()];
+            if (!empty($presentations[$config->presentation]['requires_title'])) {
                 $requiredmsg = get_string('requirestitle', 'block_multiblock', $this->multiblock->get_title());
                 $mform->addRule('config_title', $requiredmsg, 'required', null, 'client');
             }
