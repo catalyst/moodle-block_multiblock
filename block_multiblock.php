@@ -34,6 +34,7 @@ defined('MOODLE_INTERNAL') || die();
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class block_multiblock extends block_base {
+    /** @var object $output Temporary storage of the injected page renderer so we can pass it to child blocks at render time. */
     private $output;
 
     /**
@@ -64,6 +65,12 @@ class block_multiblock extends block_base {
         }
     }
 
+    /**
+     * Loads the child blocks of the current multiblock.
+     *
+     * @param int $contextid The multiblock's context instance id.
+     * @return array An array of child blocks.
+     */
     public function load_multiblocks($contextid) {
         global $DB, $PAGE;
 
@@ -83,18 +90,9 @@ class block_multiblock extends block_base {
         return $this->blocks;
     }
 
-    public function instance_delete() {
-        global $DB, $PAGE;
-
-        // Find all the things that relate to this block.
-        foreach ($DB->get_records('block_instances', ['parentcontextid' => $this->context->id]) as $subblock) {
-            blocks_delete_instance($subblock);
-        }
-        return true;
-    }
-
     /**
      * Used to generate the content for the block.
+     *
      * @return string
      */
     public function get_content() {
@@ -150,6 +148,8 @@ class block_multiblock extends block_base {
      * Return a block_contents object representing the full contents of this block.
      *
      * This internally calls ->get_content(), and then adds the editing controls etc.
+     *
+     * @param object $output The output renderer from the parent context (e.g. page renderer)
      * @return block_contents a representation of the block, for rendering.
      */
     public function get_content_for_output($output) {
@@ -188,8 +188,9 @@ class block_multiblock extends block_base {
 
     /**
      * Copy all the children when copying to a new block instance.
+     *
      * @param int $fromid The id number of the block instance to copy from
-     * @return boolean
+     * @return bool
      */
     public function instance_copy($fromid) {
         global $DB;
@@ -208,12 +209,27 @@ class block_multiblock extends block_base {
             $instance->timemodified = $instance->timecreated;
             $instance->id = $DB->insert_record('block_instances', $instance);
             $newblockinstanceids[$originalid] = $instance->id;
-            $blockcontext = context_block::instance($instance->id);  // Just creates the context record
+            $blockcontext = context_block::instance($instance->id);  // Just creates the context record.
             $block = block_instance($instance->blockname, $instance);
             if (!$block->instance_copy($originalid)) {
                 debugging("Unable to copy block-specific data for original block instance: $originalid
                     to new block instance: $instance->id", DEBUG_DEVELOPER);
             }
+        }
+        return true;
+    }
+
+    /**
+     * Callback for when this block instance is being deleted, to clean up child blocks.
+     *
+     * @return bool
+     */
+    public function instance_delete() {
+        global $DB, $PAGE;
+
+        // Find all the things that relate to this block.
+        foreach ($DB->get_records('block_instances', ['parentcontextid' => $this->context->id]) as $subblock) {
+            blocks_delete_instance($subblock);
         }
         return true;
     }

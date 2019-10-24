@@ -52,6 +52,7 @@ class editblock extends block_multiblock_proxy_edit_form {
     /** @var object The page object for the page which contains the block being edited */
     public $page;
 
+    /** @var object The multiblock object being edited */
     public $multiblock;
 
     /**
@@ -60,6 +61,7 @@ class editblock extends block_multiblock_proxy_edit_form {
      * @param string|moodle_url $actionurl The form action to submit to
      * @param block_base $block The block class being edited
      * @param object $page The contextually appropriate $PAGE type object of the block being edited
+     * @param object $multiblock The multiblock object being edited (mostly for its configuration
      */
     public function __construct($actionurl, $block, $page, $multiblock = null) {
         $this->block = $block->blockinstance;
@@ -87,7 +89,8 @@ class editblock extends block_multiblock_proxy_edit_form {
 
         if (!empty($this->multiblock) && $mform->elementExists('config_title')) {
             $presentations = block_multiblock::get_valid_presentations();
-            $config = !empty($this->multiblock->config) ? $this->multiblock->config : (object) ['presentation' => block_multiblock::get_default_presentation()];
+            $defaultconfig = (object) ['presentation' => block_multiblock::get_default_presentation()];
+            $config = !empty($this->multiblock->config) ? $this->multiblock->config : $defaultconfig;
             if (!empty($presentations[$config->presentation]['requires_title'])) {
                 $requiredmsg = get_string('requirestitle', 'block_multiblock', $this->multiblock->get_title());
                 $mform->addRule('config_title', $requiredmsg, 'required', null, 'client');

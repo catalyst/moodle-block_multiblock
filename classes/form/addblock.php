@@ -37,8 +37,12 @@ require_once($CFG->libdir . '/formslib.php');
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class addblock extends moodleform {
+    /** @var array Storage of the block name -> block description of possibly addable sub-blocks. */
     public $blocklist = [];
 
+    /**
+     * Handles the general setup of the form for adding sub-blocks to a multiblock.
+     */
     public function definition() {
         $mform =& $this->_form;
 
@@ -55,6 +59,11 @@ class addblock extends moodleform {
         $mform->addGroup($group, 'addblockgroup', '', [' '], false);
     }
 
+    /**
+     * Given the instance id of a multiblock, identify the possible addable blocks.
+     *
+     * @param int $instanceid The instance of a multiblock where things could be added
+     */
     public function set_block_list($instanceid) {
         global $DB, $PAGE;
 
