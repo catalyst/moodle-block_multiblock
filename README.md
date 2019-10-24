@@ -27,15 +27,15 @@ colour changed.
 
 Tabbed layout:
 
-![Tabbed layout](https://github.com/arantor/moodle-block_multiblock/pix/tabbed-list.png?raw=true)
+![Tabbed layout](/pix/tabbed-list.png?raw=true)
 
 Accordion layout:
 
-![Accordion layout](https://github.com/arantor/moodle-block_multiblock/pix/accordion.png?raw=true)
+![Accordion layout](/pix/accordion.png?raw=true)
 
 Dropdown layout:
 
-![Dropdown layout](https://github.com/arantor/moodle-block_multiblock/pix/dropdown.png?raw=true)
+![Dropdown layout](/pix/dropdown.png?raw=true)
 
 
 There's also some 2-column layouts where the 'multiblock' container has no
@@ -44,15 +44,15 @@ for Boost so mileage with other themes will absolutely vary.
 
 2 column (equal width):
 
-![2 column layout (equal width)](https://github.com/arantor/moodle-block_multiblock/pix/columns-2-equal.png?raw=true)
+![2 column layout (equal width)](/pix/columns-2-equal.png?raw=true)
 
 2 column (66% / 33%):
 
-![2 column layout (66% / 33%)](https://github.com/arantor/moodle-block_multiblock/pix/columns-2-66-33.png?raw=true)
+![2 column layout (66% / 33%)](/pix/columns-2-66-33.png?raw=true)
 
 2 column (33% / 66%):
 
-![2 column layout (33% / 66%)](https://github.com/arantor/moodle-block_multiblock/pix/columns-2-33-66.png?raw=true)
+![2 column layout (33% / 66%)](/pix/columns-2-33-66.png?raw=true)
 
 
 Support
