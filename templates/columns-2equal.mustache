@@ -62,4 +62,8 @@
         </div>
     </div>
 </div>
-{{> block_multiblock/column-margin-fixer}}
+{{#js}}
+require(['jquery'], function($) {
+    $('#inst{{multiblockid}}').addClass('multiblock-columns-2-parent');
+});
+{{/js}}
