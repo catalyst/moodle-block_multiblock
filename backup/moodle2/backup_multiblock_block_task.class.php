@@ -15,20 +15,37 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Backup steps for the multiblock plugin.
+ *
  * @package   block_multiblock
  * @copyright 2019 Peter Spicer <peter.spicer@catalyst-eu.net>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die();
+
 /**
  * Specialised backup task for the multiblock block.
+ *
  * This is primarily about backing up the child blocks.
+ *
+ * @package   block_multiblock
+ * @copyright 2019 Peter Spicer <peter.spicer@catalyst-eu.net>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class backup_multiblock_block_task extends backup_block_task {
 
+    /**
+     * Mandatory function for defining specific settings for this task.
+     */
     protected function define_my_settings() {
     }
 
+    /**
+     * Mandatory function for defining steps carried out by this backup process.
+     *
+     * Specifically when run, queue the sub-blocks to the backup plan and execute them.
+     */
     protected function define_my_steps() {
         global $DB;
 
@@ -45,7 +62,7 @@ class backup_multiblock_block_task extends backup_block_task {
         $progressproperty = $progressclass->getProperty('maxes');
         $progressproperty->setAccessible(true);
         $maxes = $progressproperty->getValue($progress);
-        $maxes[count($maxes)-1] += count($subblocks);
+        $maxes[count($maxes) - 1] += count($subblocks);
         $progressproperty->setValue($progress, $maxes);
 
         foreach (array_keys($subblocks) as $blockid) {
@@ -59,16 +76,38 @@ class backup_multiblock_block_task extends backup_block_task {
         }
     }
 
+    /**
+     * Return fileareas attached to this block.
+     * Multiblock itself has no fileareas, it leverages those of its children.
+     *
+     * @return array List of fileareas.
+     */
     public function get_fileareas() {
-        return array(); // No associated fileareas
+        return [];
     }
 
+    /**
+     * Return a list of configuration items that need to be safely encoded to
+     * successfully be handled during backup/restore.
+     *
+     * Multiblock itself has minimal configuration, it leverages its children.
+     *
+     * @return array List of attributes that need encoding.
+     */
     public function get_configdata_encoded_attributes() {
-        return array(); // No special handling of configdata
+        return [];
     }
 
+    /**
+     * Re-encode content links inside the block's content when backing up
+     * or restoring.
+     *
+     * Multiblock has no content itself for this to be processed.
+     *
+     * @param string $content The content to be processed.
+     * @return string The processed content.
+     */
     static public function encode_content_links($content) {
-        return $content; // No special encoding of links
+        return $content;
     }
 }
-

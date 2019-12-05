@@ -15,18 +15,32 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Restoration steps for the multiblock plugin.
+ *
  * @package   block_multiblock
  * @copyright 2019 Peter Spicer <peter.spicer@catalyst-eu.net>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die();
+
 /**
  * Specialised restore task for the multiblock block
  *
- * TODO: Finish phpdocs
+ * @package   block_multiblock
+ * @copyright 2019 Peter Spicer <peter.spicer@catalyst-eu.net>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class restore_multiblock_block_task extends restore_block_task {
 
+    /**
+     * Injects the restore plan into this task.
+     *
+     * While receiving the dependency of the restore_plan, rearrange
+     * the queue to make sure multiblock is processed first.
+     *
+     * @param restore_plan $plan The restore plan for this restore job.
+     */
     public function set_plan($plan) {
         parent::set_plan($plan);
 
@@ -60,27 +74,57 @@ class restore_multiblock_block_task extends restore_block_task {
             // Slightly bizarrely, there's no other blocks in the tasklist, just put this back.
             $tasks[] = $thistask;
         }
-        
+
         // And put the queue back.
         $taskproperty->setValue($plan, $tasks);
     }
 
+    /**
+     * Mandatory function for defining processing settings on restore.
+     */
     protected function define_my_settings() {
     }
 
+    /**
+     * Mandatory function for defining processing steps on restore.
+     *
+     * Moodle actually inadvertantly handles all the steps automatically.
+     */
     protected function define_my_steps() {
     }
 
+    /**
+     * Mandatory function for handling file areas on restoration.
+     *
+     * @return array A list of file areas handled by this plugin.
+     */
     public function get_fileareas() {
+        return [];
     }
 
+    /**
+     * Return a list of attributes that requires decoding during restore.
+     *
+     * @return array A list of attributes ot be fixed.
+     */
     public function get_configdata_encoded_attributes() {
+        return [];
     }
 
+    /**
+     * Return a list of contents for the plugin that will need to be decoded during restore.
+     *
+     * @return array A list of content items to be decoded.
+     */
     static public function define_decode_contents() {
         return array();
     }
 
+    /**
+     * Return a list of find/replace rules to decode content during restore.
+     *
+     * @return array A list of find/replace rules.
+     */
     static public function define_decode_rules() {
         return array();
     }
