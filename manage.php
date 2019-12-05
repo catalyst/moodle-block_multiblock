@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use block_multiblock\helper;
+
 require(__DIR__ . '/../../config.php');
 
 require_once($CFG->libdir.'/tablelib.php');
@@ -30,17 +32,7 @@ $blockid = required_param('id', PARAM_INT);
 $actionableinstance = optional_param('instance', 0, PARAM_INT);
 $performaction = optional_param('action', '', PARAM_TEXT);
 
-$blockctx = context_block::instance($blockid);
-$block = $DB->get_record('block_instances', ['id' => $blockid], '*', MUST_EXIST);
-if (block_load_class($block->blockname)) {
-    $class = 'block_' . $block->blockname;
-    $blockinstance = new $class;
-    $blockinstance->_load_instance($block, $PAGE);
-}
-
-$PAGE->set_context($blockctx);
-$PAGE->set_url($blockctx->get_url());
-$PAGE->set_pagelayout('admin');
+list($block, $blockinstance) = helper::bootstrap_page($blockid);
 
 // The my-dashboard page adds an additional 'phantom' block region to cope with the dashboard content.
 if ($block->pagetypepattern == 'my-index') {
