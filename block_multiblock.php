@@ -271,6 +271,11 @@ class block_multiblock extends block_base {
                     'template' => 'block_multiblock/tabbed-list',
                     'requires_title' => true,
                 ],
+                'vertical-tabbed-list' => [
+                    'name' => get_string('presentation:vertical-tabs', 'block_multiblock'),
+                    'template' => 'block_multiblock/vertical-tabbed-list',
+                    'requires_title' => true,
+                ],
             ];
         }
 

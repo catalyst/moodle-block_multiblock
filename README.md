@@ -29,6 +29,10 @@ Tabbed layout:
 
 ![Tabbed layout](/pix/tabbed-list.png?raw=true)
 
+Vertical tabbed layout
+
+![Vertical tabbed layout](/pix/vertical-tabbed-list.png?raw=true)
+
 Accordion layout:
 
 ![Accordion layout](/pix/accordion.png?raw=true)
