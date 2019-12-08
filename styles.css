@@ -8,6 +8,11 @@
     padding: 0;
 }
 
+/* But make sure there is some spacing in the inner container. */
+.block-region .block.card .multiblock-accordion [id^="multiblock-content"] .card-body {
+    padding: 1.25rem !important;
+}
+
 /* Make dropdown full width */
 .block_multiblock .multiblock-dropdown .nav-item.dropdown {
     width: 100%;
@@ -36,6 +41,8 @@
     margin-left: 0.5rem !important;
 }
 
+/* Fix the multiblock 2 column layout to hide the parent container and remove its padding. */
+/* Some of the rules are specified again in more selective versions for different themes. */
 .multiblock-columns-2-parent[id^="inst"] {
     background: transparent;
     border: transparent;
@@ -50,9 +57,11 @@
 }
 .multiblock-columns-2-parent[id^="inst"] > .card-body {
     padding: 0 !important;
+    border: transparent !important;
 }
 .multiblock-columns-2-parent[id^="inst"] > .card-body > .card-text {
     margin-top: 0 !important;
+    padding: 0 !important;
 }
 .multiblock-columns-2-parent > .card-body > .card-title + .card-text, ..multiblock-columns-2-parent[id^="inst"] > .card-body > .block-controls + .card-text {
     margin-top: 0.75rem !important;
