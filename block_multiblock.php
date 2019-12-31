@@ -163,6 +163,7 @@ class block_multiblock extends block_base {
         $newcontrols = [];
         foreach ($bc->controls as $control) {
             $newcontrols[] = $control;
+            // Append our new item onto the controls if we're on the correct item.
             if (strpos($control->attributes['class'], 'editing_edit') !== false) {
                 $str = get_string('managemultiblock', 'block_multiblock', $this->title);
                 $newcontrols[] = new action_menu_link_secondary(
@@ -173,6 +174,14 @@ class block_multiblock extends block_base {
                 );
             }
         }
+        // Append a delete+split item on the end.
+        $newcontrols[] = new action_menu_link_secondary(
+            new moodle_url('/blocks/multiblock/manage.php', ['id' => $this->instance->id, 'sesskey' => sesskey(),
+                    'action' => 'splitdelete']),
+            new pix_icon('i/trash', $str, 'moodle', ['class' => 'iconsmall', 'title' => '']),
+            get_string('splitanddelete', 'block_multiblock', $this->title),
+            ['class' => 'editing_manage']
+        );
         $bc->controls = $newcontrols;
 
         return $bc;

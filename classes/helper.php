@@ -24,6 +24,7 @@
 
 namespace block_multiblock;
 
+use context;
 use context_block;
 
 defined('MOODLE_INTERNAL') || die();
@@ -61,5 +62,80 @@ class helper {
         $PAGE->set_pagelayout('admin');
 
         return [$block, $blockinstance];
+    }
+
+    /**
+     * Finds the parent non-block context for a given block.
+     * For example, a dashboard can hook off the user context
+     * for which the dashboard is created, which contains the
+     * multiblock context, which under it will contain the
+     * child blocks. This, given the child block id will
+     * traverse the parents in order until it hits the closest
+     * ancestor that is not a block context.
+     *
+     * @param int $blockid
+     * @return object A context object reflecting the nearest ancestor
+     */
+    public static function find_nearest_nonblock_ancestor($blockid) {
+        global $DB;
+
+        $context = $DB->get_record('context', ['instanceid' => $blockid, 'contextlevel' => CONTEXT_BLOCK]);
+        // Convert the path from /1/2/3 to [1, 2, 3], remove the leading empty item and this item.
+        $path = explode('/', $context->path);
+        $path = array_diff($path, ['', $context->id]);
+        foreach (array_reverse($path) as $contextid) {
+            $parentcontext = $DB->get_record('context', ['id' => $contextid]);
+            if ($parentcontext->contextlevel != CONTEXT_BLOCK) {
+                // We found the one we care about.
+                return context::instance_by_id($parentcontext->id);
+            }
+        }
+
+        throw new coding_exception('Could not find parent non-block ancestor for block id ' . $blockid);
+    }
+
+    /**
+     * Splits a subblock out of the multiblock and returns it to the
+     * parent context that the parent multiblock lives in.
+     *
+     * @param object $parent The parent instance object, from block_instances table.
+     * @param int $childid The id of the subblock to remove, from block_instances table.
+     */
+    public static function split_block($parent, $childid) {
+        global $DB;
+
+        // Get the block details and the target context to move it to.
+        $subblock = $DB->get_record('block_instances', ['id' => $childid]);
+        $parentcontext = static::find_nearest_nonblock_ancestor($childid);
+
+        // Copy some parameters from the parent since that's what we're using now.
+        $params = [
+            'showinsubcontexts', 'requiredbytheme', 'pagetypepattern', 'subpagepattern',
+            'defaultregion', 'defaultweight',
+        ];
+        foreach ($params as $param) {
+            $subblock->$param = $parent->$param;
+        }
+
+        // Then set up the parts that aren't inherited from the old parent, and commit.
+        $subblock->parentcontextid = $parentcontext->id;
+        $subblock->timemodified = time();
+        $DB->update_record('block_instances', $subblock);
+
+        // Now fix the position to mirror the parent, if it has one.
+        $parentposition = $DB->get_record('block_positions', [
+            'contextid' => $parentcontext->id,
+            'blockinstanceid' => $parent->id,
+        ], '*', IGNORE_MISSING);
+        if ($parentposition) {
+            // The parent has a specific position, we need to add that.
+            $newchild = $parentposition;
+            $newchild->blockinstanceid = $childid;
+            $DB->insert_record('block_positions', $newchild);
+        }
+
+        // Finally commit the updated context path to this block.
+        $childcontext = context_block::instance($childid);
+        $childcontext->update_moved($parentcontext);
     }
 }

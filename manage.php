@@ -23,6 +23,7 @@
  */
 
 use block_multiblock\helper;
+use block_multiblock\navigation;
 
 require(__DIR__ . '/../../config.php');
 
@@ -62,8 +63,8 @@ $blockmanager->show_only_fake_blocks(true);
 
 $multiblockblocks = $blockinstance->load_multiblocks($PAGE->context->id);
 
-// Let's show off the blocks we have.
-echo $OUTPUT->header();
+// We need to start by initialising the block manager.
+$PAGE->blocks->load_blocks();
 
 // Set up the add block routine.
 $forcereload = false;
@@ -118,12 +119,27 @@ if ($newblockdata = $addblock->get_data()) {
             }
             $forcereload = true;
             break;
+        case 'split':
+            helper::split_block($blockinstance->instance, $actionableinstance);
+            $forcereload = true;
+            break;
         case 'delete':
             blocks_delete_instance($multiblockblocks[$actionableinstance]);
             $forcereload = true;
             break;
+        case 'splitdelete':
+            $parenturl = navigation::get_page_url($blockid);
+            foreach (array_keys($multiblockblocks) as $childid) {
+                helper::split_block($blockinstance->instance, $childid);
+            }
+            blocks_delete_instance($blockinstance->instance);
+            redirect($parenturl);
+            break;
     }
 }
+
+// And begin our output.
+echo $OUTPUT->header();
 
 if ($forcereload) {
     $multiblockblocks = $blockinstance->load_multiblocks($PAGE->context->id);
@@ -167,6 +183,7 @@ if (empty($multiblockblocks)) {
             'sesskey' => sesskey()
         ]);
 
+        // Molve the sub-block up, if it's not the first one.
         if ($instance->id != $first) {
             $url = $baseactionurl;
             $url->params(['action' => 'moveup']);
@@ -174,6 +191,8 @@ if (empty($multiblockblocks)) {
         } else {
             $actions .= $OUTPUT->pix_icon('i/empty', '');
         }
+
+        // Move sub-block down, if it's not the last one.
         if ($instance->id != $last) {
             $url = $baseactionurl;
             $url->params(['action' => 'movedown']);
@@ -181,6 +200,8 @@ if (empty($multiblockblocks)) {
         } else {
             $actions .= $OUTPUT->pix_icon('i/empty', '');
         }
+
+        // Edit settings button.
         if (file_exists($CFG->dirroot . '/blocks/' . $instance->blockinstance->name() . '/edit_form.php')) {
             $url = new moodle_url('/blocks/multiblock/configinstance.php', [
                 'id' => $blockid,
@@ -192,6 +213,12 @@ if (empty($multiblockblocks)) {
             $actions .= $OUTPUT->pix_icon('i/empty', '');
         }
 
+        // Split out to parent context.
+        $url = $baseactionurl;
+        $url->params(['action' => 'split']);
+        $actions .= $OUTPUT->action_icon($url, new pix_icon('i/import', get_string('movetoparentpage', 'block_multiblock')));
+
+        // Delete button.
         $url = $baseactionurl;
         $url->params(['action' => 'delete']);
         $actions .= $OUTPUT->action_icon($url, new pix_icon('i/delete', get_string('delete')));
