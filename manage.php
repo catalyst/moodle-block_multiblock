@@ -63,14 +63,11 @@ $blockmanager->show_only_fake_blocks(true);
 
 $multiblockblocks = $blockinstance->load_multiblocks($PAGE->context->id);
 
-// We need to start by initialising the block manager.
-$PAGE->blocks->load_blocks();
-
 // Set up the add block routine.
 $forcereload = false;
 $addblock = new \block_multiblock\form\addblock($pageurl, ['id' => $blockid]);
 if ($newblockdata = $addblock->get_data()) {
-    if ($newblockdata->addblock) {
+    if (!empty($newblockdata->addsubmit) && $newblockdata->addblock) {
         $position = 1;
         foreach ($multiblockblocks as $instance) {
             if ((int) $instance->defaultweight > $position) {
@@ -81,6 +78,10 @@ if ($newblockdata = $addblock->get_data()) {
         $blockmanager->add_block($newblockdata->addblock, $block->defaultregion, $position + 1, $block->showinsubcontexts);
 
         // Now we need to re-prep the table exist.
+        $forcereload = true;
+    } else if (!empty($newblockdata->movesubmit) && $newblockdata->moveblock) {
+        // Merge it in and then reprep the table and form.
+        helper::move_block($newblockdata->moveblock, $blockid);
         $forcereload = true;
     }
 } else if ($performaction) {
@@ -143,7 +144,7 @@ echo $OUTPUT->header();
 
 if ($forcereload) {
     $multiblockblocks = $blockinstance->load_multiblocks($PAGE->context->id);
-    unset($_POST['addblock']); // Reset the form element so it doesn't attempt to reuse the value it had before.
+    unset($_POST['addblock'], $_POST['moveblock']); // Reset the form element so it doesn't attempt to reuse values it had before.
     $addblock = new \block_multiblock\form\addblock($pageurl, ['id' => $blockid]);
 }
 

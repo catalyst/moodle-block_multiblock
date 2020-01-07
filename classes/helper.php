@@ -138,4 +138,53 @@ class helper {
         $childcontext = context_block::instance($childid);
         $childcontext->update_moved($parentcontext);
     }
+
+    /**
+     * Moves a block from its current (non-multiblock) context to under a given
+     * new multiblock parent.
+     *
+     * @param int $newchild The id of the block instance to move
+     * @param int $newparent The id of the multiblock instance to move to
+     */
+    public static function move_block($newchild, $newparent) {
+        global $DB;
+
+        $parent = $DB->get_record('block_instances', ['id' => $newparent]);
+        $subblock = $DB->get_record('block_instances', ['id' => $newchild]);
+        $parentcontext = context_block::instance($newparent);
+
+        // Copy some parameters from the parent since that's what we're using now.
+        $params = [
+            'showinsubcontexts', 'requiredbytheme', 'pagetypepattern', 'subpagepattern',
+            'defaultregion',
+        ];
+        foreach ($params as $param) {
+            $subblock->$param = $parent->$param;
+        }
+
+        // And fix the position, add it to the end of all the blocks attached to this sub-block.
+        $max = $DB->get_record_sql("
+            SELECT MAX(defaultweight) AS maxweight
+              FROM {block_instances}
+             WHERE parentcontextid = ?
+          GROUP BY parentcontextid", [$parentcontext->id]);
+        if (empty($max)) {
+            $subblock->defaultweight = 1;
+        } else {
+            $subblock->defaultweight = $max->maxweight + 1;
+        }
+
+        // Then set up the parts that aren't inherited from the old parent, and commit.
+        $subblock->parentcontextid = $parentcontext->id;
+        $subblock->timemodified = time();
+        $DB->update_record('block_instances', $subblock);
+
+        // And remove any references it has to its own position, regardless of where it was, since
+        // those don't exist any more.
+        $DB->delete_records('block_positions', ['blockinstanceid' => $newchild]);
+
+        // Finally commit the updated context path to this block.
+        $childcontext = context_block::instance($newchild);
+        $childcontext->update_moved($parentcontext);
+    }
 }
