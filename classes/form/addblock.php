@@ -47,30 +47,44 @@ class addblock extends moodleform {
         $mform =& $this->_form;
 
         if (!empty($this->_customdata['id'])) {
-            $this->set_block_list($this->_customdata['id']);
+            $this->set_block_list();
         }
         if (empty($this->blocklist)) {
             return;
         }
 
+        $mform->addElement('header', 'addnewblock', get_string('addnewblock', 'block_multiblock'));
+
         $group = [];
         $group[] = &$mform->createElement('select', 'addblock', get_string('addblock'), $this->blocklist);
-        $group[] = &$mform->createElement('submit', 'submitbutton', get_string('add'));
+        $group[] = &$mform->createElement('submit', 'addsubmit', get_string('add'));
         $mform->addGroup($group, 'addblockgroup', '', [' '], false);
+
+        $siblings = $this->get_sibling_blocks($this->_customdata['id']);
+        if (!empty($siblings)) {
+            $siblings = ['' => get_string('selectblock', 'block_multiblock')] + $siblings;
+            $mform->addElement('header', 'moveexistingblock', get_string('moveexistingblock', 'block_multiblock'));
+            $mform->setExpanded('moveexistingblock', false);
+
+            $siblinggroup = [];
+            $siblinggroup[] = &$mform->createElement('select', 'moveblock',
+                                                     get_string('moveexistingblock', 'block_multiblock'), $siblings);
+            $siblinggroup[] = &$mform->createElement('submit', 'movesubmit', get_string('move'));
+            $mform->addGroup($siblinggroup, 'siblinggroup', '', [' '], false);
+        }
     }
 
     /**
      * Given the instance id of a multiblock, identify the possible addable blocks.
-     *
-     * @param int $instanceid The instance of a multiblock where things could be added
      */
-    public function set_block_list($instanceid) {
+    public function set_block_list() {
         global $DB, $PAGE;
 
         $this->blocklist = [
             '' => get_string('selectblock', 'block_multiblock'),
         ];
 
+        $PAGE->blocks->load_blocks();
         foreach ($PAGE->blocks->get_addable_blocks() as $block) {
             if ($block->name == 'multiblock') {
                 continue;
@@ -78,5 +92,42 @@ class addblock extends moodleform {
 
             $this->blocklist[$block->name] = trim($block->title) ? trim($block->title) : '[block_' . $block->name . ']';
         }
+    }
+
+    /**
+     * Finds other blocks in the same place to be merged in.
+     *
+     * @param int $instanceid The instance of a multiblock to find other blocks in the same context.
+     */
+    public function get_sibling_blocks($instanceid) {
+        global $DB;
+
+        // First we have to find the block's parent context, then the blocks in that context.
+        $record = $DB->get_record('block_instances', ['id' => $instanceid]);
+        $siblings = $DB->get_records('block_instances', ['parentcontextid' => $record->parentcontextid]);
+        // And remove the current block, we can't add ourselves to ourself now...
+        unset ($siblings[$instanceid]);
+
+        $blocks = [];
+        foreach ($siblings as $instanceid => $sibling) {
+            // Can't add a multiblock to itself in any universe.
+            if ($sibling->blockname == 'multiblock') {
+                continue;
+            }
+
+            // Does it have a title?
+            if (!empty($sibling->configdata)) {
+                $config = unserialize(base64_decode($sibling->configdata));
+                if ($config->title) {
+                    $blocks[$instanceid] = $config->title . ' (' . get_string('pluginname', 'block_' . $sibling->blockname) . ')';
+                    continue;
+                }
+            }
+
+            // Add it to the list.
+            $blocks[$instanceid] = get_string('pluginname', 'block_' . $sibling->blockname);
+        }
+
+        return $blocks;
     }
 }

@@ -24,8 +24,10 @@
 
 $string['pluginname'] = 'Multiblock';
 
+$string['addnewblock'] = 'Add a new sub-block';
 $string['blocktitle'] = 'Block title';
 $string['managemultiblock'] = 'Manage {$a} contents';
+$string['moveexistingblock'] = 'Move existing block';
 $string['movetoparentpage'] = 'Move to parent page';
 $string['multiblockhasnosubblocks'] = 'This multiblock has no blocks inside it.';
 $string['requirestitle'] = 'The {$a} presentation requires a title to work properly.';
