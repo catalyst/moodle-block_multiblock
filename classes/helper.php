@@ -24,8 +24,11 @@
 
 namespace block_multiblock;
 
+use block_multiblock\navigation;
 use context;
 use context_block;
+use moodle_url;
+use navigation_node;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -58,8 +61,30 @@ class helper {
         }
 
         $PAGE->set_context($blockctx);
-        $PAGE->set_url($blockctx->get_url());
+        $actualpageurl = navigation::get_page_url($blockid);
+        $PAGE->set_url($actualpageurl);
         $PAGE->set_pagelayout('admin');
+
+        // The my-dashboard page adds an additional 'phantom' block region to cope with the dashboard content.
+        if (navigation::is_dashboard($actualpageurl)) {
+            $PAGE->blocks->add_region('content');
+            // For some reason, adding extra navbar items to dashboard requires doing it twice.
+            $PAGE->navbar->add(get_string('managemultiblock', 'block_multiblock', $blockinstance->get_title()),
+                new moodle_url('/blocks/multiblock/manage.php', ['id' => $blockid, 'sesskey' => sesskey()]));
+        }
+
+        if (navigation::is_admin_url($actualpageurl)) {
+            navigation_node::require_admin_tree();
+        }
+
+        $PAGE->navigation->initialise();
+        $PAGE->navbar->add(get_string('managemultiblock', 'block_multiblock', $blockinstance->get_title()),
+            new moodle_url('/blocks/multiblock/manage.php', ['id' => $blockid, 'sesskey' => sesskey()]));
+
+        require_sesskey();
+
+        $PAGE->set_title(get_string('managemultiblocktitle', 'block_multiblock', $blockinstance->title));
+        $PAGE->set_heading(get_string('managemultiblocktitle', 'block_multiblock', $blockinstance->title));
 
         return [$block, $blockinstance];
     }

@@ -34,17 +34,6 @@ $actionableinstance = optional_param('instance', 0, PARAM_INT);
 $performaction = optional_param('action', '', PARAM_TEXT);
 
 list($block, $blockinstance) = helper::bootstrap_page($blockid);
-
-// The my-dashboard page adds an additional 'phantom' block region to cope with the dashboard content.
-if ($block->pagetypepattern == 'my-index') {
-    $PAGE->blocks->add_region('content');
-} else {
-    // But if we're on anything other than my dashboard, we want to initialise the navbar fully.
-    $PAGE->navigation->initialise();
-}
-
-$PAGE->navbar->add(get_string('managemultiblock', 'block_multiblock', $blockinstance->get_title()));
-
 require_login();
 
 $blockmanager = $PAGE->blocks;
@@ -56,8 +45,6 @@ if (!$blockinstance->user_can_edit() && !$this->page->user_can_edit_blocks()) {
 // Now we've done permissions checks, reset the URL to be the real one.
 $pageurl = new moodle_url('/blocks/multiblock/manage.php', ['id' => $blockid]);
 $PAGE->set_url($pageurl);
-$PAGE->set_title(get_string('managemultiblock', 'block_multiblock', $blockinstance->title));
-$PAGE->set_heading(get_string('managemultiblock', 'block_multiblock', $blockinstance->title));
 
 $blockmanager->show_only_fake_blocks(true);
 
@@ -79,7 +66,7 @@ if ($newblockdata = $addblock->get_data()) {
 
         // Now we need to re-prep the table exist.
         $forcereload = true;
-    } else if (!empty($newblockdata->movesubmit) && $newblockdata->moveblock) {
+    } else if (!empty($newblockdata->movesubmit) && !empty($newblockdata->moveblock)) {
         // Merge it in and then reprep the table and form.
         helper::move_block($newblockdata->moveblock, $blockid);
         $forcereload = true;
