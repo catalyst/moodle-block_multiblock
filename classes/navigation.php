@@ -68,6 +68,9 @@ class navigation {
 
         // If this is a system context, something really interesting could be happening.
         if ($parentcontext instanceof context_system) {
+            if ($block->pagetypepattern == 'my-index') {
+                return new moodle_url('/my/indexsys.php');
+            }
             return static::map_site_context_url($block->pagetypepattern, $parentcontext);
         }
 
@@ -145,5 +148,29 @@ class navigation {
 
         // Just in case, we can always try the context's URL - that will get us *something*.
         return $context->get_url();
+    }
+
+    /**
+     * Identifies if the specified URL is a dashboard.
+     *
+     * @param moodle_url $url The URL of the page in question.
+     * @return bool True if the page is a dashboard.
+     */
+    public static function is_dashboard(moodle_url $url): bool {
+        $local = $url->out_as_local_url(false);
+        return strpos($local, '/my/') === 0 && strpos($local, '/my/indexsys') === false;
+    }
+
+    /**
+     * Identifies if the specified URL is somewhere inside the admin panel.
+     *
+     * @param moodle_url $url The URL of the page in question.
+     * @return bool True if the page is an admin page.
+     */
+    public static function is_admin_url(moodle_url $url): bool {
+        global $CFG;
+
+        $local = $url->out_as_local_url(false);
+        return strpos($local, '/' . $CFG->admin . '/') === 0 || strpos($local, '/my/indexsys') === 0;
     }
 }

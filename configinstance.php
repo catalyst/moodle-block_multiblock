@@ -32,18 +32,6 @@ $blockid = required_param('id', PARAM_INT);
 $actionableinstance = required_param('instance', PARAM_INT);
 
 list($block, $blockinstance) = helper::bootstrap_page($blockid);
-
-// The my-dashboard page adds an additional 'phantom' block region to cope with the dashboard content.
-if ($block->pagetypepattern == 'my-index') {
-    $PAGE->blocks->add_region('content');
-} else {
-    // But if we're on anything other than my dashboard, we want to initialise the navbar fully.
-    $PAGE->navigation->initialise();
-}
-
-$PAGE->navbar->add(get_string('managemultiblock', 'block_multiblock', $blockinstance->get_title()),
-    new moodle_url('/blocks/multiblock/manage.php', ['id' => $blockid, 'sesskey' => sesskey()]));
-
 require_login();
 
 $blockmanager = $PAGE->blocks;
@@ -53,8 +41,7 @@ if (!$blockinstance->user_can_edit() && !$this->page->user_can_edit_blocks()) {
 }
 
 $pageurl = new moodle_url('/blocks/multiblock/configinstance.php', ['id' => $blockid, 'instance' => $actionableinstance]);
-$PAGE->set_title(get_string('managemultiblock', 'block_multiblock', $blockinstance->title));
-$PAGE->set_heading(get_string('managemultiblock', 'block_multiblock', $blockinstance->title));
+$PAGE->set_url($pageurl);
 
 $blockmanager->show_only_fake_blocks(true);
 
