@@ -97,6 +97,19 @@ class editblock extends block_multiblock_proxy_edit_form {
             }
         }
 
-        $this->add_action_buttons();
+        // Now we add the save buttons.
+        $buttonarray = [];
+        $buttonarray[] = &$mform->createElement('submit', 'saveandreturn',
+            get_string('saveandreturntomanage', 'block_multiblock'));
+
+        // If the page type indicates we're not on a wildcard page, we can probably* go back there.
+        // Note: * for some definition of probably.
+        if (strpos($this->multiblock->instance->pagetypepattern, '*') === false) {
+            $buttonarray[] = &$mform->createElement('submit', 'saveanddisplay', get_string('savechangesanddisplay'));
+        }
+
+        $buttonarray[] = &$mform->createElement('cancel');
+        $mform->addGroup($buttonarray, 'buttonar', '', array(' '), false);
+        $mform->closeHeaderBefore('buttonar');
     }
 }

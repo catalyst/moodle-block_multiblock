@@ -23,6 +23,7 @@
  */
 
 use block_multiblock\helper;
+use block_multiblock\navigation;
 
 require(__DIR__ . '/../../config.php');
 
@@ -79,6 +80,13 @@ if ($editform->is_cancelled()) {
         $config->$field = $value;
     }
     $multiblockblocks[$actionableinstance]->blockinstance->instance_config_save($config);
+
+    // If we pressed save and display, go to the page where the block lives.
+    if (!empty($data->saveanddisplay)) {
+        redirect(navigation::get_page_url($blockid));
+    }
+
+    // Otherwise return to the management page.
     redirect(new moodle_url('/blocks/multiblock/manage.php', ['id' => $blockid, 'sesskey' => sesskey()]));
 }
 

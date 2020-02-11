@@ -33,6 +33,7 @@ $string['movetoparentpage'] = 'Move to parent page';
 $string['multiblockhasnosubblocks'] = 'This multiblock has no blocks inside it.';
 $string['requirestitle'] = 'The {$a} presentation requires a title to work properly.';
 $string['selectblock'] = 'Select block...';
+$string['saveandreturntomanage'] = 'Save and return to manage';
 $string['splitanddelete'] = 'Split and delete {$a} block';
 $string['notitle'] = 'no title';
 
