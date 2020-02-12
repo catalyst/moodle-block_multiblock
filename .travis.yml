@@ -25,6 +25,8 @@ env:
   - DB=mysqli MOODLE_BRANCH=MOODLE_36_STABLE
   - DB=pgsql MOODLE_BRANCH=MOODLE_37_STABLE
   - DB=mysqli MOODLE_BRANCH=MOODLE_37_STABLE
+  - DB=pgsql MOODLE_BRANCH=MOODLE_38_STABLE
+  - DB=mysqli MOODLE_BRANCH=MOODLE_38_STABLE
   - DB=pgsql MOODLE_BRANCH=master
   - DB=mysqli MOODLE_BRANCH=master
 
@@ -34,6 +36,10 @@ matrix:
       env: DB=pgsql MOODLE_BRANCH=MOODLE_37_STABLE
     - php: 7.0
       env: DB=mysqli MOODLE_BRANCH=MOODLE_37_STABLE
+    - php: 7.0
+      env: DB=pgsql MOODLE_BRANCH=MOODLE_38_STABLE
+    - php: 7.0
+      env: DB=mysqli MOODLE_BRANCH=MOODLE_38_STABLE
     - php: 7.0
       env: DB=pgsql MOODLE_BRANCH=master
     - php: 7.0
@@ -64,4 +70,4 @@ script:
   - moodle-plugin-ci mustache
 
 # - moodle-plugin-ci phpunit    # No tests yet
-# - moodle-plugin-ci behat      # No tests yet
+  - moodle-plugin-ci behat      # No tests yet
