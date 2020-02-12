@@ -1,6 +1,16 @@
 Multiblock
 ==========
 
+[![Build Status](https://api.travis-ci.com/Arantor/moodle-block_multiblock.svg?branch=master)](https://travis-ci.com/Arantor/moodle-block_multiblock/)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+![GitHub last commit](https://img.shields.io/github/last-commit/Arantor/moodle-block_multiblock/master.svg)
+
+![Moodle 3.5 not supported](https://img.shields.io/badge/Moodle-3.5-red)
+![Moodle 3.6 supported](https://img.shields.io/badge/Moodle-3.6-brightgreen)
+![Moodle 3.7 supported](https://img.shields.io/badge/Moodle-3.7-brightgreen)
+![Moodle 3.8 supported](https://img.shields.io/badge/Moodle-3.8-brightgreen)
+![Moodle master supported](https://img.shields.io/badge/Moodle-master-brightgreen)
+
 * [What is this?](#what-is-this)
 * [What styles of presentation are there?](#what-styles-of-presentation-are-there)
 * [Support](#support)
