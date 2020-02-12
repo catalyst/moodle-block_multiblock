@@ -67,7 +67,7 @@ class main implements renderable, templatable {
     public function get_template(): string {
         $presentations = block_multiblock::get_valid_presentations();
         $presentation = isset($presentations[$this->template]) ? $this->template : block_multiblock::get_default_presentation();
-        return $presentations[$presentation]['template'];
+        return $presentations[$presentation]->get_template();
     }
 
     /**

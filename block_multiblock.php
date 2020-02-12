@@ -252,40 +252,20 @@ class block_multiblock extends block_base {
         static $presentations = null;
 
         if ($presentations === null) {
-            $presentations = [
-                'accordion' => [
-                    'name' => get_string('presentation:accordion', 'block_multiblock'),
-                    'template' => 'block_multiblock/accordion',
-                    'requires_title' => true,
-                ],
-                'columns-2-33-66' => [
-                    'name' => get_string('presentation:columns-2-33-66', 'block_multiblock'),
-                    'template' => 'block_multiblock/columns-2-33-66',
-                ],
-                'columns-2equal' => [
-                    'name' => get_string('presentation:columns-2equal', 'block_multiblock'),
-                    'template' => 'block_multiblock/columns-2equal',
-                ],
-                'columns-2-66-33' => [
-                    'name' => get_string('presentation:columns-2-66-33', 'block_multiblock'),
-                    'template' => 'block_multiblock/columns-2-66-33',
-                ],
-                'dropdown' => [
-                    'name' => get_string('presentation:dropdown', 'block_multiblock'),
-                    'template' => 'block_multiblock/dropdown',
-                    'requires_title' => true,
-                ],
-                'tabbed-list' => [
-                    'name' => get_string('presentation:tabbed', 'block_multiblock'),
-                    'template' => 'block_multiblock/tabbed-list',
-                    'requires_title' => true,
-                ],
-                'vertical-tabbed-list' => [
-                    'name' => get_string('presentation:vertical-tabs', 'block_multiblock'),
-                    'template' => 'block_multiblock/vertical-tabbed-list',
-                    'requires_title' => true,
-                ],
-            ];
+
+            foreach (core_component::get_component_classes_in_namespace('block_multiblock', 'layout') as $class => $ns) {
+                if (strpos($class, $ns[0]) === 0) {
+                    // We only care about non-abstract classes here.
+                    $reflection = new ReflectionClass($class);
+                    if ($reflection->isAbstract()) {
+                        continue;
+                    }
+                    $classname = substr($class, strlen($ns[0]));
+
+                    $instance = new $class;
+                    $presentations[$instance->get_layout_id()] = $instance;
+                }
+            }
         }
 
         return $presentations;
