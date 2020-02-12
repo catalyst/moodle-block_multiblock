@@ -24,8 +24,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2019092600;
-$plugin->release   = '1.0.0';
+$plugin->version   = 2020021100;
+$plugin->release   = '1.0.1';
 $plugin->requires  = 2018051700; // Moodle 3.5.0.
 $plugin->component = 'block_multiblock';
 $plugin->maturity  = MATURITY_ALPHA;
