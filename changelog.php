@@ -15,17 +15,29 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Plugin version and other meta-data are defined here.
+ * Changelog.
  *
  * @package   block_multiblock
- * @copyright 2019 Peter Spicer <peter.spicer@catalyst-eu.net>
+ * @copyright 2020 Peter Spicer <peter.spicer@catalyst-eu.net>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2020021101;
-$plugin->release   = '1.0.2';
-$plugin->requires  = 2018051700; // Moodle 3.5.0.
-$plugin->component = 'block_multiblock';
-$plugin->maturity  = MATURITY_ALPHA;
+?>
+
+Multiblock Changelog.
+(File protected as a .php file to avoid leaking details of instance in use.)
+
+1.0.2 - 2020021101
+ * Added a changelog.
+ * Added badges to the readme.
+ * Refactored some internals to allow future development. (#29)
+
+
+1.0.1 - 2020021100
+ * Added save-and-display option to the editing a subblock instance. (#25)
+
+
+1.0.0 - 2019092600
+ * Initial code, not initially released under this version except on GitHub.

@@ -52,7 +52,7 @@ class block_multiblock_edit_form extends block_edit_form {
         $presentations = block_multiblock::get_valid_presentations();
         $options = [];
         foreach ($presentations as $presentationid => $presentation) {
-            $options[$presentationid] = $presentation['name'];
+            $options[$presentationid] = $presentation->get_name();
         }
         $mform->addElement('select', 'config_presentation', get_string('presentation', 'block_multiblock'), $options);
         $mform->setDefault('config_presentation', block_multiblock::get_default_presentation());

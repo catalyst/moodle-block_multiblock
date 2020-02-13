@@ -15,17 +15,24 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Plugin version and other meta-data are defined here.
+ * Behaviour for dropdown layout.
  *
  * @package   block_multiblock
- * @copyright 2019 Peter Spicer <peter.spicer@catalyst-eu.net>
+ * @copyright 2020 Peter Spicer <peter.spicer@catalyst-eu.net>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+namespace block_multiblock\layout;
+
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2020021101;
-$plugin->release   = '1.0.2';
-$plugin->requires  = 2018051700; // Moodle 3.5.0.
-$plugin->component = 'block_multiblock';
-$plugin->maturity  = MATURITY_ALPHA;
+/**
+ * Behaviour for dropdown layout.
+ *
+ * @package   block_multiblock
+ * @copyright 2020 Peter Spicer <peter.spicer@catalyst-eu.net>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+class dropdown extends abstract_layout {
+
+}
