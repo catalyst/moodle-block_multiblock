@@ -23,7 +23,6 @@
  */
 
 namespace block_multiblock\form;
-use ReflectionMethod;
 use moodleform;
 use block_multiblock;
 use block_multiblock_proxy_edit_form;
