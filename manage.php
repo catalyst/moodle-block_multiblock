@@ -63,7 +63,8 @@ if ($newblockdata = $addblock->get_data()) {
             }
         }
 
-        $blockmanager->add_block($newblockdata->addblock, $blockmanager->get_default_region(), $position + 1, $block->showinsubcontexts);
+        $blockmanager->add_block($newblockdata->addblock, $blockmanager->get_default_region(), $position + 1,
+            $block->showinsubcontexts);
 
         // Now we need to re-prep the table exist.
         $forcereload = true;
