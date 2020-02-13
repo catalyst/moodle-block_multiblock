@@ -212,4 +212,14 @@ class helper {
         $childcontext = context_block::instance($newchild);
         $childcontext->update_moved($parentcontext);
     }
+
+    /**
+     * Different functionality might need to be used if implementing
+     * Multiblock on a Totara installation as opposed to a Moodle.
+     *
+     * @return bool True if the current installation is Totara.
+     */
+    public static function is_totara(): bool {
+        return class_exists('\\totara_core\\helper');
+    }
 }

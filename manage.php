@@ -144,8 +144,10 @@ if (empty($multiblockblocks)) {
         'title' => get_string('table:blocktitle', 'block_multiblock'),
         'type' => get_string('table:blocktype', 'block_multiblock'),
         'actions' => get_string('table:actions', 'block_multiblock'),
-        'updated' => get_string('table:lastupdated', 'block_multiblock'),
     ];
+    if (!helper::is_totara()) {
+        $headers['updated'] = get_string('table:lastupdated', 'block_multiblock');
+    }
     $table->define_columns(array_keys($headers));
     $table->define_headers(array_values($headers));
     $table->define_baseurl(new moodle_url('/blocks/multiblock/manage.php', ['id' => $blockid]));
@@ -217,8 +219,10 @@ if (empty($multiblockblocks)) {
             !empty($instance->blockinstance->get_title()) ? $instance->blockinstance->get_title() : $notitle,
             get_string('pluginname', 'block_' . $instance->blockinstance->name()),
             $actions,
-            userdate($instance->timemodified, get_string('strftimedatetime', 'core_langconfig'))
         ];
+        if (!helper::is_totara()) {
+            $row[] = userdate($instance->timemodified, get_string('strftimedatetime', 'core_langconfig'));
+        }
         $table->add_data($row);
     }
 
