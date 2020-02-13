@@ -23,6 +23,7 @@
  */
 
 use block_multiblock\helper;
+use block_multiblock\icon_helper;
 use block_multiblock\navigation;
 
 require(__DIR__ . '/../../config.php');
@@ -177,18 +178,18 @@ if (empty($multiblockblocks)) {
         if ($instance->id != $first) {
             $url = $baseactionurl;
             $url->params(['action' => 'moveup']);
-            $actions .= $OUTPUT->action_icon($url, new pix_icon('t/up', get_string('moveup')));
+            $actions .= $OUTPUT->action_icon($url, icon_helper::arrow_up(get_string('moveup')));
         } else {
-            $actions .= $OUTPUT->pix_icon('i/empty', '');
+            $actions .= icon_helper::space();
         }
 
         // Move sub-block down, if it's not the last one.
         if ($instance->id != $last) {
             $url = $baseactionurl;
             $url->params(['action' => 'movedown']);
-            $actions .= $OUTPUT->action_icon($url, new pix_icon('t/down', get_string('movedown')));
+            $actions .= $OUTPUT->action_icon($url, icon_helper::arrow_down(get_string('movedown')));
         } else {
-            $actions .= $OUTPUT->pix_icon('i/empty', '');
+            $actions .= icon_helper::space();
         }
 
         // Edit settings button.
@@ -198,20 +199,20 @@ if (empty($multiblockblocks)) {
                 'instance' => $instance->id,
                 'sesskey' => sesskey(),
             ]);
-            $actions .= $OUTPUT->action_icon($url, new pix_icon('i/settings', get_string('settings')));
+            $actions .= $OUTPUT->action_icon($url, icon_helper::settings(get_string('settings')));
         } else {
-            $actions .= $OUTPUT->pix_icon('i/empty', '');
+            $actions .= icon_helper::space();
         }
 
         // Split out to parent context.
         $url = $baseactionurl;
         $url->params(['action' => 'split']);
-        $actions .= $OUTPUT->action_icon($url, new pix_icon('i/import', get_string('movetoparentpage', 'block_multiblock')));
+        $actions .= $OUTPUT->action_icon($url, icon_helper::level_up(get_string('movetoparentpage', 'block_multiblock')));
 
         // Delete button.
         $url = $baseactionurl;
         $url->params(['action' => 'delete']);
-        $actions .= $OUTPUT->action_icon($url, new pix_icon('i/delete', get_string('delete')));
+        $actions .= $OUTPUT->action_icon($url, icon_helper::delete(get_string('delete')));
 
         $notitle = html_writer::tag('em', get_string('notitle', 'block_multiblock'), ['class' => 'text-muted']);
 

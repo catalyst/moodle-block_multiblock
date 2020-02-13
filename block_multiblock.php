@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use block_multiblock\icon_helper;
+
 defined('MOODLE_INTERNAL') || die();
 
 /**
@@ -168,7 +170,7 @@ class block_multiblock extends block_base {
                 $str = get_string('managemultiblock', 'block_multiblock', $this->title);
                 $newcontrols[] = new action_menu_link_secondary(
                     new moodle_url('/blocks/multiblock/manage.php', ['id' => $this->instance->id, 'sesskey' => sesskey()]),
-                    new pix_icon('t/preferences', $str, 'moodle', ['class' => 'iconsmall', 'title' => '']),
+                    icon_helper::preferences($str),
                     $str,
                     ['class' => 'editing_manage']
                 );
@@ -178,7 +180,7 @@ class block_multiblock extends block_base {
         $newcontrols[] = new action_menu_link_secondary(
             new moodle_url('/blocks/multiblock/manage.php', ['id' => $this->instance->id, 'sesskey' => sesskey(),
                     'action' => 'splitdelete']),
-            new pix_icon('i/trash', $str, 'moodle', ['class' => 'iconsmall', 'title' => '']),
+            icon_helper::delete($str),
             get_string('splitanddelete', 'block_multiblock', $this->title),
             ['class' => 'editing_manage']
         );
