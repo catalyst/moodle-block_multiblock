@@ -47,7 +47,8 @@ $string['presentation:columns-2equal'] = 'Columns: 2 equal';
 $string['presentation:columns-2-66-33'] = 'Columns: 2 (66% / 33%)';
 $string['presentation:dropdown'] = 'Dropdown';
 $string['presentation:tabbed-list'] = 'Tabs';
-$string['presentation:vertical-tabbed-list'] = 'Vertical Tabs';
+$string['presentation:vertical-tabbed-list'] = 'Vertical Tabs (Left)';
+$string['presentation:vertical-tabbed-list-right'] = 'Vertical Tabs (Right)';
 
 $string['table:actions'] = 'Actions';
 $string['table:blocktitle'] = 'Block title';

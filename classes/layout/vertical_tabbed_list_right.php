@@ -15,17 +15,34 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Plugin version and other meta-data are defined here.
+ * Behaviour for vertical-tabbed-list-right layout.
  *
  * @package   block_multiblock
- * @copyright 2019 Peter Spicer <peter.spicer@catalyst-eu.net>
+ * @copyright 2020 Peter Spicer <peter.spicer@catalyst-eu.net>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+namespace block_multiblock\layout;
+
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2020021102;
-$plugin->release   = '1.0.3';
-$plugin->requires  = 2018051700; // Moodle 3.5.0.
-$plugin->component = 'block_multiblock';
-$plugin->maturity  = MATURITY_ALPHA;
+/**
+ * Behaviour for vertical-tabbed-list-right layout.
+ *
+ * @package   block_multiblock
+ * @copyright 2020 Peter Spicer <peter.spicer@catalyst-eu.net>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+class vertical_tabbed_list_right extends abstract_layout {
+
+    /**
+     * Returns the internal ID that this layout would use and be identified by.
+     *
+     * Defaults to the class name.
+     *
+     * @return string The layout ID.
+     */
+    public function get_layout_id() : string {
+        return 'vertical-tabbed-list-right';
+    }
+}
