@@ -10,7 +10,7 @@ Multiblock
 ![Moodle 3.7 supported](https://img.shields.io/badge/Moodle-3.7-brightgreen)
 ![Moodle 3.8 supported](https://img.shields.io/badge/Moodle-3.8-brightgreen)
 ![Moodle master supported](https://img.shields.io/badge/Moodle-master-brightgreen)
-![Totara 12 support WIP](https://img.shields.io/badge/Totara-12-orange)
+![Totara 12 support WIP](https://img.shields.io/badge/Totara-12-yellow)
 
 * [What is this?](#what-is-this)
 * [What styles of presentation are there?](#what-styles-of-presentation-are-there)
