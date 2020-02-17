@@ -74,6 +74,9 @@ class editblock_base extends block_multiblock_proxy_edit_form {
         parent::__construct($actionurl, $this->block, $this->page);
     }
 
+    /**
+     * Provides the save buttons for the edit-block form.
+     */
     public function add_save_buttons() {
         // Now we add the save buttons.
         $mform =& $this->_form;
