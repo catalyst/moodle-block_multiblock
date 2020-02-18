@@ -66,12 +66,22 @@ if (!$classname || !class_exists($classname)) {
 }
 
 class_alias($classname, 'block_multiblock_proxy_edit_form');
-$editform = new \block_multiblock\form\editblock($pageurl, $multiblockblocks[$actionableinstance], $PAGE, $blockinstance);
+$editform = helper::get_edit_form($pageurl, $multiblockblocks[$actionableinstance], $PAGE, $blockinstance);
 
 if ($editform->is_cancelled()) {
     redirect(new moodle_url('/blocks/multiblock/manage.php', ['id' => $blockid, 'sesskey' => sesskey()]));
 } else if ($data = $editform->get_data()) {
     $config = new stdClass;
+
+    // Totara has some common config that it handles separately to everything else.
+    if (method_exists($editform->block, 'serialize_common_config')) {
+
+        $editform->block->validate_common_config_value($data);
+        $commonconfig = $editform->block->serialize_common_config($editform->split_common_settings_data($data));
+        $multiblockblocks[$actionableinstance]->common_config = $commonconfig;
+        $DB->update_record('block_instances', $multiblockblocks[$actionableinstance]);
+    }
+
     foreach ($data as $configfield => $value) {
         if (strpos($configfield, 'config_') !== 0) {
             continue;

@@ -118,7 +118,7 @@ class addblock extends moodleform {
             // Does it have a title?
             if (!empty($sibling->configdata)) {
                 $config = unserialize(base64_decode($sibling->configdata));
-                if ($config->title) {
+                if (!empty($config->title)) {
                     $blocks[$instanceid] = $config->title . ' (' . get_string('pluginname', 'block_' . $sibling->blockname) . ')';
                     continue;
                 }

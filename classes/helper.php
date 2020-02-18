@@ -25,6 +25,8 @@
 namespace block_multiblock;
 
 use block_multiblock\navigation;
+use block_multiblock\form\editblock;
+use block_multiblock\form\editblock_totara;
 use context;
 use context_block;
 use moodle_url;
@@ -211,5 +213,31 @@ class helper {
         // Finally commit the updated context path to this block.
         $childcontext = context_block::instance($newchild);
         $childcontext->update_moved($parentcontext);
+    }
+
+    /**
+     * Different functionality might need to be used if implementing
+     * Multiblock on a Totara installation as opposed to a Moodle.
+     *
+     * @return bool True if the current installation is Totara.
+     */
+    public static function is_totara(): bool {
+        return class_exists('\\totara_core\\helper');
+    }
+
+    /**
+     * Gets the correct editing form based for configuring an instance.
+     *
+     * @param string|moodle_url $actionurl The form action to submit to
+     * @param block_base $block The block class being edited
+     * @param object $page The contextually appropriate $PAGE type object of the block being edited
+     * @param object $multiblock The multiblock object being edited (mostly for its configuration
+     */
+    public static function get_edit_form($actionurl, $block, $page, $multiblock = null) {
+        if (static::is_totara()) {
+            return new editblock_totara($actionurl, $block, $page, $multiblock);
+        } else {
+            return new editblock($actionurl, $block, $page, $multiblock);
+        }
     }
 }

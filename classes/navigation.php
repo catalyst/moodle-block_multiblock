@@ -64,6 +64,15 @@ class navigation {
             if ($block->pagetypepattern == 'my-index') {
                 return new moodle_url('/my/');
             }
+
+            if (strpos($block->pagetypepattern, 'totara-dashboard') === 0) {
+
+                if (preg_match('~^totara-dashboard-(\d+)$~', $block->pagetypepattern, $match)) {
+                    return new moodle_url('/totara/dashboard/', ['id' => $match[1]]);
+                }
+
+                return new moodle_url('/totara/dashboard/');
+            }
         }
 
         // If this is a system context, something really interesting could be happening.

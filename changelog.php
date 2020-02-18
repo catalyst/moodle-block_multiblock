@@ -29,6 +29,10 @@ defined('MOODLE_INTERNAL') || die();
 Multiblock Changelog.
 (File protected as a .php file to avoid leaking details of instance in use.)
 
+1.1.0 - 2020021300
+ * Support for Totara 12+ (#18)
+
+
 1.0.3 - 2020021102
  * Added vertical tabs - right aligned. (#33)
 
