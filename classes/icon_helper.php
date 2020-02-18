@@ -108,7 +108,7 @@ class icon_helper {
         if (class_exists('\\core\\output\\flex_icon')) {
             return flex_icon::get_icon('i/delete', 'moodle', ['class' => 'iconsmall', 'alt' => $str]);
         } else {
-            return new pix_icon('i/trash', $str, 'moodle', ['class' => 'iconsmall']);
+            return new pix_icon('t/delete', $str, 'moodle', ['class' => 'iconsmall']);
         }
     }
 
