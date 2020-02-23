@@ -38,6 +38,15 @@ defined('MOODLE_INTERNAL') || die();
 class accordion extends abstract_layout {
 
     /**
+     * Returns the recommended uses for this block.
+     *
+     * @return string 'sidebar' or 'main' to suggest which is recommended for this block.
+     */
+    public function get_suggested_use() : string {
+        return 'sidebar';
+    }
+
+    /**
      * Returns the Mustache template required to render this block.
      *
      * @return string The Mustache template.

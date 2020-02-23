@@ -35,4 +35,12 @@ defined('MOODLE_INTERNAL') || die();
  */
 class dropdown extends abstract_layout {
 
+    /**
+     * Returns the recommended uses for this block.
+     *
+     * @return string 'sidebar' or 'main' to suggest which is recommended for this block.
+     */
+    public function get_suggested_use() : string {
+        return 'sidebar';
+    }
 }

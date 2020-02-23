@@ -37,6 +37,9 @@ $string['saveandreturntomanage'] = 'Save and return to manage';
 $string['splitanddelete'] = 'Split and delete {$a} block';
 $string['notitle'] = 'no title';
 
+$string['layout:main'] = 'Recommended for full width/dashboard use';
+$string['layout:sidebar'] = 'Recommended for sidebar use';
+
 $string['multiblock:addinstance'] = 'Add a Multiblock';
 $string['multiblock:myaddinstance'] = 'Add a Multiblock to Dashboard';
 
