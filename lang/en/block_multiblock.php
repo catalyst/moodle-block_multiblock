@@ -53,6 +53,8 @@ $string['presentation:tabbed-list'] = 'Tabs';
 $string['presentation:vertical-tabbed-list'] = 'Vertical Tabs (Left)';
 $string['presentation:vertical-tabbed-list-right'] = 'Vertical Tabs (Right)';
 
+$string['privacy:metadata:block'] = 'The Multiblock block stores all of its data within the block subsystem.';
+
 $string['table:actions'] = 'Actions';
 $string['table:blocktitle'] = 'Block title';
 $string['table:blocktype'] = 'Block type';
