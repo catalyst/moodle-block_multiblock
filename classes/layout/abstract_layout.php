@@ -36,6 +36,13 @@ defined('MOODLE_INTERNAL') || die();
 abstract class abstract_layout {
 
     /**
+     * Returns the recommended uses for this block.
+     *
+     * @return string 'sidebar' or 'main' to suggest which is recommended for this block.
+     */
+    abstract public function get_suggested_use() : string;
+
+    /**
      * Returns the internal ID that this layout would use and be identified by.
      *
      * Defaults to the class name.
