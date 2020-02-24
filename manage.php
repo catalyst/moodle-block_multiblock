@@ -34,22 +34,17 @@ $blockid = required_param('id', PARAM_INT);
 $actionableinstance = optional_param('instance', 0, PARAM_INT);
 $performaction = optional_param('action', '', PARAM_TEXT);
 
-list($block, $blockinstance) = helper::bootstrap_page($blockid);
 require_login();
-
-$blockmanager = $PAGE->blocks;
-
-if (!$blockinstance->user_can_edit() && !$this->page->user_can_edit_blocks()) {
-    throw new moodle_exception('nopermissions', '', $this->page->url->out(), get_string('editblock'));
-}
+list($block, $blockinstance, $blockmanager) = helper::bootstrap_page($blockid);
 
 // Now we've done permissions checks, reset the URL to be the real one.
 $pageurl = new moodle_url('/blocks/multiblock/manage.php', ['id' => $blockid]);
-$PAGE->set_url($pageurl);
+helper::set_page_real_url($pageurl);
 
 $blockmanager->show_only_fake_blocks(true);
 
-$multiblockblocks = $blockinstance->load_multiblocks($PAGE->context->id);
+$blockctx = context_block::instance($blockid);
+$multiblockblocks = $blockinstance->load_multiblocks($blockctx->id);
 
 // Set up the add block routine.
 $forcereload = false;
@@ -63,8 +58,18 @@ if ($newblockdata = $addblock->get_data()) {
             }
         }
 
+        // Add the block to the parent context, then move it in.
         $blockmanager->add_block($newblockdata->addblock, $blockmanager->get_default_region(), $position + 1,
             $block->showinsubcontexts);
+        // Helpfully, $blockmanager won't give us back the id it just added, so we have to go find it.
+        $conditions = [
+            'blockname' => $newblockdata->addblock,
+            'parentcontextid' => $PAGE->context->id,
+        ];
+        $lastinserted = $DB->get_records('block_instances', $conditions, 'id DESC', 'id', 0, 1);
+        if ($lastinserted) {
+            helper::move_block(current($lastinserted)->id, $blockid);
+        }
 
         // Now we need to re-prep the table exist.
         $forcereload = true;
@@ -132,7 +137,7 @@ if ($newblockdata = $addblock->get_data()) {
 echo $OUTPUT->header();
 
 if ($forcereload) {
-    $multiblockblocks = $blockinstance->load_multiblocks($PAGE->context->id);
+    $multiblockblocks = $blockinstance->load_multiblocks($blockctx->id);
     unset($_POST['addblock'], $_POST['moveblock']); // Reset the form element so it doesn't attempt to reuse values it had before.
     $addblock = new \block_multiblock\form\addblock($pageurl, ['id' => $blockid]);
 }

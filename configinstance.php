@@ -32,21 +32,16 @@ require_once($CFG->libdir.'/tablelib.php');
 $blockid = required_param('id', PARAM_INT);
 $actionableinstance = required_param('instance', PARAM_INT);
 
-list($block, $blockinstance) = helper::bootstrap_page($blockid);
 require_login();
-
-$blockmanager = $PAGE->blocks;
-
-if (!$blockinstance->user_can_edit() && !$this->page->user_can_edit_blocks()) {
-    throw new moodle_exception('nopermissions', '', $this->page->url->out(), get_string('editblock'));
-}
+list($block, $blockinstance, $blockmanager) = helper::bootstrap_page($blockid);
 
 $pageurl = new moodle_url('/blocks/multiblock/configinstance.php', ['id' => $blockid, 'instance' => $actionableinstance]);
-$PAGE->set_url($pageurl);
+helper::set_page_real_url($pageurl);
 
 $blockmanager->show_only_fake_blocks(true);
 
-$multiblockblocks = $blockinstance->load_multiblocks($PAGE->context->id);
+$blockctx = context_block::instance($blockid);
+$multiblockblocks = $blockinstance->load_multiblocks($blockctx->id);
 if (!isset($multiblockblocks[$actionableinstance])) {
     redirect(new moodle_url('/blocks/multiblock/manage.php', ['id' => $blockid, 'sesskey' => sesskey()]));
 }

@@ -92,6 +92,8 @@ class provider implements metadata_provider, userlist_provider, plugin_provider 
         ];
 
         $contextlist->add_from_sql($sql, $params);
+
+        return $contextlist;
     }
 
 

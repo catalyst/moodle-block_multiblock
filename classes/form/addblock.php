@@ -23,6 +23,7 @@
  */
 
 namespace block_multiblock\form;
+use block_multiblock\helper;
 use moodleform;
 
 defined('MOODLE_INTERNAL') || die();
@@ -84,6 +85,7 @@ class addblock extends moodleform {
             '' => get_string('selectblock', 'block_multiblock'),
         ];
 
+        helper::set_page_fake_url();
         $PAGE->blocks->load_blocks();
         foreach ($PAGE->blocks->get_addable_blocks() as $block) {
             if ($block->name == 'multiblock') {
@@ -92,6 +94,7 @@ class addblock extends moodleform {
 
             $this->blocklist[$block->name] = trim($block->title) ? trim($block->title) : '[block_' . $block->name . ']';
         }
+        helper::set_page_real_url();
     }
 
     /**
