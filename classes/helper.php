@@ -29,6 +29,7 @@ use block_multiblock\form\editblock;
 use block_multiblock\form\editblock_totara;
 use context;
 use context_block;
+use moodle_exception;
 use moodle_url;
 use navigation_node;
 
@@ -42,6 +43,41 @@ defined('MOODLE_INTERNAL') || die();
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class helper {
+    /** @var moodle_url $pageurl The URL that the block's context belongs to. */
+    protected static $pageurl = null;
+
+    /** @var moodle_url $realpageurl The URL that we're really on for this block management. */
+    protected static $realpageurl = null;
+
+    /**
+     * Sets the block parent URL (i.e. fake context) for permissions checks.
+     *
+     * @param moodle_url $url The URL to set this to (will be reused if not supplied)
+     */
+    public static function set_page_fake_url(moodle_url $url = null) {
+        global $PAGE;
+
+        if (!is_null($url)) {
+            static::$pageurl = $url;
+        }
+
+        $PAGE->set_url(static::$pageurl);
+    }
+
+    /**
+     * Sets the real page URL (e.g. management).
+     *
+     * @param moodle_url $url The URL to set this to (will be reused if not supplied)
+     */
+    public static function set_page_real_url(moodle_url $url = null) {
+        global $PAGE;
+
+        if (!is_null($url)) {
+            static::$realpageurl = $url;
+        }
+
+        $PAGE->set_url(static::$realpageurl);
+    }
 
     /**
      * Provide some functionality for bootstrapping the page for a given block.
@@ -51,10 +87,9 @@ class helper {
      * @param int $blockid The block ID being operated on.
      * @return array Return the block record and its instance class.
      */
-    public static function bootstrap_page($blockid) {
+    public static function bootstrap_page($blockid) : array {
         global $DB, $PAGE;
 
-        $blockctx = context_block::instance($blockid);
         $block = $DB->get_record('block_instances', ['id' => $blockid], '*', MUST_EXIST);
         if (block_load_class($block->blockname)) {
             $class = 'block_' . $block->blockname;
@@ -62,10 +97,15 @@ class helper {
             $blockinstance->_load_instance($block, $PAGE);
         }
 
-        $PAGE->set_context($blockctx);
+        $parentctx = context::instance_by_id($block->parentcontextid);
+
+        $PAGE->set_context($parentctx);
+
         $actualpageurl = navigation::get_page_url($blockid);
-        $PAGE->set_url($actualpageurl);
+        static::set_page_fake_url($actualpageurl);
         $PAGE->set_pagelayout('admin');
+
+        $blockmanager = $PAGE->blocks;
 
         // The my-dashboard page adds an additional 'phantom' block region to cope with the dashboard content.
         if (navigation::is_dashboard($actualpageurl)) {
@@ -73,6 +113,7 @@ class helper {
             // For some reason, adding extra navbar items to dashboard requires doing it twice.
             $PAGE->navbar->add(get_string('managemultiblock', 'block_multiblock', $blockinstance->get_title()),
                 new moodle_url('/blocks/multiblock/manage.php', ['id' => $blockid, 'sesskey' => sesskey()]));
+            $PAGE->set_blocks_editing_capability('moodle/my:manageblocks');
         }
 
         if (navigation::is_admin_url($actualpageurl)) {
@@ -88,7 +129,11 @@ class helper {
         $PAGE->set_title(get_string('managemultiblocktitle', 'block_multiblock', $blockinstance->title));
         $PAGE->set_heading(get_string('managemultiblocktitle', 'block_multiblock', $blockinstance->title));
 
-        return [$block, $blockinstance];
+        if (!$blockinstance->user_can_edit() && !$PAGE->user_can_edit_blocks()) {
+            throw new moodle_exception('nopermissions', '', $PAGE->url->out(), get_string('editblock'));
+        }
+
+        return [$block, $blockinstance, $blockmanager];
     }
 
     /**

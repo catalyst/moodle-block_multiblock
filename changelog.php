@@ -29,6 +29,11 @@ defined('MOODLE_INTERNAL') || die();
 Multiblock Changelog.
 (File protected as a .php file to avoid leaking details of instance in use.)
 
+1.2.0 - 2020022400
+ * Added privacy support
+ * Fixed permissions handling relating to block contexts. (Part of #22)
+
+
 1.1.2 - 2020022300
  * Add hints in configure-block for recommended layouts. (#34)
 
