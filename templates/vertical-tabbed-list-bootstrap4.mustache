@@ -15,7 +15,7 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 {{!
-    @template block_multiblock/vertical-tabbed-list-right
+    @template block_multiblock/vertical-tabbed-list-bootstrap4
 
     This template shows the multiple blocks in a tabbed view
 
@@ -40,8 +40,15 @@
         ]
     }
 }}
-<div class="multiblock multiblock-vertical-tabbed-list-right">
+<div class="multiblock multiblock-vertical-tabbed-list">
     <div class="row">
+        <div class="col-md-3">
+            <div class="nav flex-column nav-pills" id="multiblock-container-{{multiblockid}}" role="tablist" aria-orientation="vertical">
+                {{#multiblock}}
+                    <a class="nav-link{{#active}} active{{/active}}" id="multiblock-tab-{{multiblockid}}-{{id}}" data-toggle="pill" href="#multiblock-{{multiblockid}}-{{id}}" role="tab" aria-controls="multiblock-tab-{{multiblockid}}-{{id}}" aria-selected="{{#active}}true{{/active}}{{^active}}false{{/active}}">{{title}}</a>
+                {{/multiblock}}
+            </div>
+        </div>
         <div class="col-md-9">
             <div class="tab-content" id="multiblock-content-{{multiblockid}}">
                 {{#multiblock}}
@@ -52,13 +59,6 @@
                             {{{annotation}}}
                         </div>
                     </div>
-                {{/multiblock}}
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="nav flex-column nav-pills" id="multiblock-container-{{multiblockid}}" role="tablist" aria-orientation="vertical">
-                {{#multiblock}}
-                    <a class="nav-link{{#active}} active{{/active}}" id="multiblock-tab-{{multiblockid}}-{{id}}" data-toggle="pill" href="#multiblock-{{multiblockid}}-{{id}}" role="tab" aria-controls="multiblock-tab-{{multiblockid}}-{{id}}" aria-selected="{{#active}}true{{/active}}{{^active}}false{{/active}}">{{title}}</a>
                 {{/multiblock}}
             </div>
         </div>

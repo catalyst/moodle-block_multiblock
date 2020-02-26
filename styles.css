@@ -14,6 +14,9 @@
 }
 
 /* Make dropdown full width */
+.block_multiblock .multiblock-dropdown > .nav {
+    margin: 0 0 1rem 0;
+}
 .block_multiblock .multiblock-dropdown .nav-item.dropdown {
     width: 100%;
     text-align: center;
