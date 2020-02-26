@@ -24,6 +24,8 @@
 
 namespace block_multiblock\layout;
 
+use block_multiblock\helper;
+
 defined('MOODLE_INTERNAL') || die();
 
 /**
@@ -53,5 +55,18 @@ class vertical_tabbed_list extends abstract_layout {
      */
     public function get_layout_id() : string {
         return 'vertical-tabbed-list';
+    }
+
+    /**
+     * Returns the Mustache template required to render this block.
+     *
+     * @return string The Mustache template.
+     */
+    public function get_template() : string {
+        if (!helper::is_totara()) {
+            return 'block_multiblock/vertical-tabbed-list-bootstrap4';
+        } else {
+            return 'block_multiblock/vertical-tabbed-list-bootstrap3';
+        }
     }
 }
