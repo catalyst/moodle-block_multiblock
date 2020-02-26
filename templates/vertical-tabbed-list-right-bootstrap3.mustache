@@ -15,7 +15,7 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 {{!
-    @template block_multiblock/vertical-tabbed-list-right
+    @template block_multiblock/vertical-tabbed-list-right-bootstrap3
 
     This template shows the multiple blocks in a tabbed view
 
@@ -40,12 +40,12 @@
         ]
     }
 }}
-<div class="multiblock multiblock-vertical-tabbed-list-right">
+<div class="multiblock multiblock-vertical-tabbed-list">
     <div class="row">
         <div class="col-md-9">
             <div class="tab-content" id="multiblock-content-{{multiblockid}}">
                 {{#multiblock}}
-                    <div class="tab-pane fade{{#active}} show active{{/active}}" id="multiblock-{{multiblockid}}-{{id}}" role="tabpanel" aria-labelledby="multiblock-tab-{{multiblockid}}-{{id}}">
+                    <div class="tab-pane fade{{#active}} in active{{/active}}" id="multiblock-{{multiblockid}}-{{id}}" role="tabpanel" aria-labelledby="multiblock-tab-{{multiblockid}}-{{id}}">
                         <div class="{{class}}">
                             {{{content}}}
                             <div class="footer">{{{footer}}}</div>
@@ -56,11 +56,13 @@
             </div>
         </div>
         <div class="col-md-3">
-            <div class="nav flex-column nav-pills" id="multiblock-container-{{multiblockid}}" role="tablist" aria-orientation="vertical">
+            <ul class="nav nav-stacked nav-pills" id="multiblock-container-{{multiblockid}}" role="tablist" aria-orientation="vertical">
                 {{#multiblock}}
-                    <a class="nav-link{{#active}} active{{/active}}" id="multiblock-tab-{{multiblockid}}-{{id}}" data-toggle="pill" href="#multiblock-{{multiblockid}}-{{id}}" role="tab" aria-controls="multiblock-tab-{{multiblockid}}-{{id}}" aria-selected="{{#active}}true{{/active}}{{^active}}false{{/active}}">{{title}}</a>
+                    <li role="presentation" class="{{#active}} active{{/active}}">
+                        <a id="multiblock-tab-{{multiblockid}}-{{id}}" data-toggle="pill" href="#multiblock-{{multiblockid}}-{{id}}" role="tab" aria-controls="multiblock-tab-{{multiblockid}}-{{id}}" aria-selected="{{#active}}true{{/active}}{{^active}}false{{/active}}">{{title}}</a>
+                    </li>
                 {{/multiblock}}
-            </div>
+            </ul>
         </div>
     </div>
 </div>
