@@ -1,10 +1,10 @@
 @block @block_multiblock @javascript
-Feature: Vertical tabbed layout
+Feature: Vertical tabbed layout (left)
     In order to streamline course presentation
     As a teacher
-    I need to be able to focus content with a tabbed layout
+    I need to be able to focus content with a vertical tabbed layout
 
-    Scenario: Testing tabbed layout
+    Scenario: Testing vertical tabbed layout (left)
     Given the following "users" exist:
       | username | firstname | lastname | email                |
       | teacher1 | Teacher   | One      | teacher@example.com  |
