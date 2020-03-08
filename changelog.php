@@ -29,6 +29,10 @@ defined('MOODLE_INTERNAL') || die();
 Multiblock Changelog.
 (File protected as a .php file to avoid leaking details of instance in use.)
 
+1.2.4 - 2020022404
+ * Tidy up unnecessary global variables.
+ * When uninstalling, return all sub-blocks to the parent (e.g. dashboard). (#47)
+
 1.2.3 - 2020022403
  * Added Behat tests for dropdown layout. (#4)
  * Travis builds now use Chrome not Firefox.
