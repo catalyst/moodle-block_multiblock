@@ -74,7 +74,7 @@ class block_multiblock extends block_base {
      * @return array An array of child blocks.
      */
     public function load_multiblocks($contextid) {
-        global $DB, $PAGE;
+        global $DB;
 
         // Find all the things that relate to this block.
         $this->blocks = $DB->get_records('block_instances', ['parentcontextid' => $contextid], 'defaultweight, id');
@@ -236,7 +236,7 @@ class block_multiblock extends block_base {
      * @return bool
      */
     public function instance_delete() {
-        global $DB, $PAGE;
+        global $DB;
 
         // Find all the things that relate to this block.
         foreach ($DB->get_records('block_instances', ['parentcontextid' => $this->context->id]) as $subblock) {
