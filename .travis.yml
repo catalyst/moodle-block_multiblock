@@ -51,10 +51,13 @@ matrix:
       env: DB=mysqli MOODLE_BRANCH=master
 
 before_install:
+  - export MOODLE_VERSION=$(echo "$MOODLE_BRANCH" | cut -d'_' -f 2)
   - sudo apt-get update
   - phpenv config-rm xdebug.ini
   - nvm install 8.9
-  - nvm use 8.9
+  - if [ "$MOODLE_VERSION" = 36 ]; then NVMVERSION=8.9; else NVMVERSION=14.0.0; fi
+  - nvm install $NVMVERSION;
+  - nvm use $NVMVERSION;
   - cd ../..
   - git clone --mirror 'https://github.com/moodlehq/moodle-behat-extension.git' '/home/travis/.composer/cache/vcs/git-github.com-moodlehq-moodle-behat-extension.git/' || true
   - composer selfupdate
