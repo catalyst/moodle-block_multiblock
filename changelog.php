@@ -29,6 +29,10 @@ defined('MOODLE_INTERNAL') || die();
 Multiblock Changelog.
 (File protected as a .php file to avoid leaking details of instance in use.)
 
+1.2.5 - 2020022405
+ * Fix permission check for users editing blocks.
+ * Bump Node version for automated tests (excluding MOODLE_36_STABLE)
+
 1.2.4 - 2020022404
  * Tidy up unnecessary global variables.
  * When uninstalling, return all sub-blocks to the parent (e.g. dashboard). (#47)
