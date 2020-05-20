@@ -26,6 +26,7 @@ $string['pluginname'] = 'Multiblock';
 
 $string['addnewblock'] = 'Add a new sub-block';
 $string['blocktitle'] = 'Block title';
+$string['editblock'] = 'Edit block';
 $string['managemultiblock'] = 'Manage {$a} contents';
 $string['managemultiblocktitle'] = 'Manage multiblock: {$a}';
 $string['moveexistingblock'] = 'Move existing block';

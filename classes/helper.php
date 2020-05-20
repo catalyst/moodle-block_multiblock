@@ -130,7 +130,7 @@ class helper {
         $PAGE->set_heading(get_string('managemultiblocktitle', 'block_multiblock', $blockinstance->title));
 
         if (!$blockinstance->user_can_edit() || !$PAGE->user_can_edit_blocks()) {
-            throw new moodle_exception('nopermissions', '', $PAGE->url->out(), get_string('editblock'));
+            throw new moodle_exception('nopermissions', '', $PAGE->url->out(), get_string('editblock', 'block_multiblock'));
         }
 
         return [$block, $blockinstance, $blockmanager];
