@@ -74,6 +74,11 @@ for Boost so mileage with other themes will absolutely vary.
 ![2 column layout (33% / 66%)](/pix/columns-2-33-66.png?raw=true)
 
 
+And now a 3-column equal width layout:
+
+![3 column layout (equal width)](/pix/columns-3-equal.png?raw=true)
+
+
 Support
 -------
 
