@@ -82,3 +82,40 @@
 .multiblock-columns-3 .col-md-4:nth-of-type(3n+3) section {
     margin-left: 0.5rem !important;
 }
+
+/* Style fixes for multiblock. */
+.multiblock-carousel {
+    padding-bottom: 70px;
+}
+
+.multiblock-carousel a.carousel-control {
+    top: auto;
+    bottom: 5px;
+    height: 40px;
+    background: #fff;
+    border: 1px solid #ddd;
+    margin-bottom: -70px;
+    opacity: 1;
+}
+
+.multiblock-carousel a.carousel-control span {
+    color: #000;
+}
+
+.multiblock-carousel-bootstrap3 a.carousel-control > .carousel-control {
+    position: relative;
+}
+
+.multiblock-carousel .flex-icon::before {
+    font-size: 1.7em;
+}
+
+.multiblock-carousel-bootstrap3 .carousel-control-prev {
+    left: 0;
+    right: auto;
+}
+
+.multiblock-carousel-bootstrap3 .carousel-control-next {
+    right: 0;
+    left: auto;
+}

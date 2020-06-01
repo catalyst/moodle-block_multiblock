@@ -29,8 +29,9 @@ defined('MOODLE_INTERNAL') || die();
 Multiblock Changelog.
 (File protected as a .php file to avoid leaking details of instance in use.)
 
-1.3.0 - 2020052000
+1.3.0 - 2020060100
  * Add 3-column layout.
+ * Add carousel layout. (#56)
 
 1.2.6 - 2020022406
  * Fix warning for missing language string (#55)

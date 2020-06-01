@@ -1,0 +1,74 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template block_multiblock/carousel-bootstrap3
+
+    This template shows the multiple blocks in a carousel view
+
+    Example context (json):
+    {
+        "multiblockid": 28,
+        "multiblock": [
+            {
+                "id": 1,
+                "title": "Block 1",
+                "content": "<p>Block 1</p>",
+                "footer": "My footer",
+                "active": true
+            },
+            {
+                "id": 2,
+                "title": "Block 2",
+                "content": "<p>Block 2</p>",
+                "footer": "",
+                "active": false
+            }
+        ]
+    }
+}}
+<div class="multiblock multiblock-carousel multiblock-carousel-bootstrap3">
+    <div class="carousel slide" id="multiblock-content-{{multiblockid}}">
+        <div class="carousel-inner" role="listbox">
+            {{#multiblock}}
+                <div class="item{{#active}} active{{/active}}" id="multiblock-{{multiblockid}}-{{id}}">
+                    <div class="{{class}}">
+                        {{{content}}}
+                        <div class="footer">{{{footer}}}</div>
+                        {{{annotation}}}
+                    </div>
+                </div>
+            {{/multiblock}}
+        </div>
+        <a class="carousel-control carousel-control-prev" href="#multiblock-content-{{multiblockid}}" role="button" data-slide="prev">
+            <span class="carousel-control" aria-hidden="true">
+                {{#flex_icon}} caret-left {{/flex_icon}}
+            </span>
+            <span class="sr-only">{{#str}} previous {{/str}}</span>
+        </a>
+        <a class="carousel-control carousel-control-next" href="#multiblock-content-{{multiblockid}}" role="button" data-slide="next">
+            <span class="carousel-control" aria-hidden="true">
+                {{#flex_icon}} caret-right {{/flex_icon}}
+            </span>
+            <span class="sr-only">{{#str}} next {{/str}}</span>
+        </a>
+    </div>
+</div>
+{{#js}}
+require(['jquery', 'theme_roots/bootstrap'], function($) {
+    $('#multiblock-content-{{multiblockid}}').carousel();
+});
+{{/js}}
