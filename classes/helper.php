@@ -29,6 +29,7 @@ use block_multiblock\form\editblock;
 use block_multiblock\form\editblock_totara;
 use context;
 use context_block;
+use context_helper;
 use moodle_exception;
 use moodle_url;
 use navigation_node;
@@ -116,10 +117,26 @@ class helper {
             $PAGE->set_blocks_editing_capability('moodle/my:manageblocks');
         }
 
+        // Blocks on admin pages require loading the admin tree to be able to render the breadcrumbs.
         if (navigation::is_admin_url($actualpageurl)) {
             navigation_node::require_admin_tree();
         }
 
+        // If the course is on a block page we need to explicitly load the course to get the correct breadcrumbs.
+        if ($parentctx->contextlevel == CONTEXT_COURSE) {
+            $courseid = $actualpageurl->param('id');
+            context_helper::preload_course($courseid);
+            $course = $DB->get_record('course', ['id' => $courseid]);
+            $PAGE->set_course($course);
+        }
+
+        // If it's an activity, we have to do a bit more work, loading the course and the context module.
+        if ($parentctx->contextlevel == CONTEXT_MODULE) {
+            $cm = $DB->get_record('course_modules', ['id' => $parentctx->instanceid]);
+            $PAGE->set_cm($cm);
+        }
+
+        // And hand over to the Moodle architecture to do its thing.
         $PAGE->navigation->initialise();
         $PAGE->navbar->add(get_string('managemultiblock', 'block_multiblock', $blockinstance->get_title()),
             new moodle_url('/blocks/multiblock/manage.php', ['id' => $blockid, 'sesskey' => sesskey()]));

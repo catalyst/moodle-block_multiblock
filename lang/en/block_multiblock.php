@@ -46,9 +46,11 @@ $string['multiblock:myaddinstance'] = 'Add a Multiblock to Dashboard';
 
 $string['presentation'] = 'Multiblock presentation style';
 $string['presentation:accordion'] = 'Accordion';
+$string['presentation:carousel'] = 'Carousel';
 $string['presentation:columns-2-33-66'] = 'Columns: 2 (33% / 66%)';
 $string['presentation:columns-2equal'] = 'Columns: 2 equal';
 $string['presentation:columns-2-66-33'] = 'Columns: 2 (66% / 33%)';
+$string['presentation:columns-3equal'] = 'Columns: 3 equal';
 $string['presentation:dropdown'] = 'Dropdown';
 $string['presentation:tabbed-list'] = 'Tabs';
 $string['presentation:vertical-tabbed-list'] = 'Vertical Tabs (Left)';
