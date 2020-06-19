@@ -29,6 +29,10 @@ defined('MOODLE_INTERNAL') || die();
 Multiblock Changelog.
 (File protected as a .php file to avoid leaking details of instance in use.)
 
+1.3.1 - 2020060101
+ * Stop running tests on 3.6.
+ * Add 3.9 stable to the supported list.
+
 1.3.0 - 2020060100
  * Add 3-column layout.
  * Add carousel layout. (#56)

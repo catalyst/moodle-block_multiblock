@@ -6,9 +6,10 @@ Multiblock
 ![GitHub last commit](https://img.shields.io/github/last-commit/Arantor/moodle-block_multiblock/master.svg)
 
 ![Moodle 3.5 supported](https://img.shields.io/badge/Moodle-3.5-brightgreen)
-![Moodle 3.6 supported](https://img.shields.io/badge/Moodle-3.6-brightgreen)
+![Moodle 3.6 supported for data loss items](https://img.shields.io/badge/Moodle-3.6-green)
 ![Moodle 3.7 supported](https://img.shields.io/badge/Moodle-3.7-brightgreen)
 ![Moodle 3.8 supported](https://img.shields.io/badge/Moodle-3.8-brightgreen)
+![Moodle 3.9 supported](https://img.shields.io/badge/Moodle-3.9-brightgreen)
 ![Moodle master supported](https://img.shields.io/badge/Moodle-master-brightgreen)
 ![Totara 12 support](https://img.shields.io/badge/Totara-12-brightgreen)
 
