@@ -29,6 +29,9 @@ defined('MOODLE_INTERNAL') || die();
 Multiblock Changelog.
 (File protected as a .php file to avoid leaking details of instance in use.)
 
+1.3.2 - 2020060102
+ * Don't try to use invalid blocks as part of 'merge in block' (#62)
+
 1.3.1 - 2020060101
  * Stop running tests on 3.6.
  * Add 3.9 stable to the supported list.

@@ -24,6 +24,7 @@
 
 namespace block_multiblock\form;
 use block_multiblock\helper;
+use core_plugin_manager;
 use moodleform;
 
 defined('MOODLE_INTERNAL') || die();
@@ -105,6 +106,18 @@ class addblock extends moodleform {
     public function get_sibling_blocks($instanceid) {
         global $DB;
 
+        $available = [];
+        $invalidstatuses = [
+            core_plugin_manager::PLUGIN_STATUS_MISSING,
+            core_plugin_manager::PLUGIN_STATUS_DOWNGRADE,
+            core_plugin_manager::PLUGIN_STATUS_DELETE,
+        ];
+        foreach (core_plugin_manager::instance()->get_plugins_of_type('block') as $block) {
+            if (!in_array($block->get_status(), $invalidstatuses)) {
+                $available[] = $block->name;
+            }
+        }
+
         // First we have to find the block's parent context, then the blocks in that context.
         $record = $DB->get_record('block_instances', ['id' => $instanceid]);
         $siblings = $DB->get_records('block_instances', ['parentcontextid' => $record->parentcontextid]);
@@ -115,6 +128,11 @@ class addblock extends moodleform {
         foreach ($siblings as $instanceid => $sibling) {
             // Can't add a multiblock to itself in any universe.
             if ($sibling->blockname == 'multiblock') {
+                continue;
+            }
+
+            // Make sure that the plugin actually exists.
+            if (!in_array($sibling->blockname, $available)) {
                 continue;
             }
 
