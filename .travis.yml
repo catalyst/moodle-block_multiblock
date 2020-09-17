@@ -64,7 +64,7 @@ before_install:
   - cd ../..
   - git clone --mirror 'https://github.com/moodlehq/moodle-behat-extension.git' '/home/travis/.composer/cache/vcs/git-github.com-moodlehq-moodle-behat-extension.git/' || true
   - composer selfupdate
-  - composer create-project -n --no-dev --prefer-dist blackboard-open-source/moodle-plugin-ci ci ^2
+  - composer create-project -n --no-dev --prefer-dist moodlehq/moodle-plugin-ci ci ^3;
   - export PATH="$(cd ci/bin; pwd):$(cd ci/vendor/bin; pwd):$PATH"
 
 install:

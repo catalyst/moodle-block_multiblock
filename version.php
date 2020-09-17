@@ -24,8 +24,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2020060102;
-$plugin->release   = '1.3.2';
+$plugin->version   = 2020060103;
+$plugin->release   = '1.3.3';
 $plugin->requires  = !file_exists(__DIR__ . '/../../totara/core/lib.php') ? 2018051700 : 2017051509; // Moodle 3.5 / Totara 12.
 $plugin->component = 'block_multiblock';
 $plugin->maturity  = MATURITY_BETA;
