@@ -9,16 +9,13 @@ cache:
     - $HOME/.npm
 
 php:
-  - 7.0
   - 7.2
 
-dist: trusty
+dist: xenial
 
 addons:
   postgresql: "9.6"
-  apt:
-    packages:
-      - chromium-chromedriver
+  chrome: stable
 
 services:
   - mysql
@@ -36,22 +33,14 @@ env:
   - DB=mysqli MOODLE_BRANCH=master
 
 matrix:
-  exclude:
+  include:
     - php: 7.0
-      env: DB=pgsql MOODLE_BRANCH=MOODLE_37_STABLE
+      env: DB=pgsql MOODLE_BRANCH=MOODLE_35_STABLE
     - php: 7.0
-      env: DB=mysqli MOODLE_BRANCH=MOODLE_37_STABLE
-    - php: 7.0
-      env: DB=pgsql MOODLE_BRANCH=MOODLE_38_STABLE
-    - php: 7.0
-      env: DB=mysqli MOODLE_BRANCH=MOODLE_38_STABLE
-    - php: 7.0
-      env: DB=pgsql MOODLE_BRANCH=MOODLE_39_STABLE
-    - php: 7.0
-      env: DB=mysqli MOODLE_BRANCH=MOODLE_39_STABLE
-    - php: 7.0
+      env: DB=mysqli MOODLE_BRANCH=MOODLE_35_STABLE
+    - php: 7.4
       env: DB=pgsql MOODLE_BRANCH=master
-    - php: 7.0
+    - php: 7.4
       env: DB=mysqli MOODLE_BRANCH=master
 
 before_install:
@@ -64,7 +53,7 @@ before_install:
   - cd ../..
   - git clone --mirror 'https://github.com/moodlehq/moodle-behat-extension.git' '/home/travis/.composer/cache/vcs/git-github.com-moodlehq-moodle-behat-extension.git/' || true
   - composer selfupdate
-  - composer create-project -n --no-dev --prefer-dist blackboard-open-source/moodle-plugin-ci ci ^2
+  - composer create-project -n --no-dev --prefer-dist moodlehq/moodle-plugin-ci ci ^3;
   - export PATH="$(cd ci/bin; pwd):$(cd ci/vendor/bin; pwd):$PATH"
 
 install:
