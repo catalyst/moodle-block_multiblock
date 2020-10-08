@@ -57,6 +57,10 @@ Dropdown layout:
 
 ![Dropdown layout](/pix/dropdown.png?raw=true)
 
+Tabs with columns inside it:
+
+![Tabs with columns](/pix/tabs-columns-2-66-33.png)
+
 
 There's also some 2-column layouts where the 'multiblock' container has no
 title so it integrates better into the look and feel. The styling is designed
