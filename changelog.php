@@ -29,6 +29,9 @@ defined('MOODLE_INTERNAL') || die();
 Multiblock Changelog.
 (File protected as a .php file to avoid leaking details of instance in use.)
 
+1.3.4 - 2020060104
+ * Tabs with 2-column layout thanks to Peter Burnett at Catalyst AU
+
 1.3.3 - 2020060103
  * Handle the site front page course correctly (#66)
  * Switch over to Moodle HQ's fork of moodle-plugin-ci
