@@ -54,7 +54,7 @@ class navigation {
      * @return moodle_url The page URL relating to that block.
      */
     public static function get_page_url($blockid): moodle_url {
-        global $DB;
+        global $DB, $CFG;
 
         $parentcontext = helper::find_nearest_nonblock_ancestor($blockid);
         $block = $DB->get_record('block_instances', ['id' => $blockid]);
@@ -92,6 +92,15 @@ class navigation {
 
         // If this is a course, we might have to switch between course-view and course-info.
         if ($parentcontext instanceof context_course) {
+            // If this is the site course (home page), we have to get a little fancier.
+            if ($parentcontext->instanceid == SITEID) {
+                if (!empty($CFG->defaulthomepage) && ($CFG->defaulthomepage == HOMEPAGE_MY)) {
+                    return new moodle_url('/', ['redirect' => 0]);
+                } else {
+                    return new moodle_url('/');
+                }
+            }
+
             if (substr($block->pagetypepattern, 0, 11) == 'course-info') {
                 return new moodle_url('/course/info.php', ['id' => $parentcontext->instanceid]);
             } else if ($block->pagetypepattern == 'course-edit') {

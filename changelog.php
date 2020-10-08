@@ -29,6 +29,10 @@ defined('MOODLE_INTERNAL') || die();
 Multiblock Changelog.
 (File protected as a .php file to avoid leaking details of instance in use.)
 
+1.3.3 - 2020060103
+ * Handle the site front page course correctly (#66)
+ * Switch over to Moodle HQ's fork of moodle-plugin-ci
+
 1.3.2 - 2020060102
  * Don't try to use invalid blocks as part of 'merge in block' (#62)
 

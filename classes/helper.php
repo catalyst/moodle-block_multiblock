@@ -124,7 +124,7 @@ class helper {
 
         // If the course is on a block page we need to explicitly load the course to get the correct breadcrumbs.
         if ($parentctx->contextlevel == CONTEXT_COURSE) {
-            $courseid = $actualpageurl->param('id');
+            $courseid = $parentctx->instanceid;
             context_helper::preload_course($courseid);
             $course = $DB->get_record('course', ['id' => $courseid]);
             $PAGE->set_course($course);
