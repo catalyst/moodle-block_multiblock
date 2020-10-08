@@ -53,6 +53,7 @@ $string['presentation:columns-2-66-33'] = 'Columns: 2 (66% / 33%)';
 $string['presentation:columns-3equal'] = 'Columns: 3 equal';
 $string['presentation:dropdown'] = 'Dropdown';
 $string['presentation:tabbed-list'] = 'Tabs';
+$string['presentation:tabbed-list-columns-2-66-33'] = 'Tabs: Columns: 2 (66% / 33%)';
 $string['presentation:vertical-tabbed-list'] = 'Vertical Tabs (Left)';
 $string['presentation:vertical-tabbed-list-right'] = 'Vertical Tabs (Right)';
 
