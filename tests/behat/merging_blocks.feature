@@ -22,12 +22,12 @@ Feature: Accordion layout
     And I add the "Multiblock" block
     And I should see "Teacher One"
     And I should not see "Teacher One" in the ".block_multiblock" "css_element"
-    And I manage the contents of "Multiblock" block
+    And I manage the contents of "Course Toolkit" block
     And I expand all fieldsets
     And I set the field "Move existing block" to "Logged in user"
     And I press "Move"
     And I log out
     And I log in as "student1"
     And I am on "Course 1" course homepage
-    Then I should see "Multiblock"
+    Then I should see "Course Toolkit"
     And I should see "Student User" in the ".block_multiblock" "css_element"

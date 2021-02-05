@@ -107,7 +107,7 @@ class backup_multiblock_block_task extends backup_block_task {
      * @param string $content The content to be processed.
      * @return string The processed content.
      */
-    static public function encode_content_links($content) {
+    public static function encode_content_links($content) {
         return $content;
     }
 }

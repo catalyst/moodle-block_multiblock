@@ -18,10 +18,11 @@
  * Class that does all the magic.
  *
  * @package   block_multiblock
- * @copyright 2019 Peter Spicer <peter.spicer@catalyst-eu.net>
+ * @copyright 2019 Peter Spicer <peter.spicer@catalyst-eu.net> 2021 James Pearce <jmp201@bath.ac.uk>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use block_multiblock\helper;
 use block_multiblock\icon_helper;
 
 defined('MOODLE_INTERNAL') || die();
@@ -47,7 +48,19 @@ class block_multiblock extends block_base {
     }
 
     /**
+     * has_config - denotes whether your block wants to present a configuration interface to site admins or not
+     *
+     * @package  block_baseline
+     *
+     * @return boolean
+     */
+    public function has_config() {
+        return true;
+    }
+
+    /**
      * Core function, specifies where the block can be used.
+     *
      * @return array
      */
     public function applicable_formats() {
@@ -62,6 +75,8 @@ class block_multiblock extends block_base {
     public function specialization() {
         if (isset($this->config->title)) {
             $this->title = format_string($this->config->title, true, ['context' => $this->context]);
+        } else if (isset(get_config('block_multiblock')->title)) {
+            $this->title = format_string(get_config('block_multiblock')->title, true, ['context' => $this->context]);
         } else {
             $this->title = get_string('pluginname', 'block_multiblock');
         }
@@ -78,7 +93,6 @@ class block_multiblock extends block_base {
 
         // Find all the things that relate to this block.
         $this->blocks = $DB->get_records('block_instances', ['parentcontextid' => $contextid], 'defaultweight, id');
-
         foreach ($this->blocks as $id => $block) {
             if (block_load_class($block->blockname)) {
                 // Make the proxy class we'll need.
@@ -93,19 +107,10 @@ class block_multiblock extends block_base {
     }
 
     /**
-     * Used to generate the content for the block.
-     *
-     * @return string
+     *  Used to add the default blocks to the multiblock.
      */
-    public function get_content() {
-        global $DB;
-        if ($this->content !== null) {
-            return $this->content;
-        }
-
-        $this->content = new stdClass;
-        $this->content->text = '';
-        $this->content->footer = '';
+    public function add_default_blocks() {
+        global $DB, $CFG;
 
         if (empty($this->instance)) {
             return $this->content;
@@ -117,6 +122,45 @@ class block_multiblock extends block_base {
 
         $multiblock = [];
         $isodd = true;
+        $blockid = $this->instance->id;
+        if (empty($this->blocks)) {
+
+            $defaultblocksarray = explode(',', get_config('block_multiblock')->subblock);
+
+            $addblock = new \block_multiblock\auto\adddefaultblock();
+            $addblock->init($blockid, $defaultblocksarray, $this->instance);
+
+        }
+    }
+
+    /**
+     * Used to generate the content for the block.
+     *
+     * @return string
+     */
+    public function get_content() {
+        global $DB, $CFG;
+        if ($this->content !== null) {
+            return $this->content;
+        }
+        $this->content = new stdClass;
+        $this->content->text = '';
+        $this->content->footer = '';
+        if (empty($this->instance)) {
+            return $this->content;
+        }
+        $context = $DB->get_record('context', ['contextlevel' => CONTEXT_BLOCK, 'instanceid' => $this->instance->id]);
+
+        $this->load_multiblocks($context->id);
+
+        $multiblock = [];
+        $isodd = true;
+        $blockid = $this->instance->id;
+
+        if (empty($this->blocks)) {
+            $this->add_default_blocks();
+        }
+
         foreach ($this->blocks as $id => $block) {
             if (empty($block->blockinstance)) {
                 continue;
@@ -134,7 +178,20 @@ class block_multiblock extends block_base {
             $isodd = !$isodd;
         }
 
-        $template = !empty($this->config->presentation) ? $this->config->presentation : 'tabbed-list';
+        $template = '';
+        $presentations = static::get_valid_presentations();
+        $multiblockpresentationoptions = [];
+        foreach ($presentations as $presentationid => $presentation) {
+            array_push($multiblockpresentationoptions, $presentationid);
+        }
+        if (!empty($this->config->presentation)) {
+            $template = $this->config->presentation;
+        } else if (isset(get_config('block_multiblock')->presentation)) {
+            $template = $multiblockpresentationoptions[get_config('block_multiblock')->presentation];
+        } else if (isset($presentations['accordion'])) {
+            $template = 'accordion';
+        }
+
         $renderable = new \block_multiblock\output\main((int) $this->instance->id, $multiblock, $template);
         $renderer = $this->page->get_renderer('block_multiblock');
 
@@ -142,7 +199,6 @@ class block_multiblock extends block_base {
             'text' => $renderer->render($renderable),
             'footer' => ''
         ];
-
         return $this->content;
     }
 
@@ -185,7 +241,6 @@ class block_multiblock extends block_base {
             ['class' => 'editing_manage']
         );
         $bc->controls = $newcontrols;
-
         return $bc;
     }
 
@@ -280,8 +335,14 @@ class block_multiblock extends block_base {
      */
     public static function get_default_presentation(): string {
         $presentations = static::get_valid_presentations();
-        if (isset($presentations['tabbed-list'])) {
-            return 'tabbed-list';
+        $multiblockpresentationoptions = [];
+        foreach ($presentations as $presentationid => $presentation) {
+            array_push($multiblockpresentationoptions, $presentationid);
+        }
+        if (isset(get_config('block_multiblock')->presentation)) {
+            return $multiblockpresentationoptions[get_config('block_multiblock')->presentation];
+        } else if (isset($presentations['accordion'])) {
+            return 'accordion';
         }
 
         // Our expected default is not present, make sure we fall back to something.

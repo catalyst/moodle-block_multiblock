@@ -4,7 +4,7 @@ Feature: Basic tests of multiple blocks
     As a teacher
     I need to be able to put multiple blocks in a single space
 
-    Scenario: Adding a Multiblock with two sub-blocks
+    Scenario: Adding a Course Toolkit with two sub-blocks
     Given the following "users" exist:
       | username | firstname | lastname | email                |
       | teacher1 | Teacher   | One      | teacher@example.com  |
@@ -19,17 +19,17 @@ Feature: Basic tests of multiple blocks
     When I log in as "teacher1"
     And I am on "Course 1" course homepage with editing mode on
     And I add the "Multiblock" block
-    And I manage the contents of "Multiblock" block
+    And I manage the contents of "Course Toolkit" block
     And I should see "This multiblock has no blocks inside it."
     And I set the field "Add a block" to "Logged in user"
     And I press "Add"
-    And I should see "Manage Multiblock contents"
+    And I should see "Manage Course Toolkit contents"
     And I should see "Logged in user"
     And I set the field "Add a block" to "Recent activity"
     And I press "Add"
     And I log out
     And I log in as "student1"
     And I am on "Course 1" course homepage
-    Then I should see "Multiblock"
+    Then I should see "Course Toolkit"
     And I should see "Logged in user"
     And I should see "Recent activity"
