@@ -47,6 +47,17 @@ class block_multiblock extends block_base {
     }
 
     /**
+     * has_config - denotes whether your block wants to present a configuration interface to site admins or not
+     *
+     * @package  block_baseline
+     *
+     * @return boolean
+     */
+    public function has_config() {
+        return true;
+    }
+
+    /**
      * Core function, specifies where the block can be used.
      * @return array
      */
@@ -60,8 +71,11 @@ class block_multiblock extends block_base {
      * Sets the block's title for a specific instance based on its configuration.
      */
     public function specialization() {
+        global $CFG;
         if (isset($this->config->title)) {
             $this->title = format_string($this->config->title, true, ['context' => $this->context]);
+        } else if (isset($CFG->block_multiblock_title)) {
+            $this->title = format_string($CFG->block_multiblock_title, true, ['context' => $this->context]);
         } else {
             $this->title = get_string('pluginname', 'block_multiblock');
         }
@@ -78,7 +92,6 @@ class block_multiblock extends block_base {
 
         // Find all the things that relate to this block.
         $this->blocks = $DB->get_records('block_instances', ['parentcontextid' => $contextid], 'defaultweight, id');
-
         foreach ($this->blocks as $id => $block) {
             if (block_load_class($block->blockname)) {
                 // Make the proxy class we'll need.
@@ -98,7 +111,7 @@ class block_multiblock extends block_base {
      * @return string
      */
     public function get_content() {
-        global $DB;
+		global $DB, $CFG;
         if ($this->content !== null) {
             return $this->content;
         }
@@ -134,7 +147,20 @@ class block_multiblock extends block_base {
             $isodd = !$isodd;
         }
 
-        $template = !empty($this->config->presentation) ? $this->config->presentation : 'tabbed-list';
+        $template = '';
+        $presentations = static::get_valid_presentations();
+        $multiblockpresentationoptions = [];
+        foreach ($presentations as $presentationid => $presentation) {
+            array_push($multiblockpresentationoptions, $presentationid);
+        }
+        if (!empty($this->config->presentation)) {
+            $template = $this->config->presentation;
+        } else if (isset($CFG->block_multiblock_presentation)) {
+            $template = $multiblockpresentationoptions[$CFG->block_multiblock_presentation];
+        } else if (isset($presentations['accordion'])) {
+            $template = 'accordion';
+        } 
+
         $renderable = new \block_multiblock\output\main((int) $this->instance->id, $multiblock, $template);
         $renderer = $this->page->get_renderer('block_multiblock');
 
@@ -142,7 +168,6 @@ class block_multiblock extends block_base {
             'text' => $renderer->render($renderable),
             'footer' => ''
         ];
-
         return $this->content;
     }
 
@@ -185,7 +210,6 @@ class block_multiblock extends block_base {
             ['class' => 'editing_manage']
         );
         $bc->controls = $newcontrols;
-
         return $bc;
     }
 
@@ -247,7 +271,7 @@ class block_multiblock extends block_base {
 
     /**
      * Lists all the known presentation types that exist in the block.
-     *
+     * 
      * @return array An array of presentations for block rendering.
      */
     public static function get_valid_presentations(): array {
@@ -279,10 +303,18 @@ class block_multiblock extends block_base {
      * @return string The default presentation's identifier.
      */
     public static function get_default_presentation(): string {
+        global $CFG;
+
         $presentations = static::get_valid_presentations();
-        if (isset($presentations['tabbed-list'])) {
-            return 'tabbed-list';
+        $multiblockpresentationoptions = [];
+        foreach ($presentations as $presentationid => $presentation) {
+            array_push($multiblockpresentationoptions, $presentationid);
         }
+        if (isset($CFG->block_multiblock_presentation)) {
+            return $multiblockpresentationoptions[$CFG->block_multiblock_presentation];
+        } else if (isset($presentations['accordion'])) {
+            return 'accordion';
+        } 
 
         // Our expected default is not present, make sure we fall back to something.
         return array_keys($presentations)[0];

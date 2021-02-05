@@ -21,7 +21,7 @@
  * @copyright 2019 Peter Spicer <peter.spicer@catalyst-eu.net>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
+use block_multiblock\helper;
 defined('MOODLE_INTERNAL') || die();
 
 /**
@@ -40,13 +40,13 @@ class block_multiblock_edit_form extends block_edit_form {
      */
     protected function specific_definition($mform) {
         global $CFG;
-
         // Let's have some configuration!
         $mform->addElement('header', 'configheader', get_string('blocksettings', 'block'));
 
         // First, the block's title.
         $mform->addElement('text', 'config_title', get_string('blocktitle', 'block_multiblock'));
         $mform->setType('config_title', PARAM_TEXT);
+        $mform->setDefault('config_title', $CFG->block_multiblock_title);
 
         // Then which presentation format we want to use.
         $presentations = block_multiblock::get_valid_presentations();
