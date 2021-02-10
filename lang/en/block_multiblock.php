@@ -23,6 +23,7 @@
  */
 
 $string['pluginname'] = 'Multiblock';
+$string['pluginname_recommended'] = 'Course Toolkit';
 
 $string['addnewblock'] = 'Add a new sub-block';
 $string['blocktitle'] = 'Block title';
