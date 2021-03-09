@@ -71,11 +71,10 @@ class block_multiblock extends block_base {
      * Sets the block's title for a specific instance based on its configuration.
      */
     public function specialization() {
-        global $CFG;
         if (isset($this->config->title)) {
             $this->title = format_string($this->config->title, true, ['context' => $this->context]);
-        } else if (isset($CFG->block_multiblock_title)) {
-            $this->title = format_string($CFG->block_multiblock_title, true, ['context' => $this->context]);
+        } else if (isset(get_config('block_multiblock')->title)) {
+            $this->title = format_string(get_config('block_multiblock')->title, true, ['context' => $this->context]);
         } else {
             $this->title = get_string('pluginname', 'block_multiblock');
         }
@@ -155,8 +154,8 @@ class block_multiblock extends block_base {
         }
         if (!empty($this->config->presentation)) {
             $template = $this->config->presentation;
-        } else if (isset($CFG->block_multiblock_presentation)) {
-            $template = $multiblockpresentationoptions[$CFG->block_multiblock_presentation];
+        } else if (isset(get_config('block_multiblock')->presentation)) {
+            $template =  $multiblockpresentationoptions[get_config('block_multiblock')->presentation];
         } else if (isset($presentations['accordion'])) {
             $template = 'accordion';
         } 
@@ -303,15 +302,15 @@ class block_multiblock extends block_base {
      * @return string The default presentation's identifier.
      */
     public static function get_default_presentation(): string {
-        global $CFG;
+        //global $CFG;
 
         $presentations = static::get_valid_presentations();
         $multiblockpresentationoptions = [];
         foreach ($presentations as $presentationid => $presentation) {
             array_push($multiblockpresentationoptions, $presentationid);
         }
-        if (isset($CFG->block_multiblock_presentation)) {
-            return $multiblockpresentationoptions[$CFG->block_multiblock_presentation];
+        if (isset(get_config('block_multiblock')->presentation)) {
+            return $multiblockpresentationoptions[get_config('block_multiblock')->presentation];
         } else if (isset($presentations['accordion'])) {
             return 'accordion';
         } 
