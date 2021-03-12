@@ -17,27 +17,29 @@
 /**
  * Settings for the Moodle Multiblock.
  *
- * @package   block_multiblock_client
- * @copyright  1999 onwards Martin Dougiamas (http://dougiamas.com)
+ * @package   block_multiblock
+ * @copyright 2021 Muhammad Ali <ma2716@bath.ac.uk>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die;
 
-if ($ADMIN->fulltree) {    
+if ($ADMIN->fulltree) {
     global $DB, $PAGE;
 
     // Multiblock title (heading).
     $settings->add(new admin_setting_configtext('block_multiblock/title', get_string('moodle_multiblock_title', 'block_multiblock'),
-    get_string('moodle_multiblock_title_desc', 'block_multiblock'), get_string('pluginname_recommended', 'block_multiblock'), PARAM_TEXT));
+    get_string('moodle_multiblock_title_desc', 'block_multiblock'), get_string('pluginname_recommended', 'block_multiblock'),
+    PARAM_TEXT));
 
-    // Multiblock presentation style options array
+    // Multiblock presentation style options array.
     $multiblockpresentationoptions = array();
     $presentations = block_multiblock::get_valid_presentations();
-    foreach($presentations as $presentationid => $presentation) {
+    foreach ($presentations as $presentationid => $presentation) {
         array_push($multiblockpresentationoptions, $presentationid);
     }
-    // Multiblock presentation style
-    $settings->add(new admin_setting_configselect('block_multiblock/presentation', get_string('moodle_multiblock_presentation_style', 'block_multiblock'), 
+    // Multiblock presentation style.
+    $settings->add(new admin_setting_configselect('block_multiblock/presentation',
+    get_string('moodle_multiblock_presentation_style', 'block_multiblock'),
     get_string('moodle_multiblock_presentation_style_desc', 'block_multiblock'), 0, $multiblockpresentationoptions));
 }

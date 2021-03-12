@@ -110,7 +110,7 @@ class block_multiblock extends block_base {
      * @return string
      */
     public function get_content() {
-		global $DB, $CFG;
+        global $DB, $CFG;
         if ($this->content !== null) {
             return $this->content;
         }
@@ -155,10 +155,10 @@ class block_multiblock extends block_base {
         if (!empty($this->config->presentation)) {
             $template = $this->config->presentation;
         } else if (isset(get_config('block_multiblock')->presentation)) {
-            $template =  $multiblockpresentationoptions[get_config('block_multiblock')->presentation];
+            $template = $multiblockpresentationoptions[get_config('block_multiblock')->presentation];
         } else if (isset($presentations['accordion'])) {
             $template = 'accordion';
-        } 
+        }
 
         $renderable = new \block_multiblock\output\main((int) $this->instance->id, $multiblock, $template);
         $renderer = $this->page->get_renderer('block_multiblock');
@@ -270,7 +270,7 @@ class block_multiblock extends block_base {
 
     /**
      * Lists all the known presentation types that exist in the block.
-     * 
+     *
      * @return array An array of presentations for block rendering.
      */
     public static function get_valid_presentations(): array {
@@ -302,8 +302,6 @@ class block_multiblock extends block_base {
      * @return string The default presentation's identifier.
      */
     public static function get_default_presentation(): string {
-        //global $CFG;
-
         $presentations = static::get_valid_presentations();
         $multiblockpresentationoptions = [];
         foreach ($presentations as $presentationid => $presentation) {
@@ -313,7 +311,7 @@ class block_multiblock extends block_base {
             return $multiblockpresentationoptions[get_config('block_multiblock')->presentation];
         } else if (isset($presentations['accordion'])) {
             return 'accordion';
-        } 
+        }
 
         // Our expected default is not present, make sure we fall back to something.
         return array_keys($presentations)[0];
