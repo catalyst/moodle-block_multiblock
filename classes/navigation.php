@@ -80,6 +80,14 @@ class navigation {
             if ($block->pagetypepattern == 'my-index') {
                 return new moodle_url('/my/indexsys.php');
             }
+            if (strpos($block->pagetypepattern, 'totara-dashboard') === 0) {
+
+                if (preg_match('~^totara-dashboard-(\d+)$~', $block->pagetypepattern, $match)) {
+                    return new moodle_url('/totara/dashboard/layout.php', ['id' => $match[1]]);
+                }
+
+                return new moodle_url('/totara/dashboard/layout.php', ['id' => 1]);
+            }
             return static::map_site_context_url($block->pagetypepattern, $parentcontext);
         }
 
