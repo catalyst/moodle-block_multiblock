@@ -42,4 +42,21 @@ if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_configselect('block_multiblock/presentation',
     get_string('moodle_multiblock_presentation_style', 'block_multiblock'),
     get_string('moodle_multiblock_presentation_style_desc', 'block_multiblock'), 0, $multiblockpresentationoptions));
+
+    $blockid = required_param('id', PARAM_INT);
+
+    // Multiblock - available sub-blocks
+    $blocklist = [];
+    $PAGE->blocks->load_blocks();
+    foreach ($PAGE->blocks->get_addable_blocks() as $block) {
+        if ($block->name == 'multiblock') {
+            continue;
+        }
+
+        $blocklist[$block->name] = trim($block->title) ? trim($block->title) : '[block_' . $block->name . ']';
+    }
+    // Multiblock manage contents (add subblock).
+    $settings->add(new admin_setting_configmultiselect('block_multiblock_subblock', 
+    get_string('moodle_multiblock_subblock', 'block_multiblock'), 
+    get_string('moodle_multiblock_subblock_desc', 'block_multiblock'), [1], $blocklist));
 }
