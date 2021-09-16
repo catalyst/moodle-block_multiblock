@@ -18,10 +18,11 @@
  * Class that does all the magic.
  *
  * @package   block_multiblock
- * @copyright 2019 Peter Spicer <peter.spicer@catalyst-eu.net>
+ * @copyright 2019 Peter Spicer <peter.spicer@catalyst-eu.net> 2021 James Pearce <jmp201@bath.ac.uk>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use block_multiblock\helper;
 use block_multiblock\icon_helper;
 
 defined('MOODLE_INTERNAL') || die();
@@ -59,6 +60,7 @@ class block_multiblock extends block_base {
 
     /**
      * Core function, specifies where the block can be used.
+     * 
      * @return array
      */
     public function applicable_formats() {
@@ -105,20 +107,11 @@ class block_multiblock extends block_base {
     }
 
     /**
-     * Used to generate the content for the block.
-     *
-     * @return string
+     *  Used to add the default blocks to the multiblock.
      */
-    public function get_content() {
+    public function add_default_blocks() {
         global $DB, $CFG;
-        if ($this->content !== null) {
-            return $this->content;
-        }
-
-        $this->content = new stdClass;
-        $this->content->text = '';
-        $this->content->footer = '';
-
+        
         if (empty($this->instance)) {
             return $this->content;
         }
@@ -126,9 +119,52 @@ class block_multiblock extends block_base {
         $context = $DB->get_record('context', ['contextlevel' => CONTEXT_BLOCK, 'instanceid' => $this->instance->id]);
 
         $this->load_multiblocks($context->id);
-
+        
         $multiblock = [];
         $isodd = true;
+        $blockid = $this->instance->id;
+        if(empty($this->blocks)) {
+
+            $defaultBlocksArray = explode(',', get_config('block_multiblock')->subblock);
+
+            $addblock = new \block_multiblock\auto\adddefaultblock();
+            $addblock->init($blockid, $defaultBlocksArray, $this->instance);
+
+        }
+    }
+
+    /**
+     * Used to generate the content for the block.
+     *
+     * @return string
+     */
+    public function get_content() {
+        global $DB, $CFG;
+
+        if ($this->content !== null) {
+            return $this->content;
+        }
+        
+        $this->content = new stdClass;
+        $this->content->text = '';
+        $this->content->footer = '';
+        
+        if (empty($this->instance)) {
+            return $this->content;
+        }
+        
+        $context = $DB->get_record('context', ['contextlevel' => CONTEXT_BLOCK, 'instanceid' => $this->instance->id]);
+
+        $this->load_multiblocks($context->id);
+        
+        $multiblock = [];
+        $isodd = true;
+        $blockid = $this->instance->id;
+
+        if(empty($this->blocks)) {
+            $this->add_default_blocks();
+        } 
+
         foreach ($this->blocks as $id => $block) {
             if (empty($block->blockinstance)) {
                 continue;
@@ -145,7 +181,7 @@ class block_multiblock extends block_base {
             ];
             $isodd = !$isodd;
         }
-
+        
         $template = '';
         $presentations = static::get_valid_presentations();
         $multiblockpresentationoptions = [];
@@ -159,10 +195,10 @@ class block_multiblock extends block_base {
         } else if (isset($presentations['accordion'])) {
             $template = 'accordion';
         }
-
+        
         $renderable = new \block_multiblock\output\main((int) $this->instance->id, $multiblock, $template);
         $renderer = $this->page->get_renderer('block_multiblock');
-
+        
         $this->content = (object) [
             'text' => $renderer->render($renderable),
             'footer' => ''
