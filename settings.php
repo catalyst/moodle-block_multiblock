@@ -27,6 +27,8 @@ defined('MOODLE_INTERNAL') || die;
 if ($ADMIN->fulltree) {
     global $DB, $PAGE, $CFG;
 
+    $blocks = $DB->get_records('block', array(), 'name ASC');
+
     // Multiblock title (heading).
     $settings->add(new admin_setting_configtext('block_multiblock/title', get_string('moodle_multiblock_title', 'block_multiblock'),
     get_string('moodle_multiblock_title_desc', 'block_multiblock'), get_string('pluginname_recommended', 'block_multiblock'),
@@ -45,13 +47,12 @@ if ($ADMIN->fulltree) {
 
     // Multiblock - available sub-blocks
     $blocklist = [];
-    $PAGE->blocks->load_blocks();
-    foreach ($PAGE->blocks->get_addable_blocks() as $block) {
+    foreach ($blocks as $block) {
         if ($block->name == 'multiblock') {
             continue;
         }
 
-        $blocklist[$block->name] = trim($block->title) ? trim($block->title) : '[block_' . $block->name . ']';
+        $blocklist[$block->name] = trim($block->name) ? trim($block->name) : '[block_' . $block->name . ']';
     }
     // Multiblock manage contents (add subblock).
     $settings->add(new admin_setting_configmultiselect('block_multiblock/subblock', 
