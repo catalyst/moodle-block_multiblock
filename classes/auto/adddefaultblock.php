@@ -53,8 +53,8 @@ class adddefaultblock {
     }
 
     /**
-     * This checks the blocks that can bee added to a multiblock, 
-     * selects the ones defined in the current default blocks setting and creates an instance of that new block 
+     * This checks the blocks that can bee added to a multiblock,
+     * selects the ones defined in the current default blocks setting and creates an instance of that new block
      * then moves it to the multiblock.
      *
      * @param int $id is the id of the multiblock

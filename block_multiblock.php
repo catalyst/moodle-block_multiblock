@@ -159,7 +159,7 @@ class block_multiblock extends block_base {
 
         if (empty($this->blocks)) {
             $this->add_default_blocks();
-        } 
+        }
 
         foreach ($this->blocks as $id => $block) {
             if (empty($block->blockinstance)) {
@@ -194,7 +194,7 @@ class block_multiblock extends block_base {
 
         $renderable = new \block_multiblock\output\main((int) $this->instance->id, $multiblock, $template);
         $renderer = $this->page->get_renderer('block_multiblock');
-        
+
         $this->content = (object) [
             'text' => $renderer->render($renderable),
             'footer' => ''
