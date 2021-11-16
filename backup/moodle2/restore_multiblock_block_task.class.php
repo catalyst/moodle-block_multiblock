@@ -116,7 +116,7 @@ class restore_multiblock_block_task extends restore_block_task {
      *
      * @return array A list of content items to be decoded.
      */
-    static public function define_decode_contents() {
+    public static function define_decode_contents() {
         return array();
     }
 
@@ -125,7 +125,7 @@ class restore_multiblock_block_task extends restore_block_task {
      *
      * @return array A list of find/replace rules.
      */
-    static public function define_decode_rules() {
+    public static function define_decode_rules() {
         return array();
     }
 }

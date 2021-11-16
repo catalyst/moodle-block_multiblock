@@ -60,7 +60,7 @@ class block_multiblock extends block_base {
 
     /**
      * Core function, specifies where the block can be used.
-     * 
+     *
      * @return array
      */
     public function applicable_formats() {
@@ -111,7 +111,7 @@ class block_multiblock extends block_base {
      */
     public function add_default_blocks() {
         global $DB, $CFG;
-        
+
         if (empty($this->instance)) {
             return $this->content;
         }
@@ -119,16 +119,16 @@ class block_multiblock extends block_base {
         $context = $DB->get_record('context', ['contextlevel' => CONTEXT_BLOCK, 'instanceid' => $this->instance->id]);
 
         $this->load_multiblocks($context->id);
-        
+
         $multiblock = [];
         $isodd = true;
         $blockid = $this->instance->id;
-        if(empty($this->blocks)) {
+        if (empty($this->blocks)) {
 
-            $defaultBlocksArray = explode(',', get_config('block_multiblock')->subblock);
+            $defaultblocksarray = explode(',', get_config('block_multiblock')->subblock);
 
             $addblock = new \block_multiblock\auto\adddefaultblock();
-            $addblock->init($blockid, $defaultBlocksArray, $this->instance);
+            $addblock->init($blockid, $defaultblocksarray, $this->instance);
 
         }
     }
@@ -140,28 +140,24 @@ class block_multiblock extends block_base {
      */
     public function get_content() {
         global $DB, $CFG;
-
         if ($this->content !== null) {
             return $this->content;
         }
-        
         $this->content = new stdClass;
         $this->content->text = '';
         $this->content->footer = '';
-        
         if (empty($this->instance)) {
             return $this->content;
         }
-        
         $context = $DB->get_record('context', ['contextlevel' => CONTEXT_BLOCK, 'instanceid' => $this->instance->id]);
 
         $this->load_multiblocks($context->id);
-        
+
         $multiblock = [];
         $isodd = true;
         $blockid = $this->instance->id;
 
-        if(empty($this->blocks)) {
+        if (empty($this->blocks)) {
             $this->add_default_blocks();
         } 
 
@@ -181,7 +177,7 @@ class block_multiblock extends block_base {
             ];
             $isodd = !$isodd;
         }
-        
+
         $template = '';
         $presentations = static::get_valid_presentations();
         $multiblockpresentationoptions = [];
@@ -195,7 +191,7 @@ class block_multiblock extends block_base {
         } else if (isset($presentations['accordion'])) {
             $template = 'accordion';
         }
-        
+
         $renderable = new \block_multiblock\output\main((int) $this->instance->id, $multiblock, $template);
         $renderer = $this->page->get_renderer('block_multiblock');
         

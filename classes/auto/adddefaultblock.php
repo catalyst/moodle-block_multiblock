@@ -41,7 +41,7 @@ class adddefaultblock {
 
     /**
      * Initialise the adding of a block to the multiblock.
-     * 
+     *
      * @param int $id is the id of the multiblock
      * @param array $arraytoadd is an array of blocks to add
      * @param object $multiblockinstance is the parent multiblock instance
@@ -49,21 +49,21 @@ class adddefaultblock {
     public function init($id, $arraytoadd, $multiblockinstance) {
 
         $this->set_blocks_to_add($id, $arraytoadd, $multiblockinstance);
-        
+
     }
 
     /**
      * This checks the blocks that can bee added to a multiblock, 
      * selects the ones defined in the current default blocks setting and creates an instance of that new block 
      * then moves it to the multiblock.
-     * 
+     *
      * @param int $id is the id of the multiblock
      * @param array $arraytoadd is an array of blocks to add
      * @param object $multiblockinstance is the parent multiblock instance
      */
     public function set_blocks_to_add($blockid, $arraytoadd, $multiblockinstance) {
         global $DB, $PAGE;
-        
+
         // Load all possible blocks for the page.
         $blockmanager = $PAGE->blocks;
         $blockmanager->load_blocks();

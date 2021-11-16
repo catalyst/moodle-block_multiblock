@@ -45,7 +45,7 @@ if ($ADMIN->fulltree) {
     get_string('moodle_multiblock_presentation_style', 'block_multiblock'),
     get_string('moodle_multiblock_presentation_style_desc', 'block_multiblock'), 0, $multiblockpresentationoptions));
 
-    // Multiblock - available sub-blocks
+    // Multiblock - available sub-blocks.
     $blocklist = [];
     foreach ($blocks as $block) {
         if ($block->name == 'multiblock') {
@@ -55,8 +55,8 @@ if ($ADMIN->fulltree) {
         $blocklist[$block->name] = trim($block->name) ? trim($block->name) : '[block_' . $block->name . ']';
     }
     // Multiblock manage contents (add subblock).
-    $settings->add(new admin_setting_configmultiselect('block_multiblock/subblock', 
-    get_string('moodle_multiblock_subblock', 'block_multiblock'), 
+    $settings->add(new admin_setting_configmultiselect('block_multiblock/subblock',
+    get_string('moodle_multiblock_subblock', 'block_multiblock'),
     get_string('moodle_multiblock_subblock_desc', 'block_multiblock'), [1], $blocklist));
 
 }
