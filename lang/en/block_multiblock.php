@@ -23,7 +23,6 @@
  */
 
 $string['pluginname'] = 'Multiblock';
-$string['pluginname_recommended'] = 'Course Toolkit';
 
 $string['addnewblock'] = 'Add a new sub-block';
 $string['blocktitle'] = 'Block title';
@@ -43,12 +42,12 @@ $string['notitle'] = 'no title';
 $string['layout:main'] = 'Recommended for full width/dashboard use';
 $string['layout:sidebar'] = 'Recommended for sidebar use';
 
-$string['moodle_multiblock_title'] = 'Multiblock Title';
-$string['moodle_multiblock_title_desc'] = 'This title will be displayed as the heading of multiblock in the course.';
-$string['moodle_multiblock_presentation_style'] = 'Multiblock presentation style';
-$string['moodle_multiblock_presentation_style_desc'] = 'Select a multiblock presentation style to enhance the personal experience';
-$string['moodle_multiblock_subblock'] = 'Multiblock - Subblocks';
-$string['moodle_multiblock_subblock_desc'] = 'Multiple blocks can be selected';
+$string['multiblock_title'] = 'Multiblock Title';
+$string['multiblock_title_desc'] = 'This title will be displayed as the heading of multiblock in the course.';
+$string['multiblock_presentation_style'] = 'Multiblock presentation style';
+$string['multiblock_presentation_style_desc'] = 'Select a multiblock presentation style to enhance the personal experience';
+$string['multiblock_subblock'] = 'Multiblock - Subblocks';
+$string['multiblock_subblock_desc'] = 'Multiple blocks can be selected';
 $string['multiblock:addinstance'] = 'Add a Multiblock';
 $string['multiblock:myaddinstance'] = 'Add a Multiblock to Dashboard';
 

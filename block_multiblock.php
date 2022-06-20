@@ -73,11 +73,14 @@ class block_multiblock extends block_base {
      * Sets the block's title for a specific instance based on its configuration.
      */
     public function specialization() {
+        $defaulttitle = get_config('block_multiblock', 'title');
         if (isset($this->config->title)) {
             $this->title = format_string($this->config->title, true, ['context' => $this->context]);
-        } else if (isset(get_config('block_multiblock')->title)) {
-            $this->title = format_string(get_config('block_multiblock')->title, true, ['context' => $this->context]);
-        } else {
+        } 
+        else if ($defaulttitle) {
+            $this->title = format_string($defaulttitle, true, ['context' => $this->context]);
+        } 
+        else {
             $this->title = get_string('pluginname', 'block_multiblock');
         }
     }
@@ -184,10 +187,11 @@ class block_multiblock extends block_base {
         foreach ($presentations as $presentationid => $presentation) {
             array_push($multiblockpresentationoptions, $presentationid);
         }
+        $configuredpresentation = get_config('block_multiblock', 'presentation');
         if (!empty($this->config->presentation)) {
             $template = $this->config->presentation;
-        } else if (isset(get_config('block_multiblock')->presentation)) {
-            $template = $multiblockpresentationoptions[get_config('block_multiblock')->presentation];
+        } else if ($configuredpresentation) {
+            $template = $multiblockpresentationoptions[$configuredpresentation];
         } else if (isset($presentations['accordion'])) {
             $template = 'accordion';
         }
@@ -336,15 +340,13 @@ class block_multiblock extends block_base {
     public static function get_default_presentation(): string {
         $presentations = static::get_valid_presentations();
         $multiblockpresentationoptions = [];
+        $configuredpresentation = get_config('block_multiblock', 'presentation');
         foreach ($presentations as $presentationid => $presentation) {
             array_push($multiblockpresentationoptions, $presentationid);
         }
-        if (isset(get_config('block_multiblock')->presentation)) {
-            return $multiblockpresentationoptions[get_config('block_multiblock')->presentation];
-        } else if (isset($presentations['accordion'])) {
-            return 'accordion';
+        if ($configuredpresentation) {
+            return $multiblockpresentationoptions[$configuredpresentation];
         }
-
         // Our expected default is not present, make sure we fall back to something.
         return array_keys($presentations)[0];
     }

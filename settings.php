@@ -30,8 +30,8 @@ if ($ADMIN->fulltree) {
     $blocks = $DB->get_records('block', array(), 'name ASC');
 
     // Multiblock title (heading).
-    $settings->add(new admin_setting_configtext('block_multiblock/title', get_string('moodle_multiblock_title', 'block_multiblock'),
-    get_string('moodle_multiblock_title_desc', 'block_multiblock'), get_string('pluginname_recommended', 'block_multiblock'),
+    $settings->add(new admin_setting_configtext('block_multiblock/title', get_string('multiblock_title', 'block_multiblock'),
+    get_string('multiblock_title_desc', 'block_multiblock'), "",
     PARAM_TEXT));
 
     // Multiblock presentation style options array.
@@ -42,8 +42,8 @@ if ($ADMIN->fulltree) {
     }
     // Multiblock presentation style.
     $settings->add(new admin_setting_configselect('block_multiblock/presentation',
-    get_string('moodle_multiblock_presentation_style', 'block_multiblock'),
-    get_string('moodle_multiblock_presentation_style_desc', 'block_multiblock'), 0, $multiblockpresentationoptions));
+    get_string('multiblock_presentation_style', 'block_multiblock'),
+    get_string('multiblock_presentation_style_desc', 'block_multiblock'), 7, $multiblockpresentationoptions));
 
     // Multiblock - available sub-blocks.
     $blocklist = [];
@@ -56,7 +56,7 @@ if ($ADMIN->fulltree) {
     }
     // Multiblock manage contents (add subblock).
     $settings->add(new admin_setting_configmultiselect('block_multiblock/subblock',
-    get_string('moodle_multiblock_subblock', 'block_multiblock'),
-    get_string('moodle_multiblock_subblock_desc', 'block_multiblock'), [1], $blocklist));
+    get_string('multiblock_subblock', 'block_multiblock'),
+    get_string('multiblock_subblock_desc', 'block_multiblock'), [1], $blocklist));
 
 }
