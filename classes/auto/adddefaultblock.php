@@ -18,7 +18,8 @@
  * Form for adding a block to a multiblock instance.
  *
  * @package   block_multiblock
- * @copyright 2019 Peter Spicer <peter.spicer@catalyst-eu.net>
+ * @copyright 2022 University of Bath
+ * @author    James Pearce <jmp201@bath.ac.uk>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -29,11 +30,9 @@ use core_plugin_manager;
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * Libeary for adding a block to a multiblock instance.
+ * Library for adding a block to a multiblock instance.
  *
  * @package   block_multiblock
- * @copyright 2019 Peter Spicer <peter.spicer@catalyst-eu.net> 2021 James Pearce <jmp201@bath.ac.uk>
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class adddefaultblock {
     /** @var array Storage of the block name -> block description of possibly addable sub-blocks. */
