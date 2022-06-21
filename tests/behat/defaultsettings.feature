@@ -15,14 +15,6 @@ Background:
       | user     | course | role           |
       | teacher1 | C1     | editingteacher |
       | student1 | C1     | student        |
-    
-    Scenario: Test setting the multiblock title.
-      Given the following config values are set as admin:
-        | title          | Course Toolkit | block_multiblock |
-      When I log in as "teacher1"
-      And I am on "Course 1" course homepage with editing mode on
-      And I add the "Multiblock" block
-      Then I should see "Course Toolkit"
 
     Scenario: Test setting the multiblock presnetation style.
       Given the following config values are set as admin:
