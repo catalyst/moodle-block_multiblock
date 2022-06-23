@@ -73,8 +73,12 @@ class block_multiblock extends block_base {
      * Sets the block's title for a specific instance based on its configuration.
      */
     public function specialization() {
+        $defaulttitle = get_config('block_multiblock', 'title');
         if (isset($this->config->title)) {
             $this->title = format_string($this->config->title, true, ['context' => $this->context]);
+        } 
+        else if ($defaulttitle) {
+            $this->title = format_string($defaulttitle, true, ['context' => $this->context]);
         } 
         else {
             $this->title = get_string('pluginname', 'block_multiblock');
@@ -183,7 +187,7 @@ class block_multiblock extends block_base {
         foreach ($presentations as $presentationid => $presentation) {
             array_push($multiblockpresentationoptions, $presentationid);
         }
-        $configuredpresentation = get_config('block_multiblock')->presentation;
+        $configuredpresentation = get_config('block_multiblock', 'presentation');
         if (!empty($this->config->presentation)) {
             $template = $this->config->presentation;
         } else if ($configuredpresentation) {
@@ -336,7 +340,7 @@ class block_multiblock extends block_base {
     public static function get_default_presentation(): string {
         $presentations = static::get_valid_presentations();
         $multiblockpresentationoptions = [];
-        $configuredpresentation = get_config('block_multiblock')->presentation;
+        $configuredpresentation = get_config('block_multiblock', 'presentation');
         foreach ($presentations as $presentationid => $presentation) {
             array_push($multiblockpresentationoptions, $presentationid);
         }

@@ -29,6 +29,11 @@ if ($ADMIN->fulltree) {
 
     $blocks = $DB->get_records('block', array(), 'name ASC');
 
+    // Multiblock title (heading).
+    $settings->add(new admin_setting_configtext('block_multiblock/title', get_string('multiblock_title', 'block_multiblock'),
+    get_string('multiblock_title_desc', 'block_multiblock'), "",
+    PARAM_TEXT));
+
     // Multiblock presentation style options array.
     $multiblockpresentationoptions = array();
     $presentations = block_multiblock::get_valid_presentations();

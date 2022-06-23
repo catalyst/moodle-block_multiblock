@@ -16,13 +16,22 @@ Background:
       | teacher1 | C1     | editingteacher |
       | student1 | C1     | student        |
 
-    Scenario: Test setting the multiblock presnetation style.
+    Scenario: Test setting the multiblock title.
       Given the following config values are set as admin:
-        | presentation   | 0              | block_multiblock |
+        | title          | Course Toolkit | block_multiblock |
       When I log in as "teacher1"
       And I am on "Course 1" course homepage with editing mode on
       And I add the "Multiblock" block
-      Then I should see an element with css selector "multiblock-accordion"
+      Then I should see "Course Toolkit"
+
+    Scenario: Test setting the multiblock presnetation style.
+      Given the following config values are set as admin:
+        | presentation   | 0                 | block_multiblock |
+        | subblock       | calendar_month    | block_multiblock |
+      When I log in as "teacher1"
+      And I am on "Course 1" course homepage with editing mode on
+      And I add the "Multiblock" block
+      Then ".multiblock.multiblock-accordian" "css_element" should exist
 
     Scenario: Test setting the multiblock presnetation style.
       Given the following config values are set as admin:
@@ -30,4 +39,4 @@ Background:
       When I log in as "teacher1"
       And I am on "Course 1" course homepage with editing mode on
       And I add the "Multiblock" block
-      Then I should see an element with css selector "multiblock" contains "Calendar"
+      Then "Calendar" "text" should exist in the "Multiblock" "block"

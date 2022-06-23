@@ -41,6 +41,8 @@ $string['notitle'] = 'no title';
 $string['layout:main'] = 'Recommended for full width/dashboard use';
 $string['layout:sidebar'] = 'Recommended for sidebar use';
 
+$string['multiblock_title'] = 'Multiblock Title';
+$string['multiblock_title_desc'] = 'This title will be displayed as the heading of multiblock in the course.';
 $string['multiblock_presentation_style'] = 'Multiblock presentation style';
 $string['multiblock_presentation_style_desc'] = 'Select a multiblock presentation style to enhance the personal experience';
 $string['multiblock_subblock'] = 'Multiblock - Subblocks';
