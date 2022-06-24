@@ -31,9 +31,9 @@ Background:
       When I log in as "teacher1"
       And I am on "Course 1" course homepage with editing mode on
       And I add the "Multiblock" block
-      Then ".multiblock.multiblock-accordian" "css_element" should exist
+      Then ".multiblock.multiblock-accordion" "css_element" should exist
 
-    Scenario: Test setting the multiblock presnetation style.
+    Scenario: Test setting the default blocks.
       Given the following config values are set as admin:
         | subblock   | calendar_month    | block_multiblock |
       When I log in as "teacher1"

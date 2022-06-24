@@ -24,6 +24,7 @@
 
 use block_multiblock\helper;
 use block_multiblock\icon_helper;
+use block_multiblock\adddefaultblock;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -130,7 +131,7 @@ class block_multiblock extends block_base {
 
             $defaultblocksarray = explode(',', get_config('block_multiblock')->subblock);
 
-            $addblock = new \block_multiblock\auto\adddefaultblock();
+            $addblock = new adddefaultblock();
             $addblock->init($blockid, $defaultblocksarray, $this->instance);
 
         }
@@ -162,6 +163,7 @@ class block_multiblock extends block_base {
 
         if (empty($this->blocks)) {
             $this->add_default_blocks();
+            $this->load_multiblocks($context->id);
         }
 
         foreach ($this->blocks as $id => $block) {
@@ -192,8 +194,8 @@ class block_multiblock extends block_base {
             $template = $this->config->presentation;
         } else if ($configuredpresentation) {
             $template = $multiblockpresentationoptions[$configuredpresentation];
-        } else if (isset($presentations['accordion'])) {
-            $template = 'accordion';
+        } else if (isset($presentations['tabbed-list'])) {
+            $template = 'tabbed-list';
         }
 
         $renderable = new \block_multiblock\output\main((int) $this->instance->id, $multiblock, $template);

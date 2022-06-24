@@ -19,17 +19,17 @@ Feature: Basic tests of multiple blocks
     When I log in as "teacher1"
     And I am on "Course 1" course homepage with editing mode on
     And I add the "Multiblock" block
-    And I manage the contents of "Course Toolkit" block
+    And I manage the contents of "Multiblock" block
     And I should see "This multiblock has no blocks inside it."
     And I set the field "Add a block" to "Logged in user"
     And I press "Add"
-    And I should see "Manage Course Toolkit contents"
+    And I should see "Manage Multiblock contents"
     And I should see "Logged in user"
     And I set the field "Add a block" to "Recent activity"
     And I press "Add"
     And I log out
     And I log in as "student1"
     And I am on "Course 1" course homepage
-    Then I should see "Course Toolkit"
+    Then I should see "Multiblock"
     And I should see "Logged in user"
     And I should see "Recent activity"

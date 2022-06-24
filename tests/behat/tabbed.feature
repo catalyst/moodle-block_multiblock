@@ -21,10 +21,10 @@ Feature: Tabbed layout
     # The usual 'And I add "Multiblock" block' step can fail in JS with lots of blocks present.
     And I select "Add a block" from flat navigation drawer
     And I click on "Multiblock" "link"
-    And I configure the "Course Toolkit" block
+    And I configure the "Multiblock" block
     And I set the field "Multiblock presentation style" to "Tabs"
     And I press "Save changes"
-    And I manage the contents of "Course Toolkit" block
+    And I manage the contents of "Multiblock" block
     And I expand all fieldsets
     And I set the field "Add a block" to "HTML"
     # Selenium gets confused between the Add button and the "Add a new sub-block" header.

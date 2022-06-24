@@ -23,7 +23,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace block_multiblock\auto;
+namespace block_multiblock;
 use block_multiblock\helper;
 use core_plugin_manager;
 
