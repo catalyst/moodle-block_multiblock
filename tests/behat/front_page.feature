@@ -18,12 +18,12 @@ Feature: Front page test
     And I am on site homepage
     And I turn editing mode on
     And I add the "Multiblock" block
-    And I manage the contents of "Course Toolkit" block
+    And I manage the contents of "Multiblock" block
     And I should see "This multiblock has no blocks inside it."
     And I expand all fieldsets
     And I set the field "Add a block" to "Logged in user"
     And I click on "input[value=Add]" "css_element"
-    And I should see "Manage Course Toolkit contents"
+    And I should see "Manage Multiblock contents"
     And I should see "Logged in user"
     And I expand all fieldsets
     And I set the field "Add a block" to "Recent activity"
@@ -31,6 +31,6 @@ Feature: Front page test
     And I log out
     And I log in as "student1"
     And I am on site homepage
-    Then I should see "Course Toolkit"
+    Then I should see "Multiblock"
     And I should see "Logged in user"
     And I should see "Recent activity"
