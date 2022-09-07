@@ -138,6 +138,7 @@ class helper {
 
         // And hand over to the Moodle architecture to do its thing.
         $PAGE->navigation->initialise();
+        $PAGE->navbar->add(get_string('manageblocklocation', 'block_multiblock'), $actualpageurl);
         $PAGE->navbar->add(get_string('managemultiblock', 'block_multiblock', $blockinstance->get_title()),
             new moodle_url('/blocks/multiblock/manage.php', ['id' => $blockid, 'sesskey' => sesskey()]));
 
