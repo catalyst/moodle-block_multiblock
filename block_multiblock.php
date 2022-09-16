@@ -134,7 +134,21 @@ class block_multiblock extends block_base {
             $isodd = !$isodd;
         }
 
-        $template = !empty($this->config->presentation) ? $this->config->presentation : 'tabbed-list';
+        $template = '';
+        $presentations = static::get_valid_presentations();
+        $multiblockpresentationoptions = [];
+        foreach ($presentations as $presentationid => $presentation) {
+            array_push($multiblockpresentationoptions, $presentationid);
+        }
+        $configuredpresentation = get_config('block_multiblock', 'presentation');
+        if (!empty($this->config->presentation)) {
+            $template = $this->config->presentation;
+        } else if (isset($configuredpresentation)) {
+            $template = $multiblockpresentationoptions[$configuredpresentation];
+        } else if (isset($presentations['tabbed-list'])) {
+            $template = 'tabbed-list';
+        }
+
         $renderable = new \block_multiblock\output\main((int) $this->instance->id, $multiblock, $template);
         $renderer = $this->page->get_renderer('block_multiblock');
 
