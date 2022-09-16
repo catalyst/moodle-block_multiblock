@@ -192,7 +192,7 @@ class block_multiblock extends block_base {
         $configuredpresentation = get_config('block_multiblock', 'presentation');
         if (!empty($this->config->presentation)) {
             $template = $this->config->presentation;
-        } else if (isset($configuredpresentation)) {
+        } else if ($configuredpresentation) {
             $template = $multiblockpresentationoptions[$configuredpresentation];
         } else if (isset($presentations['tabbed-list'])) {
             $template = 'tabbed-list';
