@@ -46,10 +46,10 @@
 
 /* Fix the multiblock 2/3 column layout to hide the parent container and remove its padding. */
 /* Some of the rules are specified again in more selective versions for different themes. */
+/* removed overflow: hidden; as it hides action menu options if element is too short. */
 .multiblock-columns-2-parent[id^="inst"], .multiblock-columns-3-parent[id^="inst"] {
     background: transparent;
     border: transparent;
-    overflow: hidden;
 }
 .multiblock-columns-2-parent[id^="inst"] .multiblock > .container, .multiblock-columns-3-parent[id^="inst"] .multiblock > .container {
     padding: 0;
