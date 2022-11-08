@@ -25,7 +25,7 @@ Feature: Accordion layout
     And I manage the contents of "Multiblock" block
     And I expand all fieldsets
     And I set the field "Move existing block" to "Logged in user"
-    And I press "Move"
+    And I click on "input[value=Move]" "css_element"
     And I log out
     And I log in as "student1"
     And I am on "Course 1" course homepage

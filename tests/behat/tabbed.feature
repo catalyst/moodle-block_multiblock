@@ -19,26 +19,25 @@ Feature: Tabbed layout
     When I log in as "teacher1"
     And I am on "Course 1" course homepage with editing mode on
     # The usual 'And I add "Multiblock" block' step can fail in JS with lots of blocks present.
-    And I select "Add a block" from flat navigation drawer
-    And I click on "Multiblock" "link"
+    And I add the "Multiblock" block
     And I configure the "Multiblock" block
     And I set the field "Multiblock presentation style" to "Tabs"
     And I press "Save changes"
     And I manage the contents of "Multiblock" block
     And I expand all fieldsets
-    And I set the field "Add a block" to "HTML"
+    And I set the field "Add a block" to "Text"
     # Selenium gets confused between the Add button and the "Add a new sub-block" header.
     And I click on "input[value=Add]" "css_element"
-    And I click on "Settings" "link" in the "(new HTML block)" "table_row"
-    And I set the field "HTML block title" to "First Item"
+    And I click on "Settings" "link" in the "(new text block)" "table_row"
+    And I set the field "Text block title" to "First Item"
     And I set the field "Content" to "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
     And I press "Save and return to manage"
     And I expand all fieldsets
-    And I set the field "Add a block" to "HTML"
+    And I set the field "Add a block" to "Text"
     # Selenium gets confused between the Add button and the "Add a new sub-block" header.
     And I click on "input[value=Add]" "css_element"
-    And I click on "Settings" "link" in the "(new HTML block)" "table_row"
-    And I set the field "HTML block title" to "Second Item"
+    And I click on "Settings" "link" in the "(new text block)" "table_row"
+    And I set the field "Text block title" to "Second Item"
     And I set the field "Content" to "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
     And I press "Save and return to manage"
     And I log out

@@ -22,11 +22,11 @@ Feature: Basic tests of multiple blocks
     And I manage the contents of "Multiblock" block
     And I should see "This multiblock has no blocks inside it."
     And I set the field "Add a block" to "Logged in user"
-    And I press "Add"
+    And I click on "input[value=Add]" "css_element"
     And I should see "Manage Multiblock contents"
     And I should see "Logged in user"
     And I set the field "Add a block" to "Recent activity"
-    And I press "Add"
+    And I click on "input[value=Add]" "css_element"
     And I log out
     And I log in as "student1"
     And I am on "Course 1" course homepage
