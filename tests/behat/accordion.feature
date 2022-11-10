@@ -25,19 +25,13 @@ Feature: Accordion
     And I press "Save changes"
     And I manage the contents of "Multiblock" block
     And I expand all fieldsets
-    And I set the field "Add a block" to "Text"
-    # Selenium gets confused between the Add button and the "Add a new sub-block" header.
-    And I click on "input[value=Add]" "css_element"
-    And I click on "Settings" "link" in the "(new text block)" "table_row"
-    And I set the field "Text block title" to "First Item"
+    And I add the HTML block field
+    And I set the title of the HTML block to "First Item"
     And I set the field "Content" to "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
     And I press "Save and return to manage"
     And I expand all fieldsets
-    And I set the field "Add a block" to "Text"
-    # Selenium gets confused between the Add button and the "Add a new sub-block" header.
-    And I click on "input[value=Add]" "css_element"
-    And I click on "Settings" "link" in the "(new text block)" "table_row"
-    And I set the field "Text block title" to "Second Item"
+    And I add the HTML block field
+    And I set the title of the HTML block to "Second Item"
     And I set the field "Content" to "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
     And I press "Save and return to manage"
     And I log out
