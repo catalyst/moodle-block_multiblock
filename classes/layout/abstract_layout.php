@@ -24,8 +24,6 @@
 
 namespace block_multiblock\layout;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Behaviour for a base abstract layout.
  *

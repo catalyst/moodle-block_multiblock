@@ -26,8 +26,6 @@ namespace block_multiblock\layout;
 
 use block_multiblock\helper;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Behaviour for vertical-tabbed-list-right layout.
  *
