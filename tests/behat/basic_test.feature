@@ -4,7 +4,7 @@ Feature: Basic tests of multiple blocks
     As a teacher
     I need to be able to put multiple blocks in a single space
 
-    Scenario: Adding a Course Toolkit with two sub-blocks
+  Scenario: Adding a Course Toolkit with two sub-blocks
     Given the following "users" exist:
       | username | firstname | lastname | email                |
       | teacher1 | Teacher   | One      | teacher@example.com  |

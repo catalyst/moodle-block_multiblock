@@ -4,7 +4,7 @@ Feature: Tabbed layout
     As a teacher
     I need to be able to focus content with a tabbed layout
 
-    Scenario: Testing tabbed layout
+  Scenario: Testing tabbed layout
     Given the following "users" exist:
       | username | firstname | lastname | email                |
       | teacher1 | Teacher   | One      | teacher@example.com  |

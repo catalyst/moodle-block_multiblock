@@ -4,7 +4,7 @@ Feature: Vertical tabbed layout (right)
     As a teacher
     I need to be able to focus content with a vertical tabbed layout
 
-    Scenario: Testing vertical tabbed layout (right)
+  Scenario: Testing vertical tabbed layout (right)
     Given the following "users" exist:
       | username | firstname | lastname | email                |
       | teacher1 | Teacher   | One      | teacher@example.com  |

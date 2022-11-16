@@ -4,7 +4,7 @@ Feature: Accordion layout
     As a teacher
     I need to be able to merge existing blocks into a newly made multiblock
 
-    Scenario: Creating a block and then moving it into a multiblock
+  Scenario: Creating a block and then moving it into a multiblock
     Given the following "users" exist:
       | username | firstname | lastname | email                |
       | teacher1 | Teacher   | One      | teacher@example.com  |

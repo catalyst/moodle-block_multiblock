@@ -4,7 +4,7 @@ Feature: Accordion
     As a teacher
     I need to be able to focus content with an accordion layout
 
-    Scenario: Testing accordion layout
+  Scenario: Testing accordion layout
     Given the following "users" exist:
       | username | firstname | lastname | email                |
       | teacher1 | Teacher   | One      | teacher@example.com  |
