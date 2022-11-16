@@ -27,8 +27,6 @@ namespace block_multiblock;
 use core\output\flex_icon;
 use pix_icon;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Icon handling abstraction.
  *

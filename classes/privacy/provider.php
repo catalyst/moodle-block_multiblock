@@ -24,8 +24,6 @@
 
 namespace block_multiblock\privacy;
 
-defined('MOODLE_INTERNAL') || die();
-
 use context;
 use context_block;
 use core_privacy\local\metadata\collection;
@@ -36,7 +34,6 @@ use core_privacy\local\request\contextlist;
 use core_privacy\local\request\core_userlist_provider as userlist_provider;
 use core_privacy\local\request\plugin\provider as plugin_provider;
 use core_privacy\local\request\userlist;
-
 
 /**
  * Privacy Subsystem implementation for block_multiblock.
