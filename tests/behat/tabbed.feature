@@ -31,8 +31,7 @@ Feature: Tabbed layout
     And I press "Save and return to manage"
     And I expand all fieldsets
     And I add the HTML block field
-    And I click on "Settings" "link" in the "(new text block)" "table_row"
-    And I set the field "Text block title" to "Second Item"
+    And I set the title of the HTML block to "Second Item"
     And I set the field "Content" to "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
     And I press "Save and return to manage"
     And I log out
