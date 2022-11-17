@@ -113,4 +113,18 @@ class behat_block_multiblock extends behat_base {
         $this->execute("behat_general::i_click_on_in_the", ["Settings", "link", $oldtitle, "table_row"]);
         $this->execute("behat_forms::i_set_the_field_to", [$this->escape($titlefieldlabel), $this->escape($newtitle)]);
     }
+
+    /**
+     * Enables editing mode for when you are on the dashboard.
+     *
+     * @Given /^I enable editing mode whilst on the dashboard$/
+     */
+    public function i_enable_editing_mode_whilst_on_the_dashboard() {
+        global $CFG;
+        if ($CFG->branch >= 400) {
+            $this->execute("behat_navigation::i_turn_editing_mode_on");
+        } else {
+            $this->execute("behat_general::i_click_on_in_the", ["Customise this page", "button", "[id='page-header']", "css_element"]);
+        }
+    }
 }

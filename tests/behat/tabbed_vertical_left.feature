@@ -9,7 +9,7 @@ Feature: Vertical tabbed layout (left)
       | username | firstname | lastname | email                |
       | teacher1 | Teacher   | One      | teacher@example.com  |
     When I log in as "teacher1"
-    And I turn editing mode on
+    And I enable editing mode whilst on the dashboard
     # The usual 'And I add "Multiblock" block' step can fail in JS with lots of blocks present.
     And I add the "Multiblock" block
     And I configure the "Multiblock" block
