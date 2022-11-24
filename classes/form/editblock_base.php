@@ -26,8 +26,6 @@ namespace block_multiblock\form;
 
 use block_multiblock_proxy_edit_form;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Base class for common support when editing a multiblock subblock.
  *

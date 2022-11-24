@@ -34,8 +34,6 @@ use moodle_exception;
 use moodle_url;
 use navigation_node;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Supporting infrastructure for the multiblock editing.
  *

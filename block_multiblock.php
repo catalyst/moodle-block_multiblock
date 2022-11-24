@@ -26,8 +26,6 @@ use block_multiblock\helper;
 use block_multiblock\icon_helper;
 use block_multiblock\adddefaultblock;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Block multiblock class definition.
  *
@@ -77,11 +75,9 @@ class block_multiblock extends block_base {
         $defaulttitle = get_config('block_multiblock', 'title');
         if (isset($this->config->title)) {
             $this->title = format_string($this->config->title, true, ['context' => $this->context]);
-        } 
-        else if ($defaulttitle) {
+        } else if ($defaulttitle) {
             $this->title = format_string($defaulttitle, true, ['context' => $this->context]);
-        } 
-        else {
+        } else {
             $this->title = get_string('pluginname', 'block_multiblock');
         }
     }

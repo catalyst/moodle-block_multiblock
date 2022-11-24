@@ -24,8 +24,6 @@
 
 use block_multiblock\helper;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Clean up multiblocks when uninstalling.
  *

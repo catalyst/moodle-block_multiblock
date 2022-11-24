@@ -27,8 +27,6 @@ namespace block_multiblock;
 use block_multiblock\helper;
 use core_plugin_manager;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Library for adding a block to a multiblock instance.
  *
