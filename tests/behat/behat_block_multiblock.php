@@ -37,6 +37,25 @@ require_once(__DIR__ . '/../../../../lib/behat/behat_base.php');
  */
 class behat_block_multiblock extends behat_base {
 
+    private $htmlblock = null;
+
+    private function htmlblock() {
+        if (!empty($this->htmlblock)) {
+            return $this->htmlblock;
+        }
+
+        global $CFG;
+        $newblockname = $CFG->branch >= 400;
+
+        $htmlblock = new stdClass;
+        $htmlblock->name = $newblockname ? 'Text' : 'HTML';
+        $htmlblock->defaulttitle = $newblockname ? '(new text block)' : '(new HTML block)';
+
+        $this->htmlblock = $htmlblock;
+
+        return $htmlblock;
+    }
+
     /**
      * Clicks on "Manage ... contents" for specified block. Page must be in editing mode.
      *
@@ -50,10 +69,62 @@ class behat_block_multiblock extends behat_base {
         // Problem 2, the string conceivably could be 'Manage  contents' if the block name is empty.
         // As such we need to use what we do have of it.
 
+        if (in_array($blockname, ["Text", "HTML"])) {
+            $htmlblock = $this->htmlblock();
+            $blockname = $htmlblock->name;
+        }
+
         $this->execute("behat_blocks::i_open_the_blocks_action_menu", $this->escape($blockname));
 
         $this->execute('behat_general::i_click_on_in_the',
             array("Manage", "link", $this->escape($blockname), "block")
         );
+    }
+
+    /**
+     * Adds an Text/HTML subblock in the manage contents page of a multiblock.
+     *
+     * @Given /^I add the HTML block field$/
+     */
+    public function i_add_the_html_block_field() {
+        $block = $this->htmlblock();
+
+        $this->execute("behat_forms::i_set_the_field_to", ["Add a block", $this->escape($block->name)]);
+        $this->execute("behat_general::i_click_on_in_the", ["input[value=Add]", "css_element", "[role=main]", "css_element"]);
+    }
+
+    /**
+     * Changes the title of a Text/HTML block in its configuration page.
+     *
+     * Argument oldtitle is the current name of the block.
+     * Argument newtitle is the new name of the block.
+     *
+     * @Given /^I set the title of the HTML block to "(?P<new_title_string>(?:[^"]|\\")*)"$/
+     * @Given /^I set the title of the HTML block to "(?P<new_title_string>(?:[^"]|\\")*)" from "(?P<old_title_string>(?:[^"]|\\")*)"$/
+     *
+     * @param string $newtitle
+     * @param string|false $oldtitle
+     */
+    public function i_set_the_title_of_the_html_block_to($newtitle, $oldtitle = false) {
+        $block = $this->htmlblock();
+        $titlefieldlabel = $block->name . ' block title';
+        $oldtitle = $oldtitle ?: $block->defaulttitle;
+
+        $this->execute("behat_general::i_click_on_in_the", ["Settings", "link", $oldtitle, "table_row"]);
+        $this->execute("behat_forms::i_set_the_field_to", [$this->escape($titlefieldlabel), $this->escape($newtitle)]);
+    }
+
+    /**
+     * Enables editing mode for when you are on the dashboard.
+     *
+     * @Given /^I enable editing mode whilst on the dashboard$/
+     */
+    public function i_enable_editing_mode_whilst_on_the_dashboard() {
+        global $CFG;
+        if ($CFG->branch >= 400) {
+            $this->execute("behat_navigation::i_turn_editing_mode_on");
+        } else {
+            $this->execute("behat_general::i_click_on_in_the", ["Customise this page", "button", "[id='page-header']", "css_element"]);
+        }
     }
 }

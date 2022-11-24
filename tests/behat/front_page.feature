@@ -4,7 +4,7 @@ Feature: Front page test
     As a teacher
     I need to be able to put multiple blocks in a single space
 
-    Scenario: Adding a Multiblock on the front page
+  Scenario: Adding a Multiblock on the front page
     Given the following "users" exist:
       | username | firstname | lastname | email                |
       | student1 | Student   | User     | student1@example.com |

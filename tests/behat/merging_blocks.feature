@@ -4,7 +4,7 @@ Feature: Accordion layout
     As a teacher
     I need to be able to merge existing blocks into a newly made multiblock
 
-    Scenario: Creating a block and then moving it into a multiblock
+  Scenario: Creating a block and then moving it into a multiblock
     Given the following "users" exist:
       | username | firstname | lastname | email                |
       | teacher1 | Teacher   | One      | teacher@example.com  |
@@ -25,7 +25,7 @@ Feature: Accordion layout
     And I manage the contents of "Multiblock" block
     And I expand all fieldsets
     And I set the field "Move existing block" to "Logged in user"
-    And I press "Move"
+    And I click on "input[value=Move]" "css_element"
     And I log out
     And I log in as "student1"
     And I am on "Course 1" course homepage
