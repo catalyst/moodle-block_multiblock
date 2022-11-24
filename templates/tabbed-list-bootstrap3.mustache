@@ -44,7 +44,7 @@
     <ul class="nav nav-tabs" id="multiblock-container-{{multiblockid}}" role="tablist">
         {{#multiblock}}
             <li role="presentation"{{#active}} class="active"{{/active}}>
-                <a id="multiblock-tab-{{multiblockid}}-{{id}}" data-toggle="tab" href="#multiblock-{{multiblockid}}-{{id}}" role="tab" aria-controls="multiblock-tab-{{multiblockid}}-{{id}}" aria-selected="{{#active}}true{{/active}}{{^active}}false{{/active}}">{{title}}</a>
+                <a id="multiblock-tab-{{multiblockid}}-{{id}}" data-toggle="tab" href="#multiblock-{{multiblockid}}-{{id}}" role="tab" aria-controls="multiblock-tab-{{multiblockid}}-{{id}}" aria-selected="{{#active}}true{{/active}}{{^active}}false{{/active}}">{{{title}}}</a>
             </li>
         {{/multiblock}}
     </ul>
@@ -59,4 +59,4 @@
             </div>
         {{/multiblock}}
     </div>
-</div>
+</div>
