@@ -49,7 +49,6 @@
 .multiblock-columns-2-parent[id^="inst"], .multiblock-columns-3-parent[id^="inst"] {
     background: transparent;
     border: transparent;
-    overflow: hidden;
 }
 .multiblock-columns-2-parent[id^="inst"] .multiblock > .container, .multiblock-columns-3-parent[id^="inst"] .multiblock > .container {
     padding: 0;
