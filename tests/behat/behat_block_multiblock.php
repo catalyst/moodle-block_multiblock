@@ -99,8 +99,8 @@ class behat_block_multiblock extends behat_base {
      * Argument oldtitle is the current name of the block.
      * Argument newtitle is the new name of the block.
      *
-     * @Given /^I set the title of the HTML block to "(?P<new_title_string>(?:[^"]|\\")*)"$/
-     * @Given /^I set the title of the HTML block to "(?P<new_title_string>(?:[^"]|\\")*)" from "(?P<old_title_string>(?:[^"]|\\")*)"$/
+     * @Given /^I set the title of the HTML block to "(?P<new_string>(?:[^"]|\\")*)"$/
+     * @Given /^I set the title of the HTML block to "(?P<new_string>(?:[^"]|\\")*)" from "(?P<old_string>(?:[^"]|\\")*)"$/
      *
      * @param string $newtitle
      * @param string|false $oldtitle
@@ -124,7 +124,15 @@ class behat_block_multiblock extends behat_base {
         if ($CFG->branch >= 400) {
             $this->execute("behat_navigation::i_turn_editing_mode_on");
         } else {
-            $this->execute("behat_general::i_click_on_in_the", ["Customise this page", "button", "[id='page-header']", "css_element"]);
+            $this->execute(
+                'behat_general::i_click_on_in_the',
+                [
+                    'Customise this page',
+                    'button',
+                    "[id='page-header']",
+                    'css_element'
+                ]
+            );
         }
     }
 }
