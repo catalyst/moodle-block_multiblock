@@ -25,7 +25,6 @@
 
 namespace block_multiblock;
 use block_multiblock\helper;
-use core_plugin_manager;
 
 /**
  * Library for adding a block to a multiblock instance.
@@ -54,7 +53,7 @@ class adddefaultblock {
      * selects the ones defined in the current default blocks setting and creates an instance of that new block
      * then moves it to the multiblock.
      *
-     * @param int $id is the id of the multiblock
+     * @param int $blockid is the id of the multiblock
      * @param array $arraytoadd is an array of blocks to add
      * @param object $multiblockinstance is the parent multiblock instance
      */

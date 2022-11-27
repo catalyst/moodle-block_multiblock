@@ -49,8 +49,6 @@ class block_multiblock extends block_base {
     /**
      * has_config - denotes whether your block wants to present a configuration interface to site admins or not
      *
-     * @package  block_baseline
-     *
      * @return boolean
      */
     public function has_config() {

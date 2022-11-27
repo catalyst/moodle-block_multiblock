@@ -36,9 +36,14 @@ require_once(__DIR__ . '/../../../../lib/behat/behat_base.php');
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class behat_block_multiblock extends behat_base {
-
+    /** @var object|null HTML/Text object based on moodle version. */
     private $htmlblock = null;
 
+    /**
+     * Return HTML/Text object based on moodle version
+     *
+     * @return object
+     */
     private function htmlblock() {
         if (!empty($this->htmlblock)) {
             return $this->htmlblock;
