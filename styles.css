@@ -10,7 +10,7 @@
 
 /* But make sure there is some spacing in the inner container. */
 .block-region .block.card .multiblock-accordion [id^="multiblock-content"] .card-body {
-    padding: 1.25rem !important;
+    padding: 1.25rem;
 }
 
 /* Make dropdown full width */
@@ -24,62 +24,77 @@
 
 /* Make 2-column layout not broken, generically. */
 .multiblock-columns-2 .col-md-6:nth-of-type(odd) section {
-    margin-right: 0.5rem !important;
+    margin-left: 1rem;
+    margin-right: 0.5rem;
 }
 .multiblock-columns-2 .col-md-6:nth-of-type(even) section {
-    margin-left: 0.5rem !important;
+    margin-left: 0.5rem;
+    margin-right: 1rem;
 }
 
 .multiblock-columns-2-66-33 .col-md-8 section {
-    margin-right: 0.5rem !important;
+    margin-left: 1rem;
+    margin-right: 0.5rem;
 }
 .multiblock-columns-2-66-33 .col-md-4 section {
-    margin-left: 0.5rem !important;
+    margin-left: 0.5rem;
+    margin-right: 1rem;
 }
 
 .multiblock-columns-2-33-66 .col-md-4 section {
-    margin-right: 0.5rem !important;
+    margin-left: 1rem;
+    margin-right: 0.5rem;
 }
 .multiblock-columns-2-33-66 .col-md-8 section {
-    margin-left: 0.5rem !important;
+    margin-left: 0.5rem;
+    margin-right: 1rem;
 }
 
 /* Fix the multiblock 2/3 column layout to hide the parent container and remove its padding. */
 /* Some of the rules are specified again in more selective versions for different themes. */
-.multiblock-columns-2-parent[id^="inst"], .multiblock-columns-3-parent[id^="inst"] {
+.multiblock-columns-2-parent[id^="inst"],
+.multiblock-columns-3-parent[id^="inst"] {
     background: transparent;
     border: transparent;
 }
-.multiblock-columns-2-parent[id^="inst"] .multiblock > .container, .multiblock-columns-3-parent[id^="inst"] .multiblock > .container {
+.multiblock-columns-2-parent[id^="inst"] .multiblock > .container,
+.multiblock-columns-3-parent[id^="inst"] .multiblock > .container {
     padding: 0;
     max-width: 100%;
 }
-.multiblock-columns-2-parent[id^="inst"] .multiblock > .container > .row > [class*="col-md-"], .multiblock-columns-3-parent[id^="inst"] .multiblock > .container > .row > [class*="col-md-"] {
+.multiblock-columns-2-parent[id^="inst"] .multiblock > .container > .row > [class*="col-md-"],
+.multiblock-columns-3-parent[id^="inst"] .multiblock > .container > .row > [class*="col-md-"] {
     padding: 0;
 }
-.multiblock-columns-2-parent[id^="inst"] > .card-body, .multiblock-columns-3-parent[id^="inst"] > .card-body {
-    padding: 0 !important;
-    border: transparent !important;
+.multiblock-columns-2-parent[id^="inst"] > .card-body,
+.multiblock-columns-3-parent[id^="inst"] > .card-body {
+    padding: 0 !important; /* stylelint-disable-line declaration-no-important */
+    border: transparent !important; /* stylelint-disable-line declaration-no-important */
 }
-.multiblock-columns-2-parent[id^="inst"] > .card-body > .card-text, .multiblock-columns-3-parent[id^="inst"] > .card-body > .card-text {
-    margin-top: 0 !important;
-    padding: 0 !important;
+.multiblock-columns-2-parent[id^="inst"] > .card-body > .card-text,
+.multiblock-columns-3-parent[id^="inst"] > .card-body > .card-text {
+    margin-top: 0 !important; /* stylelint-disable-line declaration-no-important */
+    padding: 0 !important; /* stylelint-disable-line declaration-no-important */
 }
-.multiblock-columns-2-parent > .card-body > .card-title + .card-text, .multiblock-columns-2-parent[id^="inst"] > .card-body > .block-controls + .card-text,
- .multiblock-columns-3-parent > .card-body > .card-title + .card-text, .multiblock-columns-3-parent[id^="inst"] > .card-body > .block-controls + .card-text {
-    margin-top: 0.75rem !important;
+.multiblock-columns-2-parent > .card-body > .card-title + .card-text,
+.multiblock-columns-2-parent[id^="inst"] > .card-body > .block-controls + .card-text,
+.multiblock-columns-3-parent > .card-body > .card-title + .card-text,
+.multiblock-columns-3-parent[id^="inst"] > .card-body > .block-controls + .card-text {
+    margin-top: 0.75rem !important; /* stylelint-disable-line declaration-no-important */
 }
 
 /* Additional tweaks for 3-column specifically. */
 .multiblock-columns-3 .col-md-4:nth-of-type(3n+1) section {
-    margin-right: 0.5rem !important;
+    margin-left: 1rem;
+    margin-right: 0.5rem;
 }
 .multiblock-columns-3 .col-md-4:nth-of-type(3n+2) section {
-    margin-left: 0.5rem !important;
-    margin-right: 0.5rem !important;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
 }
 .multiblock-columns-3 .col-md-4:nth-of-type(3n+3) section {
-    margin-left: 0.5rem !important;
+    margin-left: 0.5rem;
+    margin-right: 1rem;
 }
 
 /* Style fixes for multiblock. */
