@@ -45,7 +45,7 @@
     <div class="card" role="region">
         <div class="card-header" id="multiblock-container-{{multiblockid}}-{{id}}">
             <h5 class="mb-0">
-                <button class="btn btn-link{{^active}} collapsed{{/active}}" data-toggle="collapse" data-target="#multiblock-content-{{multiblockid}}-{{id}}" aria-checked="{{#active}}true{{/active}}{{^active}}false{{/active}}" aria-controls="multiblock-content-{{multiblockid}}-{{id}}" type="button" role="button">{{{title}}}</button>
+                <a class="btn btn-link{{^active}} collapsed{{/active}}" data-toggle="collapse" href="#multiblock-content-{{multiblockid}}-{{id}}" role="button" aria-checked="{{#active}}true{{/active}}{{^active}}false{{/active}}" aria-controls="multiblock-content-{{multiblockid}}-{{id}}">{{{title}}}</a>
             </h5>
         </div>
         <div id="multiblock-content-{{multiblockid}}-{{id}}" class="collapse{{#active}} show{{/active}}" aria-labelledby="multiblock-container-{{multiblockid}}-{{id}}" data-parent="#multiblock-{{multiblockid}}">
