@@ -218,12 +218,13 @@ class block_multiblock extends block_base {
             return $bc;
         }
 
+        $str = get_string('managemultiblock', 'block_multiblock', $this->title);
+
         $newcontrols = [];
         foreach ($bc->controls as $control) {
             $newcontrols[] = $control;
             // Append our new item onto the controls if we're on the correct item.
             if (strpos($control->attributes['class'], 'editing_edit') !== false) {
-                $str = get_string('managemultiblock', 'block_multiblock', $this->title);
                 $newcontrols[] = new action_menu_link_secondary(
                     new moodle_url('/blocks/multiblock/manage.php', ['id' => $this->instance->id, 'sesskey' => sesskey()]),
                     icon_helper::preferences($str),
