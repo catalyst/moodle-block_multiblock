@@ -78,6 +78,10 @@ class navigation {
             if ($block->pagetypepattern == 'my-index') {
                 return new moodle_url('/my/indexsys.php');
             }
+            // Fix for Workplace custom pages
+            if ($block->pagetypepattern == 'admin-tool-custompage') {
+                return new moodle_url('/admin/tool/custompage/view.php', ['id' => $block->subpagepattern]);
+            }
             if (strpos($block->pagetypepattern, 'totara-dashboard') !== false) {
 
                 if (preg_match('~^totara-dashboard-(\d+)$~', $block->pagetypepattern, $match)) {
