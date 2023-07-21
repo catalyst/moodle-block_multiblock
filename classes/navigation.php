@@ -90,6 +90,13 @@ class navigation {
 
                 return new moodle_url('/totara/dashboard/layout.php', ['id' => 1]);
             }
+            // If local_dboard dashboard is being customised.
+            if (strpos($block->pagetypepattern, 'dboard') !== false) {
+                if (preg_match('~^dboard-(\d+)$~', $block->pagetypepattern, $match)) {
+                    return new moodle_url('/local/dboard/index.php', ['id' => $match[1]]);
+                }
+                return new moodle_url('/totara/dashboard/layout.php', ['id' => 1]);
+            }
             return static::map_site_context_url($block->pagetypepattern, $parentcontext);
         }
 
