@@ -59,6 +59,9 @@ class helper {
         if (!is_null($url)) {
             static::$pageurl = $url;
         }
+        if (static::$pageurl->get_path() === '/local/dboard/index.php' && static::$pageurl->get_param('id') != null) {
+            $PAGE->set_pagetype('dboard-' . static::$pageurl->get_param('id'));
+        }
 
         $PAGE->set_url(static::$pageurl);
     }
