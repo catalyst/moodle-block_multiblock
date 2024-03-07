@@ -39,6 +39,9 @@ class block_multiblock extends block_base {
     /** @var object $output Temporary storage of the injected page renderer so we can pass it to child blocks at render time. */
     private $output;
 
+    /** @var array $blocks Collection of child blocks handled. */
+    private $blocks;
+
     /**
      * Core function used to initialize the block.
      */
