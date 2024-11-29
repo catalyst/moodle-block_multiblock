@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die;
 if ($ADMIN->fulltree) {
     global $DB, $PAGE, $CFG;
 
-    $blocks = $DB->get_records('block', array(), 'name ASC');
+    $blocks = $DB->get_records('block', array('visible' => 1), 'name ASC');
 
     // Multiblock title (heading).
     $settings->add(new admin_setting_configtext('block_multiblock/title', get_string('multiblock_title', 'block_multiblock'),
