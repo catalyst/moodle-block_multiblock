@@ -47,7 +47,7 @@ $string['multiblock_title_desc'] = 'This title will be displayed as the heading 
 $string['multiblock_presentation_style'] = 'Multiblock presentation style';
 $string['multiblock_presentation_style_desc'] = 'Select a multiblock presentation style to enhance the personal experience';
 $string['multiblock_subblock'] = 'Multiblock - Subblocks';
-$string['multiblock_subblock_desc'] = 'Multiple blocks can be selected';
+$string['multiblock_subblock_desc'] = 'Select the subblocks to be added by default to a new multiblock instance. ';
 $string['multiblock:addinstance'] = 'Add a Multiblock';
 $string['multiblock:myaddinstance'] = 'Add a Multiblock to Dashboard';
 
