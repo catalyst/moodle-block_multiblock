@@ -92,6 +92,9 @@ class block_multiblock extends block_base {
     public function load_multiblocks($contextid) {
         global $DB;
 
+        // Cleanup incorrect parentcontext.
+        $this->cleanup($contextid);
+
         // Find all the things that relate to this block.
         $this->blocks = $DB->get_records('block_instances', ['parentcontextid' => $contextid], 'defaultweight, id');
         foreach ($this->blocks as $id => $block) {
@@ -132,6 +135,45 @@ class block_multiblock extends block_base {
             $addblock->init($blockid, $defaultblocksarray, $this->instance);
 
         }
+    }
+
+    /**
+     * Clean up incorrect parentcontextid entered by tool_custompages on page duplication.
+     *
+     * @param int $contextid
+     * @return void
+     */
+    private function cleanup($contextid) {
+        global $DB;
+        $sql = 'SELECT b.subpagepattern FROM {context} c LEFT JOIN {block_instances} b ON b.id = c.instanceid
+        WHERE c.id = :cid';
+        $subpagepattern = $DB->get_field_sql($sql, ['cid' => $contextid]);
+        // Clone page.
+        $blocks = $DB->get_records_sql('SELECT * FROM {block_instances}
+        WHERE subpagepattern LIKE :subpagepattern AND parentcontextid != 1 AND timecreated = timemodified',
+        ['subpagepattern' => $subpagepattern]);
+        foreach ($blocks as $block) {
+            $path = $DB->get_field('context', 'path', ['instanceid' => $block->id]);
+            if ($block->parentcontextid != $contextid) {
+                $newpath = str_replace($block->parentcontextid, $contextid, $path);
+                $DB->execute('UPDATE {block_instances} SET parentcontextid = :cparentcontextid, timemodified = :timemodified
+                WHERE id = :id',
+                    ['cparentcontextid' => $contextid, 'id' => $block->id, 'timemodified' => time()]);
+                $DB->execute('UPDATE {context} SET path = :newpath WHERE instanceid = :instanceid',
+                    ['newpath' => $newpath, 'instanceid' => $block->id]);
+            }
+        }
+        // Original page.
+        $blocks = $DB->get_records_sql('SELECT * FROM {block_instances}
+        WHERE parentcontextid = :contextid',
+        ['contextid' => $contextid]);
+        foreach ($blocks as $block) {
+            if ($block->subpagepattern != $subpagepattern) {
+                $DB->execute('UPDATE {block_instances} SET parentcontextid = -1 WHERE id = :id',
+                    ['id' => $block->id]);
+            }
+        }
+
     }
 
     /**
@@ -272,6 +314,10 @@ class block_multiblock extends block_base {
         // Create all the new block instances.
         $newblockinstanceids = [];
         foreach ($blockinstances as $instance) {
+            // Do not add if creation is being initiated by tool_custompage.
+            if ($instance->pagetypepattern == 'admin-tool-custompage') {
+                continue;
+            }
             $originalid = $instance->id;
             unset($instance->id);
             $instance->parentcontextid = $this->context->id;
@@ -295,8 +341,16 @@ class block_multiblock extends block_base {
      * @return bool
      */
     public function instance_delete() {
-        global $DB;
-
+        global $DB, $pageid;
+        // Do not delete if deletion is being initiated by tool_custompage.
+        foreach ($DB->get_records('block_instances', ['id' => $this->context->instanceid]) as $block) {
+            if ($block->pagetypepattern == 'admin-tool-custompage' && $pageid != $block->subpagepattern ) {
+                if ($this->instance->id == $block->id) {
+                    $this->instance->id = -1;
+                }
+                return true;
+            }
+        }
         // Find all the things that relate to this block.
         foreach ($DB->get_records('block_instances', ['parentcontextid' => $this->context->id]) as $subblock) {
             blocks_delete_instance($subblock);
