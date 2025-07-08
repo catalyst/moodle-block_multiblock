@@ -1,0 +1,60 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template block_multiblock/accordion-bootstrap4
+
+    This template shows the multiple blocks in an accordion
+
+    Example context (json):
+    {
+        "multiblockid": 28,
+        "multiblock": [
+            {
+                "id": 1,
+                "title": "Block 1",
+                "content": "<p>Block 1</p>",
+                "footer": "My footer",
+                "active": true
+            },
+            {
+                "id": 2,
+                "title": "Block 2",
+                "content": "<p>Block 2</p>",
+                "footer": "",
+                "active": false
+            }
+        ]
+    }
+}}
+<div class="multiblock multiblock-accordion accordion" id="multiblock-{{multiblockid}}">
+    {{#multiblock}}
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="multiblock-container-{{multiblockid}}-{{id}}">
+            <button class="accordion-button {{^active}} collapsed{{/active}}" data-bs-toggle="collapse" data-bs-target="#multiblock-content-{{multiblockid}}-{{id}}" type="button" aria-controls="multiblock-content-{{multiblockid}}-{{id}}" aria-expanded="{{^active}}false{{/active}}{{#active}}true{{/active}}">
+            {{{title}}}
+            </button>
+        </h2>
+        <div id="multiblock-content-{{multiblockid}}-{{id}}" class="accordion-collapse collapse{{#active}} show{{/active}}" aria-labelledby="multiblock-container-{{multiblockid}}-{{id}}" data-bs-parent="#multiblock-{{multiblockid}}">
+            <div class="accordion-body {{class}}">
+                {{{content}}}
+                <div class="footer">{{{footer}}}</div>
+                {{{annotation}}}
+            </div>
+        </div>
+    </div>
+    {{/multiblock}}
+</div>

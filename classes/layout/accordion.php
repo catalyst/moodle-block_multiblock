@@ -50,10 +50,16 @@ class accordion extends abstract_layout {
      * @return string The Mustache template.
      */
     public function get_template() : string {
-        if (!helper::is_totara()) {
-            return 'block_multiblock/accordion-bootstrap4';
-        } else {
+        global $CFG;
+        // Totara uses Bootstrap 3.
+        if (helper::is_totara()) {
             return 'block_multiblock/accordion-bootstrap3';
         }
+        // Starting with Moodle 5.0, Moodle uses Bootstrap 5.
+        if ($CFG->version >= 2025041400) {
+            return 'block_multiblock/accordion-bootstrap5';
+        }
+        // For Moodle versions before 5.0, use Bootstrap 4.
+        return 'block_multiblock/accordion-bootstrap4';
     }
 }
