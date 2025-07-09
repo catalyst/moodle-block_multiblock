@@ -41,13 +41,13 @@
     }
 }}
 <div class="multiblock multiblock-tabbed-list">
-    <ul class="nav nav-tabs" id="multiblock-container-{{multiblockid}}" role="tablist">
+    <div class="nav nav-tabs" id="multiblock-container-{{multiblockid}}" role="tablist">
         {{#multiblock}}
-            <li class="nav-item">
-                <a class="nav-link{{#active}} active{{/active}}" id="multiblock-tab-{{multiblockid}}-{{id}}" data-bs-toggle="tab" data-bs-target="#multiblock-{{multiblockid}}-{{id}}" role="tab" aria-controls="multiblock-tab-{{multiblockid}}-{{id}}" aria-selected="{{#active}}true{{/active}}{{^active}}false{{/active}}">{{{title}}}</a>
-            </li>
+            <button class="nav-link{{#active}} active{{/active}}" id="multiblock-tab-{{multiblockid}}-{{id}}" data-bs-toggle="tab" data-bs-target="#multiblock-{{multiblockid}}-{{id}}" role="tab" aria-controls="multiblock-tab-{{multiblockid}}-{{id}}" aria-selected="{{#active}}true{{/active}}{{^active}}false{{/active}}">
+                {{{title}}}
+            </button>
         {{/multiblock}}
-    </ul>
+    </div>
     <div class="tab-content" id="multiblock-content-{{multiblockid}}">
         {{#multiblock}}
             <div class="tab-pane fade{{#active}} show active{{/active}}" id="multiblock-{{multiblockid}}-{{id}}" role="tabpanel" aria-labelledby="multiblock-tab-{{multiblockid}}-{{id}}">
