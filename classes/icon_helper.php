@@ -135,7 +135,7 @@ class icon_helper {
         if (class_exists('\\core\\output\\flex_icon')) {
             return $OUTPUT->flex_icon('spacer');
         } else {
-            return $OUTPUT->pix_icon('i/empty', '');
+            return $OUTPUT->pix_icon('spacer', '', 'moodle', ['class' => 'iconsmall']);
         }
     }
 
