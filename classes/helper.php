@@ -71,7 +71,7 @@ class helper {
      *
      * @param moodle_url $url The URL to set this to (will be reused if not supplied)
      */
-    public static function set_page_real_url(moodle_url $url = null) {
+    public static function set_page_real_url(?moodle_url $url = null) {
         global $PAGE;
 
         if (!is_null($url)) {
