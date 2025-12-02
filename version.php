@@ -24,10 +24,10 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-
-$plugin->version   = 2025030700;
-$plugin->release   = 2025030700;
-$plugin->requires  = 2022041902; // Moodle 4.2.
+$plugin->version   = 2025120370;
+$plugin->release   = 2025120370;
+$plugin->requires  = 2025041400; // Moodle 5.0.
 $plugin->component = 'block_multiblock';
 $plugin->maturity  = MATURITY_STABLE;
-$plugin->supported = [402, 405];     // A range of branch numbers of supported moodle versions.
+$plugin->supported = [500, 501];     // A range of branch numbers of supported moodle versions.
+

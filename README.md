@@ -1,24 +1,7 @@
 Multiblock
 ==========
 
-[![Build Status](https://api.travis-ci.com/Arantor/moodle-block_multiblock.svg?branch=master)](https://travis-ci.com/Arantor/moodle-block_multiblock/)
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-![GitHub last commit](https://img.shields.io/github/last-commit/Arantor/moodle-block_multiblock/master.svg)
-
-![Moodle 3.5 supported](https://img.shields.io/badge/Moodle-3.5-brightgreen)
-![Moodle 3.6 supported for data loss items](https://img.shields.io/badge/Moodle-3.6-green)
-![Moodle 3.7 supported](https://img.shields.io/badge/Moodle-3.7-brightgreen)
-![Moodle 3.8 supported](https://img.shields.io/badge/Moodle-3.8-brightgreen)
-![Moodle 3.9 supported](https://img.shields.io/badge/Moodle-3.9-brightgreen)
-![Moodle master supported](https://img.shields.io/badge/Moodle-master-brightgreen)
-![Totara 12 support](https://img.shields.io/badge/Totara-12-brightgreen)
-
-* [What is this?](#what-is-this)
-* [What styles of presentation are there?](#what-styles-of-presentation-are-there)
-* [Support](#support)
-
-What is this?
--------------
+## What is this?
 
 This is a sort of magic metablock. Suppose you're using Boost and you have a
 whole bunch of blocks making a course page longer than it should be, or
@@ -29,9 +12,16 @@ worth' of space and put all those blocks into the one space with one of several
 layouts, whether it's tabs or an accordion, or something else. Several preset
 layouts are bundled with Multiblock.
 
+## Supported branches
 
-What styles of presentation are there?
---------------------------------------
+| Moodle version    | Branch             |
+| ----------------- | ------------------ |
+| Moodle 5.0 - 5.1  | `MOODLE_500_STABLE`|
+| Moodle 4.2 - 4.5  | `MOODLE_402_STABLE`|
+| Totara 17+        | `MOODLE_402_STABLE`|
+
+
+## What styles of presentation are there?
 
 Show and tell time, I guess. Screenshots from 3.6 with Boost with the accent
 colour changed.
@@ -84,8 +74,7 @@ And now a 3-column equal width layout:
 ![3 column layout (equal width)](/pix/columns-3-equal.png?raw=true)
 
 
-Support
--------
+## Support
 
 If you find a bug, please use GitHub to file an issue - they should be added to
 https://github.com/arantor/moodle-block_multiblock/issues
