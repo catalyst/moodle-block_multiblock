@@ -38,7 +38,6 @@ require_once($CFG->libdir . '/formslib.php');
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class editblock extends editblock_base {
-
     /**
      * Sets up the form definition - this will intentionally override the normal block
      * block configuration so we only get the parts specific to the subblock.

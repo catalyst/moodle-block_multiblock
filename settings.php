@@ -27,23 +27,31 @@ defined('MOODLE_INTERNAL') || die;
 if ($ADMIN->fulltree) {
     global $DB, $PAGE, $CFG;
 
-    $blocks = $DB->get_records('block', array('visible' => 1), 'name ASC');
+    $blocks = $DB->get_records('block', ['visible' => 1], 'name ASC');
 
     // Multiblock title (heading).
-    $settings->add(new admin_setting_configtext('block_multiblock/title', get_string('multiblock_title', 'block_multiblock'),
-    get_string('multiblock_title_desc', 'block_multiblock'), "",
-    PARAM_TEXT));
+    $settings->add(new admin_setting_configtext(
+        'block_multiblock/title',
+        get_string('multiblock_title', 'block_multiblock'),
+        get_string('multiblock_title_desc', 'block_multiblock'),
+        "",
+        PARAM_TEXT
+    ));
 
     // Multiblock presentation style options array.
-    $multiblockpresentationoptions = array();
+    $multiblockpresentationoptions = [];
     $presentations = block_multiblock::get_valid_presentations();
     foreach ($presentations as $presentationid => $presentation) {
         array_push($multiblockpresentationoptions, $presentationid);
     }
     // Multiblock presentation style.
-    $settings->add(new admin_setting_configselect('block_multiblock/presentation',
-    get_string('multiblock_presentation_style', 'block_multiblock'),
-    get_string('multiblock_presentation_style_desc', 'block_multiblock'), 7, $multiblockpresentationoptions));
+    $settings->add(new admin_setting_configselect(
+        'block_multiblock/presentation',
+        get_string('multiblock_presentation_style', 'block_multiblock'),
+        get_string('multiblock_presentation_style_desc', 'block_multiblock'),
+        7,
+        $multiblockpresentationoptions
+    ));
 
     // Multiblock - available sub-blocks.
     $blocklist = [];
@@ -55,8 +63,11 @@ if ($ADMIN->fulltree) {
         $blocklist[$block->name] = trim($block->name) ? trim($block->name) : '[block_' . $block->name . ']';
     }
     // Multiblock manage contents (add subblock).
-    $settings->add(new admin_setting_configmultiselect('block_multiblock/subblock',
-    get_string('multiblock_subblock', 'block_multiblock'),
-    get_string('multiblock_subblock_desc', 'block_multiblock'), [1], $blocklist));
-
+    $settings->add(new admin_setting_configmultiselect(
+        'block_multiblock/subblock',
+        get_string('multiblock_subblock', 'block_multiblock'),
+        get_string('multiblock_subblock_desc', 'block_multiblock'),
+        [1],
+        $blocklist
+    ));
 }

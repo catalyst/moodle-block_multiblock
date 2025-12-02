@@ -28,14 +28,14 @@ use block_multiblock\navigation;
 
 require(__DIR__ . '/../../config.php');
 
-require_once($CFG->libdir.'/tablelib.php');
+require_once($CFG->libdir . '/tablelib.php');
 
 $blockid = required_param('id', PARAM_INT);
 $actionableinstance = optional_param('instance', 0, PARAM_INT);
 $performaction = optional_param('action', '', PARAM_TEXT);
 
 require_login();
-list($block, $blockinstance, $blockmanager) = helper::bootstrap_page($blockid);
+[$block, $blockinstance, $blockmanager] = helper::bootstrap_page($blockid);
 
 // Now we've done permissions checks, reset the URL to be the real one.
 $pageurl = new moodle_url('/blocks/multiblock/manage.php', ['id' => $blockid]);
@@ -59,8 +59,12 @@ if ($newblockdata = $addblock->get_data()) {
         }
 
         // Add the block to the parent context, then move it in.
-        $blockmanager->add_block($newblockdata->addblock, $blockmanager->get_default_region(), $position + 1,
-            $block->showinsubcontexts);
+        $blockmanager->add_block(
+            $newblockdata->addblock,
+            $blockmanager->get_default_region(),
+            $position + 1,
+            $block->showinsubcontexts
+        );
         // Helpfully, $blockmanager won't give us back the id it just added, so we have to go find it.
         $conditions = [
             'blockname' => $newblockdata->addblock,
@@ -189,7 +193,7 @@ if (empty($multiblockblocks)) {
         $baseactionurl = new moodle_url('/blocks/multiblock/manage.php', [
             'id' => $blockid,
             'instance' => $instance->id,
-            'sesskey' => sesskey()
+            'sesskey' => sesskey(),
         ]);
 
         // Molve the sub-block up, if it's not the first one.

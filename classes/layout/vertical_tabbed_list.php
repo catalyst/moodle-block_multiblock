@@ -34,13 +34,12 @@ use block_multiblock\helper;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class vertical_tabbed_list extends abstract_layout {
-
     /**
      * Returns the recommended uses for this block.
      *
      * @return string 'sidebar' or 'main' to suggest which is recommended for this block.
      */
-    public function get_suggested_use() : string {
+    public function get_suggested_use(): string {
         return 'main';
     }
 
@@ -51,7 +50,7 @@ class vertical_tabbed_list extends abstract_layout {
      *
      * @return string The layout ID.
      */
-    public function get_layout_id() : string {
+    public function get_layout_id(): string {
         return 'vertical-tabbed-list';
     }
 
@@ -60,7 +59,7 @@ class vertical_tabbed_list extends abstract_layout {
      *
      * @return string The Mustache template.
      */
-    public function get_template() : string {
+    public function get_template(): string {
         return 'block_multiblock/vertical-tabbed-list-bootstrap4';
     }
 }

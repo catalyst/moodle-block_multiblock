@@ -34,13 +34,12 @@ use block_multiblock\helper;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class dropdown extends abstract_layout {
-
     /**
      * Returns the recommended uses for this block.
      *
      * @return string 'sidebar' or 'main' to suggest which is recommended for this block.
      */
-    public function get_suggested_use() : string {
+    public function get_suggested_use(): string {
         return 'sidebar';
     }
 
@@ -49,7 +48,7 @@ class dropdown extends abstract_layout {
      *
      * @return string The Mustache template.
      */
-    public function get_template() : string {
+    public function get_template(): string {
         return 'block_multiblock/dropdown-bootstrap3';
     }
 }

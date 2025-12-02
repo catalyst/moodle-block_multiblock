@@ -45,7 +45,6 @@ class adddefaultblock {
     public function init($id, $arraytoadd, $multiblockinstance) {
 
         $this->set_blocks_to_add($id, $arraytoadd, $multiblockinstance);
-
     }
 
     /**
@@ -82,7 +81,6 @@ class adddefaultblock {
 
                     foreach ($addedblocks as $addedblock) {
                         if ($addedblock->blockname == $toadd) {
-
                             // Move the newly created blocks into the multiblock.
                             helper::move_block($addedblock->id, $blockid);
                         }

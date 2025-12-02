@@ -42,8 +42,7 @@ use core_privacy\local\request\userlist;
  * @copyright 2020 Peter Spicer <peter.spicer@catalyst-eu.net>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class provider implements metadata_provider, userlist_provider, plugin_provider {
-
+class provider implements metadata_provider, plugin_provider, userlist_provider {
     /**
      * Returns information about how block_multiblock stores its data.
      *
@@ -55,7 +54,7 @@ class provider implements metadata_provider, userlist_provider, plugin_provider 
      * @param collection $collection The initialised collection to add items to.
      * @return collection A listing of user data stored through this system.
      */
-    public static function get_metadata(collection $collection) : collection {
+    public static function get_metadata(collection $collection): collection {
         $collection->link_subsystem('block', 'privacy:metadata:block');
 
         return $collection;
@@ -67,11 +66,11 @@ class provider implements metadata_provider, userlist_provider, plugin_provider 
      * @param int $userid The user to lookup.
      * @return contextlist $contextlist The contextlist containing the list of contexts used in this plugin.
      */
-    public static function get_contexts_for_userid(int $userid) : contextlist {
+    public static function get_contexts_for_userid(int $userid): contextlist {
         // This won't be the full list of contexts, this is the list of contexts of the multiblock parents.
         // We will resolve the full list out when fetching or pruning actual data.
         // Note that we can only connect blocks to user data when they're in a user context.
-        $contextlist = new contextlist;
+        $contextlist = new contextlist();
 
         $sql = "SELECT c.id
                   FROM {block_instances} b
@@ -135,7 +134,7 @@ class provider implements metadata_provider, userlist_provider, plugin_provider 
 
         $user = $contextlist->get_user();
 
-        list($contextsql, $contextparams) = $DB->get_in_or_equal($contextlist->get_contextids(), SQL_PARAMS_NAMED);
+        [$contextsql, $contextparams] = $DB->get_in_or_equal($contextlist->get_contextids(), SQL_PARAMS_NAMED);
 
         $sql = "SELECT c.id AS contextid, bi.*
                   FROM {context} c
