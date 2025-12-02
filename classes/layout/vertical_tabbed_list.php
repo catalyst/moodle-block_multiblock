@@ -61,10 +61,6 @@ class vertical_tabbed_list extends abstract_layout {
      * @return string The Mustache template.
      */
     public function get_template() : string {
-        if (!helper::is_totara()) {
-            return 'block_multiblock/vertical-tabbed-list-bootstrap4';
-        } else {
-            return 'block_multiblock/vertical-tabbed-list-bootstrap3';
-        }
+        return 'block_multiblock/vertical-tabbed-list-bootstrap4';
     }
 }

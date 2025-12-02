@@ -50,10 +50,6 @@ class carousel extends abstract_layout {
      * @return string The Mustache template.
      */
     public function get_template() : string {
-        if (!helper::is_totara()) {
-            return 'block_multiblock/carousel-bootstrap4';
-        } else {
-            return 'block_multiblock/carousel-bootstrap3';
-        }
+        return 'block_multiblock/carousel-bootstrap4';
     }
 }

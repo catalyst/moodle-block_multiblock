@@ -50,10 +50,6 @@ class dropdown extends abstract_layout {
      * @return string The Mustache template.
      */
     public function get_template() : string {
-        if (!helper::is_totara()) {
-            return 'block_multiblock/dropdown-bootstrap4';
-        } else {
-            return 'block_multiblock/dropdown-bootstrap3';
-        }
+        return 'block_multiblock/dropdown-bootstrap3';
     }
 }
