@@ -44,7 +44,7 @@
     <ul class="nav nav-tabs" id="multiblock-container-{{multiblockid}}" role="tablist">
         {{#multiblock}}
             {{#is_odd}}
-                <li class="nav-item">
+                <li class="nav-item" role="presentation">
                     <a class="nav-link{{#active}} active{{/active}}" id="multiblock-tab-{{multiblockid}}-{{id}}" data-toggle="tab" href="#multiblock-{{multiblockid}}-{{id}}" role="tab" aria-controls="multiblock-{{multiblockid}}-{{id}}" aria-selected="{{#active}}true{{/active}}{{^active}}false{{/active}}">{{{title}}}</a>
                 </li>
             {{/is_odd}}
