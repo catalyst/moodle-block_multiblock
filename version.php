@@ -24,7 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2025120370;
+$plugin->version   = 2025120371;
 $plugin->release   = 2025120370;
 $plugin->requires  = 2025041400; // Moodle 5.0.
 $plugin->component = 'block_multiblock';

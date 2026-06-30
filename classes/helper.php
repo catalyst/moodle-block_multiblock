@@ -152,8 +152,14 @@ class helper {
         $PAGE->set_title(get_string('managemultiblocktitle', 'block_multiblock', $blockinstance->title));
         $PAGE->set_heading(get_string('managemultiblocktitle', 'block_multiblock', $blockinstance->title));
 
-        if (!$blockinstance->user_can_edit() || !$PAGE->user_can_edit_blocks()) {
-            throw new moodle_exception('nopermissions', '', $PAGE->url->out(), get_string('editblock', 'block_multiblock'));
+        if (class_exists('\tool_tenant\manager')) {
+            if (!$blockinstance->user_can_edit() && !has_capability('tool/tenant:managedashboard', $parentctx)) {
+                throw new moodle_exception('nopermissions', '', $PAGE->url->out(), get_string('editblock', 'block_multiblock'));
+            }
+        } else {
+            if (!$blockinstance->user_can_edit() || !$PAGE->user_can_edit_blocks()) {
+                throw new moodle_exception('nopermissions', '', $PAGE->url->out(), get_string('editblock', 'block_multiblock'));
+            }
         }
 
         return [$block, $blockinstance, $blockmanager];
