@@ -29,7 +29,7 @@ use block_multiblock\helper;
  *
  * Finds every multiblock instance and decomposes any blocks in them back to parent context.
  */
-function xmldb_block_multiblock_uninstall() : bool {
+function xmldb_block_multiblock_uninstall(): bool {
     global $DB;
 
     // Set up the queries we're going to be using.

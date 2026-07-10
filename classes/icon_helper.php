@@ -37,7 +37,6 @@ use pix_icon;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class icon_helper {
-
     /**
      * Returns an icon.
      *
@@ -129,7 +128,7 @@ class icon_helper {
      *
      * @return string The rendered HTML for a spacer icon.
      */
-    public static function space() : string {
+    public static function space(): string {
         global $OUTPUT;
 
         if (class_exists('\\core\\output\\flex_icon')) {

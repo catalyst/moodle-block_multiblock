@@ -22,50 +22,50 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'Multiblock';
-
 $string['addnewblock'] = 'Add a new sub-block';
 $string['blocktitle'] = 'Block title';
 $string['editblock'] = 'Edit block';
+$string['layout:main'] = 'Recommended for full width/dashboard use';
+$string['layout:sidebar'] = 'Recommended for sidebar use';
 $string['manageblocklocation'] = 'Block location';
 $string['managemultiblock'] = 'Manage {$a} contents';
 $string['managemultiblocktitle'] = 'Manage multiblock: {$a}';
 $string['moveexistingblock'] = 'Move existing block';
 $string['movetoparentpage'] = 'Move to parent page';
-$string['multiblockhasnosubblocks'] = 'This multiblock has no blocks inside it.';
-$string['requirestitle'] = 'The {$a} presentation requires a title to work properly.';
-$string['selectblock'] = 'Select block...';
-$string['saveandreturntomanage'] = 'Save and return to manage';
-$string['splitanddelete'] = 'Split and delete {$a} block';
-$string['notitle'] = 'no title';
-
-$string['layout:main'] = 'Recommended for full width/dashboard use';
-$string['layout:sidebar'] = 'Recommended for sidebar use';
-
-$string['multiblock_title'] = 'Multiblock Title';
-$string['multiblock_title_desc'] = 'This title will be displayed as the heading of multiblock in the course.';
+$string['multiblock:addinstance'] = 'Add a Multiblock';
+$string['multiblock:myaddinstance'] = 'Add a Multiblock to Dashboard';
 $string['multiblock_presentation_style'] = 'Multiblock presentation style';
 $string['multiblock_presentation_style_desc'] = 'Select a multiblock presentation style to enhance the personal experience';
 $string['multiblock_subblock'] = 'Multiblock - Subblocks';
 $string['multiblock_subblock_desc'] = 'Select the subblocks to be added by default to a new multiblock instance. ';
-$string['multiblock:addinstance'] = 'Add a Multiblock';
-$string['multiblock:myaddinstance'] = 'Add a Multiblock to Dashboard';
-
+$string['multiblock_title'] = 'Multiblock Title';
+$string['multiblock_title_desc'] = 'This title will be displayed as the heading of multiblock in the course.';
+$string['multiblockhasnosubblocks'] = 'This multiblock has no blocks inside it.';
+$string['notitle'] = 'no title';
 $string['permissions'] = 'Permission';
+$string['pluginname'] = 'Multiblock';
+
 $string['presentation'] = 'Multiblock presentation style';
 $string['presentation:accordion'] = 'Accordion';
 $string['presentation:carousel'] = 'Carousel';
 $string['presentation:columns-2-33-66'] = 'Columns: 2 (33% / 66%)';
-$string['presentation:columns-2equal'] = 'Columns: 2 equal';
 $string['presentation:columns-2-66-33'] = 'Columns: 2 (66% / 33%)';
+$string['presentation:columns-2equal'] = 'Columns: 2 equal';
 $string['presentation:columns-3equal'] = 'Columns: 3 equal';
 $string['presentation:dropdown'] = 'Dropdown';
 $string['presentation:tabbed-list'] = 'Tabs';
 $string['presentation:tabbed-list-columns-2-66-33'] = 'Tabs: Columns: 2 (66% / 33%)';
 $string['presentation:vertical-tabbed-list'] = 'Vertical Tabs (Left)';
 $string['presentation:vertical-tabbed-list-right'] = 'Vertical Tabs (Right)';
-
 $string['privacy:metadata:block'] = 'The Multiblock block stores all of its data within the block subsystem.';
+$string['requirestitle'] = 'The {$a} presentation requires a title to work properly.';
+$string['saveandreturntomanage'] = 'Save and return to manage';
+$string['selectblock'] = 'Select block...';
+$string['splitanddelete'] = 'Split and delete {$a} block';
+
+
+
+
 
 $string['table:actions'] = 'Actions';
 $string['table:blocktitle'] = 'Block title';

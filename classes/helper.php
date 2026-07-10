@@ -89,13 +89,13 @@ class helper {
      * @param int $blockid The block ID being operated on.
      * @return array Return the block record and its instance class.
      */
-    public static function bootstrap_page($blockid) : array {
+    public static function bootstrap_page($blockid): array {
         global $DB, $PAGE;
 
         $block = $DB->get_record('block_instances', ['id' => $blockid], '*', MUST_EXIST);
         if (block_load_class($block->blockname)) {
             $class = 'block_' . $block->blockname;
-            $blockinstance = new $class;
+            $blockinstance = new $class();
             $blockinstance->_load_instance($block, $PAGE);
         }
 
@@ -113,8 +113,10 @@ class helper {
         if (navigation::is_dashboard($actualpageurl)) {
             $PAGE->blocks->add_region('content');
             // For some reason, adding extra navbar items to dashboard requires doing it twice.
-            $PAGE->navbar->add(get_string('managemultiblock', 'block_multiblock', $blockinstance->get_title()),
-                new moodle_url('/blocks/multiblock/manage.php', ['id' => $blockid, 'sesskey' => sesskey()]));
+            $PAGE->navbar->add(
+                get_string('managemultiblock', 'block_multiblock', $blockinstance->get_title()),
+                new moodle_url('/blocks/multiblock/manage.php', ['id' => $blockid, 'sesskey' => sesskey()])
+            );
             $PAGE->set_blocks_editing_capability('moodle/my:manageblocks');
         }
 
@@ -140,8 +142,10 @@ class helper {
         // And hand over to the Moodle architecture to do its thing.
         $PAGE->navigation->initialise();
         $PAGE->navbar->add(get_string('manageblocklocation', 'block_multiblock'), $actualpageurl);
-        $PAGE->navbar->add(get_string('managemultiblock', 'block_multiblock', $blockinstance->get_title()),
-            new moodle_url('/blocks/multiblock/manage.php', ['id' => $blockid, 'sesskey' => sesskey()]));
+        $PAGE->navbar->add(
+            get_string('managemultiblock', 'block_multiblock', $blockinstance->get_title()),
+            new moodle_url('/blocks/multiblock/manage.php', ['id' => $blockid, 'sesskey' => sesskey()])
+        );
 
         require_sesskey();
 

@@ -32,7 +32,6 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class backup_multiblock_block_task extends backup_block_task {
-
     /**
      * Mandatory function for defining specific settings for this task.
      */

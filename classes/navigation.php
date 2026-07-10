@@ -42,7 +42,6 @@ use navigation_node;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class navigation {
-
     /**
      * While context_block provides getting a given page's URL,
      * it is not always 100% consistent or reliable. So, instead,
@@ -64,7 +63,6 @@ class navigation {
             }
 
             if (strpos($block->pagetypepattern, 'totara-dashboard') !== false) {
-
                 if (preg_match('~^totara-dashboard-(\d+)$~', $block->pagetypepattern, $match)) {
                     return new moodle_url('/totara/dashboard/', ['id' => $match[1]]);
                 }
@@ -90,7 +88,6 @@ class navigation {
                 return new moodle_url('/admin/tool/custompage/view.php', ['id' => $block->subpagepattern]);
             }
             if (strpos($block->pagetypepattern, 'totara-dashboard') !== false) {
-
                 if (preg_match('~^totara-dashboard-(\d+)$~', $block->pagetypepattern, $match)) {
                     return new moodle_url('/totara/dashboard/layout.php', ['id' => $match[1]]);
                 }

@@ -25,7 +25,6 @@
 namespace block_multiblock\form;
 
 use block_multiblock_proxy_edit_form;
-
 use moodle_page;
 use block_base;
 /**
@@ -42,7 +41,6 @@ use block_base;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class editblock_base extends block_multiblock_proxy_edit_form {
-
     /** @var object The multiblock object being edited */
     public $multiblock;
 
@@ -97,8 +95,11 @@ class editblock_base extends block_multiblock_proxy_edit_form {
         $mform =& $this->_form;
 
         $buttonarray = [];
-        $buttonarray[] = &$mform->createElement('submit', 'saveandreturn',
-            get_string('saveandreturntomanage', 'block_multiblock'));
+        $buttonarray[] = &$mform->createElement(
+            'submit',
+            'saveandreturn',
+            get_string('saveandreturntomanage', 'block_multiblock')
+        );
 
         // If the page type indicates we're not on a wildcard page, we can probably* go back there.
         // Note: * for some definition of probably.
@@ -109,7 +110,7 @@ class editblock_base extends block_multiblock_proxy_edit_form {
         }
 
         $buttonarray[] = &$mform->createElement('cancel');
-        $mform->addGroup($buttonarray, 'buttonar', '', array(' '), false);
+        $mform->addGroup($buttonarray, 'buttonar', '', [' '], false);
         $mform->closeHeaderBefore('buttonar');
     }
 }

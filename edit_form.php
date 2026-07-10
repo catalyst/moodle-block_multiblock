@@ -30,7 +30,6 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class block_multiblock_edit_form extends block_edit_form {
-
     /**
      * Adds the specific settings from this block to the general block editing form.
      *

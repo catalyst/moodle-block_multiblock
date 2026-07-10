@@ -24,7 +24,7 @@
 
 // NOTE: no MOODLE_INTERNAL test here, this file may be required by behat before including /config.php.
 
-use Behat\Mink\Exception\ElementNotFoundException as ElementNotFoundException;
+use Behat\Mink\Exception\ElementNotFoundException;
 
 require_once(__DIR__ . '/../../../../lib/behat/behat_base.php');
 
@@ -52,7 +52,7 @@ class behat_block_multiblock extends behat_base {
         global $CFG;
         $newblockname = $CFG->branch >= 400;
 
-        $htmlblock = new stdClass;
+        $htmlblock = new stdClass();
         $htmlblock->name = $newblockname ? 'Text' : 'HTML';
         $htmlblock->defaulttitle = $newblockname ? '(new text block)' : '(new HTML block)';
 
@@ -81,8 +81,9 @@ class behat_block_multiblock extends behat_base {
 
         $this->execute("behat_blocks::i_open_the_blocks_action_menu", $this->escape($blockname));
 
-        $this->execute('behat_general::i_click_on_in_the',
-            array("Manage", "link", $this->escape($blockname), "block")
+        $this->execute(
+            'behat_general::i_click_on_in_the',
+            ["Manage", "link", $this->escape($blockname), "block"]
         );
     }
 
@@ -135,7 +136,7 @@ class behat_block_multiblock extends behat_base {
                     'Customise this page',
                     'button',
                     "[id='page-header']",
-                    'css_element'
+                    'css_element',
                 ]
             );
         }
