@@ -156,10 +156,8 @@ class helper {
             if (!$blockinstance->user_can_edit() && !has_capability('tool/tenant:managedashboard', $parentctx)) {
                 throw new moodle_exception('nopermissions', '', $PAGE->url->out(), get_string('editblock', 'block_multiblock'));
             }
-        } else {
-            if (!$blockinstance->user_can_edit() || !$PAGE->user_can_edit_blocks()) {
-                throw new moodle_exception('nopermissions', '', $PAGE->url->out(), get_string('editblock', 'block_multiblock'));
-            }
+        } else if (!$blockinstance->user_can_edit() || !$PAGE->user_can_edit_blocks()) {
+            throw new moodle_exception('nopermissions', '', $PAGE->url->out(), get_string('editblock', 'block_multiblock'));
         }
 
         return [$block, $blockinstance, $blockmanager];
