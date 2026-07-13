@@ -32,13 +32,12 @@ namespace block_multiblock\layout;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 abstract class abstract_layout {
-
     /**
      * Returns the recommended uses for this block.
      *
      * @return string 'sidebar' or 'main' to suggest which is recommended for this block.
      */
-    abstract public function get_suggested_use() : string;
+    abstract public function get_suggested_use(): string;
 
     /**
      * Returns the internal ID that this layout would use and be identified by.
@@ -47,7 +46,7 @@ abstract class abstract_layout {
      *
      * @return string The layout ID.
      */
-    public function get_layout_id() : string {
+    public function get_layout_id(): string {
         return substr(strrchr(get_class($this), '\\'), 1);
     }
 
@@ -56,7 +55,7 @@ abstract class abstract_layout {
      *
      * @return string The layout's name.
      */
-    public function get_name() : string {
+    public function get_name(): string {
         return get_string('presentation:' . $this->get_layout_id(), 'block_multiblock');
     }
 
@@ -65,7 +64,7 @@ abstract class abstract_layout {
      *
      * @return bool True if the sub-block title is required.
      */
-    public function requires_title() : bool {
+    public function requires_title(): bool {
         return true;
     }
 
@@ -74,7 +73,7 @@ abstract class abstract_layout {
      *
      * @return string The Mustache template.
      */
-    public function get_template() : string {
+    public function get_template(): string {
         return 'block_multiblock/' . $this->get_layout_id();
     }
 }

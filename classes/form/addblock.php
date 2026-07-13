@@ -69,8 +69,12 @@ class addblock extends moodleform {
             $mform->setExpanded('moveexistingblock', false);
 
             $siblinggroup = [];
-            $siblinggroup[] = &$mform->createElement('select', 'moveblock',
-                                                     get_string('moveexistingblock', 'block_multiblock'), $siblings);
+            $siblinggroup[] = &$mform->createElement(
+                'select',
+                'moveblock',
+                get_string('moveexistingblock', 'block_multiblock'),
+                $siblings
+            );
             $siblinggroup[] = &$mform->createElement('submit', 'movesubmit', get_string('move'));
             $mform->addGroup($siblinggroup, 'siblinggroup', '', [' '], false);
         }
@@ -122,7 +126,7 @@ class addblock extends moodleform {
         $record = $DB->get_record('block_instances', ['id' => $instanceid]);
         $siblings = $DB->get_records('block_instances', ['parentcontextid' => $record->parentcontextid]);
         // And remove the current block, we can't add ourselves to ourself now...
-        unset ($siblings[$instanceid]);
+        unset($siblings[$instanceid]);
 
         $blocks = [];
         foreach ($siblings as $instanceid => $sibling) {

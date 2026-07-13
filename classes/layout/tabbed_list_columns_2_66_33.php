@@ -34,13 +34,12 @@ use block_multiblock\helper;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class tabbed_list_columns_2_66_33 extends abstract_layout {
-
     /**
      * Returns the recommended uses for this block.
      *
      * @return string 'sidebar' or 'main' to suggest which is recommended for this block.
      */
-    public function get_suggested_use() : string {
+    public function get_suggested_use(): string {
         return 'main';
     }
 
@@ -51,7 +50,7 @@ class tabbed_list_columns_2_66_33 extends abstract_layout {
      *
      * @return string The layout ID.
      */
-    public function get_layout_id() : string {
+    public function get_layout_id(): string {
         return 'tabbed-list-columns-2-66-33';
     }
 
@@ -60,7 +59,7 @@ class tabbed_list_columns_2_66_33 extends abstract_layout {
      *
      * @return string The Mustache template.
      */
-    public function get_template() : string {
+    public function get_template(): string {
         if (!helper::is_totara()) {
             return 'block_multiblock/tabbed-list-columns-2-66-33-bootstrap4';
         } else {

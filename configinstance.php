@@ -27,13 +27,13 @@ use block_multiblock\navigation;
 
 require(__DIR__ . '/../../config.php');
 
-require_once($CFG->libdir.'/tablelib.php');
+require_once($CFG->libdir . '/tablelib.php');
 
 $blockid = required_param('id', PARAM_INT);
 $actionableinstance = required_param('instance', PARAM_INT);
 
 require_login();
-list($block, $blockinstance, $blockmanager) = helper::bootstrap_page($blockid);
+[$block, $blockinstance, $blockmanager] = helper::bootstrap_page($blockid);
 
 $pageurl = new moodle_url('/blocks/multiblock/configinstance.php', ['id' => $blockid, 'instance' => $actionableinstance]);
 helper::set_page_real_url($pageurl);
@@ -66,11 +66,10 @@ $editform = helper::get_edit_form($pageurl, $multiblockblocks[$actionableinstanc
 if ($editform->is_cancelled()) {
     redirect(new moodle_url('/blocks/multiblock/manage.php', ['id' => $blockid, 'sesskey' => sesskey()]));
 } else if ($data = $editform->get_data()) {
-    $config = new stdClass;
+    $config = new stdClass();
 
     // Totara has some common config that it handles separately to everything else.
     if (method_exists($editform->block, 'serialize_common_config')) {
-
         $editform->block->validate_common_config_value($data);
         $commonconfig = $editform->block->serialize_common_config($editform->split_common_settings_data($data));
         $multiblockblocks[$actionableinstance]->common_config = $commonconfig;

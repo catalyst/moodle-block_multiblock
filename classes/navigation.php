@@ -42,7 +42,6 @@ use navigation_node;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class navigation {
-
     /**
      * While context_block provides getting a given page's URL,
      * it is not always 100% consistent or reliable. So, instead,
@@ -64,7 +63,6 @@ class navigation {
             }
 
             if (strpos($block->pagetypepattern, 'totara-dashboard') !== false) {
-
                 if (preg_match('~^totara-dashboard-(\d+)$~', $block->pagetypepattern, $match)) {
                     return new moodle_url('/totara/dashboard/', ['id' => $match[1]]);
                 }
@@ -76,6 +74,13 @@ class navigation {
         // If this is a system context, something really interesting could be happening.
         if ($parentcontext instanceof context_system) {
             if ($block->pagetypepattern == 'my-index') {
+                // If MWP, make sure we return to the tenant dashboard we're editing.
+                if (class_exists('\tool_tenant\manager') && !empty($block->subpagepattern)) {
+                    $page = $DB->get_record('my_pages', ['id' => $block->subpagepattern]);
+                    if ($page && preg_match('/^tenant-(\d+)$/', $page->name, $match)) {
+                        return new moodle_url('/admin/tool/tenant/editdashboard.php', ['id' => $match[1]]);
+                    }
+                }
                 return new moodle_url('/my/indexsys.php');
             }
             // Fix for Workplace custom pages
@@ -83,7 +88,6 @@ class navigation {
                 return new moodle_url('/admin/tool/custompage/view.php', ['id' => $block->subpagepattern]);
             }
             if (strpos($block->pagetypepattern, 'totara-dashboard') !== false) {
-
                 if (preg_match('~^totara-dashboard-(\d+)$~', $block->pagetypepattern, $match)) {
                     return new moodle_url('/totara/dashboard/layout.php', ['id' => $match[1]]);
                 }

@@ -133,12 +133,10 @@ class block_multiblock extends block_base {
         $isodd = true;
         $blockid = $this->instance->id;
         if (empty($this->blocks)) {
-
             $defaultblocksarray = explode(',', get_config('block_multiblock')->subblock);
 
             $addblock = new adddefaultblock();
             $addblock->init($blockid, $defaultblocksarray, $this->instance);
-
         }
     }
 
@@ -154,31 +152,40 @@ class block_multiblock extends block_base {
         WHERE c.id = :cid';
         $subpagepattern = $DB->get_field_sql($sql, ['cid' => $contextid]);
         // Clone page.
-        $blocks = $DB->get_records_sql('SELECT * FROM {block_instances}
+        $blocks = $DB->get_records_sql(
+            'SELECT * FROM {block_instances}
         WHERE subpagepattern LIKE :subpagepattern AND parentcontextid != 1 AND timecreated = timemodified',
-        ['subpagepattern' => $subpagepattern]);
+            ['subpagepattern' => $subpagepattern]
+        );
         foreach ($blocks as $block) {
             $path = $DB->get_field('context', 'path', ['instanceid' => $block->id]);
             if ($block->parentcontextid != $contextid) {
                 $newpath = str_replace($block->parentcontextid, $contextid, $path);
-                $DB->execute('UPDATE {block_instances} SET parentcontextid = :cparentcontextid, timemodified = :timemodified
+                $DB->execute(
+                    'UPDATE {block_instances} SET parentcontextid = :cparentcontextid, timemodified = :timemodified
                 WHERE id = :id',
-                    ['cparentcontextid' => $contextid, 'id' => $block->id, 'timemodified' => time()]);
-                $DB->execute('UPDATE {context} SET path = :newpath WHERE instanceid = :instanceid',
-                    ['newpath' => $newpath, 'instanceid' => $block->id]);
+                    ['cparentcontextid' => $contextid, 'id' => $block->id, 'timemodified' => time()]
+                );
+                $DB->execute(
+                    'UPDATE {context} SET path = :newpath WHERE instanceid = :instanceid',
+                    ['newpath' => $newpath, 'instanceid' => $block->id]
+                );
             }
         }
         // Original page.
-        $blocks = $DB->get_records_sql('SELECT * FROM {block_instances}
+        $blocks = $DB->get_records_sql(
+            'SELECT * FROM {block_instances}
         WHERE parentcontextid = :contextid',
-        ['contextid' => $contextid]);
+            ['contextid' => $contextid]
+        );
         foreach ($blocks as $block) {
             if ($block->subpagepattern != $subpagepattern) {
-                $DB->execute('UPDATE {block_instances} SET parentcontextid = -1 WHERE id = :id',
-                    ['id' => $block->id]);
+                $DB->execute(
+                    'UPDATE {block_instances} SET parentcontextid = -1 WHERE id = :id',
+                    ['id' => $block->id]
+                );
             }
         }
-
     }
 
     /**
@@ -191,7 +198,7 @@ class block_multiblock extends block_base {
         if ($this->content !== null) {
             return $this->content;
         }
-        $this->content = new stdClass;
+        $this->content = new stdClass();
         $this->content->text = '';
         $this->content->footer = '';
         if (empty($this->instance)) {
@@ -252,7 +259,7 @@ class block_multiblock extends block_base {
 
         $this->content = (object) [
             'text' => $renderer->render($renderable),
-            'footer' => ''
+            'footer' => '',
         ];
         return $this->content;
     }
@@ -354,7 +361,7 @@ class block_multiblock extends block_base {
         global $DB, $pageid;
         // Do not delete if deletion is being initiated by tool_custompage.
         foreach ($DB->get_records('block_instances', ['id' => $this->context->instanceid]) as $block) {
-            if ($block->pagetypepattern == 'admin-tool-custompage' && $pageid != $block->subpagepattern ) {
+            if ($block->pagetypepattern == 'admin-tool-custompage' && $pageid != $block->subpagepattern) {
                 if ($this->instance->id == $block->id) {
                     $this->instance->id = -1;
                 }
@@ -377,7 +384,6 @@ class block_multiblock extends block_base {
         static $presentations = null;
 
         if ($presentations === null) {
-
             foreach (core_component::get_component_classes_in_namespace('block_multiblock', 'layout') as $class => $ns) {
                 if (strpos($class, $ns[0]) === 0) {
                     // We only care about non-abstract classes here.
@@ -387,7 +393,7 @@ class block_multiblock extends block_base {
                     }
                     $classname = substr($class, strlen($ns[0]));
 
-                    $instance = new $class;
+                    $instance = new $class();
                     $presentations[$instance->get_layout_id()] = $instance;
                 }
             }

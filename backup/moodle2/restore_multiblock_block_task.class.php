@@ -30,7 +30,6 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class restore_multiblock_block_task extends restore_block_task {
-
     /**
      * Injects the restore plan into this task.
      *
@@ -115,7 +114,7 @@ class restore_multiblock_block_task extends restore_block_task {
      * @return array A list of content items to be decoded.
      */
     public static function define_decode_contents() {
-        return array();
+        return [];
     }
 
     /**
@@ -124,6 +123,6 @@ class restore_multiblock_block_task extends restore_block_task {
      * @return array A list of find/replace rules.
      */
     public static function define_decode_rules() {
-        return array();
+        return [];
     }
 }
