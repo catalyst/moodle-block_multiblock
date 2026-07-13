@@ -74,6 +74,13 @@ class navigation {
         // If this is a system context, something really interesting could be happening.
         if ($parentcontext instanceof context_system) {
             if ($block->pagetypepattern == 'my-index') {
+                // If MWP, make sure we return to the tenant dashboard we're editing.
+                if (class_exists('\tool_tenant\manager') && !empty($block->subpagepattern)) {
+                    $page = $DB->get_record('my_pages', ['id' => $block->subpagepattern]);
+                    if ($page && preg_match('/^tenant-(\d+)$/', $page->name, $match)) {
+                        return new moodle_url('/admin/tool/tenant/editdashboard.php', ['id' => $match[1]]);
+                    }
+                }
                 return new moodle_url('/my/indexsys.php');
             }
             // Fix for Workplace custom pages
