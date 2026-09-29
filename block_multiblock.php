@@ -384,18 +384,14 @@ class block_multiblock extends block_base {
         static $presentations = null;
 
         if ($presentations === null) {
-            foreach (core_component::get_component_classes_in_namespace('block_multiblock', 'layout') as $class => $ns) {
-                if (strpos($class, $ns[0]) === 0) {
-                    // We only care about non-abstract classes here.
-                    $reflection = new ReflectionClass($class);
-                    if ($reflection->isAbstract()) {
-                        continue;
-                    }
-                    $classname = substr($class, strlen($ns[0]));
-
-                    $instance = new $class();
-                    $presentations[$instance->get_layout_id()] = $instance;
-                }
+            $presentations = [];
+            foreach (core_component::get_namespace_classes(
+                'layout',
+                \block_multiblock\layout\abstract_layout::class,
+                'block_multiblock'
+            ) as $class) {
+                $instance = new $class();
+                $presentations[$instance->get_layout_id()] = $instance;
             }
         }
 
