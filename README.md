@@ -18,7 +18,8 @@ layouts are bundled with Multiblock.
 | ----------------- | ------------------ |
 | Moodle 5.0 - 5.1  | `MOODLE_500_STABLE`|
 | Moodle 4.2 - 4.5  | `MOODLE_402_STABLE`|
-| Totara 17+        | `MOODLE_402_STABLE`|
+| Totara 20+        | `TOTARA_20_STABLE` |
+| Totara 17-19      | `MOODLE_402_STABLE`|
 
 
 ## What styles of presentation are there?
