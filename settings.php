@@ -22,6 +22,10 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use core\setting\type\select;
+use core\setting\type\select_multiple;
+use core\setting\type\text;
+
 defined('MOODLE_INTERNAL') || die;
 
 if ($ADMIN->fulltree) {
@@ -30,7 +34,7 @@ if ($ADMIN->fulltree) {
     $blocks = $DB->get_records('block', ['visible' => 1], 'name ASC');
 
     // Multiblock title (heading).
-    $settings->add(new admin_setting_configtext(
+    $settings->add(new text(
         'block_multiblock/title',
         get_string('multiblock_title', 'block_multiblock'),
         get_string('multiblock_title_desc', 'block_multiblock'),
@@ -45,7 +49,7 @@ if ($ADMIN->fulltree) {
         array_push($multiblockpresentationoptions, $presentationid);
     }
     // Multiblock presentation style.
-    $settings->add(new admin_setting_configselect(
+    $settings->add(new select(
         'block_multiblock/presentation',
         get_string('multiblock_presentation_style', 'block_multiblock'),
         get_string('multiblock_presentation_style_desc', 'block_multiblock'),
@@ -63,7 +67,7 @@ if ($ADMIN->fulltree) {
         $blocklist[$block->name] = trim($block->name) ? trim($block->name) : '[block_' . $block->name . ']';
     }
     // Multiblock manage contents (add subblock).
-    $settings->add(new admin_setting_configmultiselect(
+    $settings->add(new select_multiple(
         'block_multiblock/subblock',
         get_string('multiblock_subblock', 'block_multiblock'),
         get_string('multiblock_subblock_desc', 'block_multiblock'),
